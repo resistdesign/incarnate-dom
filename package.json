@@ -1,11 +1,35 @@
 {
   "name": "incarnate-dom",
   "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Integrate Incarnate with React and React Router DOM.",
+  "main": "./src/Incarnate.jsx",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:demo": "rdx serve",
+    "build:demo": "rdx compile -o docs"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Ryan T. Graff",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/resistdesign/incarnate-dom.git"
+  },
+  "keywords": [
+    "DI",
+    "dependency",
+    "injection"
+  ],
+  "bugs": {
+    "url": "https://github.com/resistdesign/incarnate-dom/issues"
+  },
+  "homepage": "https://github.com/resistdesign/incarnate-dom#readme",
+  "dependencies": {
+    "prop-types": "^15.5.10",
+    "react": "^15.4.0",
+    "react-dom": "^15.4.0",
+    "react-router-dom": "^4.2.2"
+  },
+  "engines": {
+    "rdx": "^4.0.0"
+  }
 }
