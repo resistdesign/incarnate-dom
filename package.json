@@ -1,6 +1,6 @@
 {
   "name": "incarnate-dom",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Integrate Incarnate with React and React Router DOM.",
   "main": "./src/Incarnate.jsx",
   "scripts": {
