@@ -87,7 +87,7 @@ export default class LifePod extends PureComponent {
       }
 
       this.lifePod.addChangeHandler('', this.onChildPropsChange);
-      this.onChildPropsChange();
+      setTimeout(this.onChildPropsChange, 0);
     }
   }
 
