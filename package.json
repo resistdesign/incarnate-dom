@@ -2,7 +2,7 @@
   "name": "incarnate-dom",
   "version": "1.0.2",
   "description": "Integrate Incarnate with React and React Router DOM.",
-  "main": "./src/Incarnate.jsx",
+  "main": "./src/index.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:demo": "rdx serve",
