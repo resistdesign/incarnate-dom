@@ -4,6 +4,7 @@ import {Switch} from 'react-router-dom';
 import {Consumer} from './RoutingContext';
 import IncarnateRoute, {getUrl} from './IncarnateRoute';
 import IncarnateRedirect from './IncarnateRedirect';
+import LifePod from '../LifePod';
 
 export default class IncarnateSwitch extends PureComponent {
   static propTypes = {
@@ -31,32 +32,34 @@ export default class IncarnateSwitch extends PureComponent {
             undefined;
 
           return (
-            <Switch
-              {...props}
-            >
-              {Children.map(children, element => {
-                const {props: childProps = {}} = element || {};
-                const {CLASS_IDENTIFIER} = childProps;
+            <LifePod>
+              <Switch
+                {...props}
+              >
+                {Children.map(children, element => {
+                  const {props: childProps = {}} = element || {};
+                  const {CLASS_IDENTIFIER} = childProps;
 
-                if (
-                  CLASS_IDENTIFIER instanceof Function &&
-                  CLASS_IDENTIFIER() === IncarnateRoute.CLASS_IDENTIFIER()
-                ) {
-                  const {subPath} = childProps;
+                  if (
+                    CLASS_IDENTIFIER instanceof Function &&
+                    CLASS_IDENTIFIER() === IncarnateRoute.CLASS_IDENTIFIER()
+                  ) {
+                    const {subPath} = childProps;
 
-                  return cloneElement(
-                    element,
-                    {
-                      ...childProps,
-                      path: getUrl(parentUrl, subPath)
-                    }
-                  );
-                } else {
-                  return element;
-                }
-              })}
-              {defaultRedirect}
-            </Switch>
+                    return cloneElement(
+                      element,
+                      {
+                        ...childProps,
+                        path: getUrl(parentUrl, subPath)
+                      }
+                    );
+                  } else {
+                    return element;
+                  }
+                })}
+                {defaultRedirect}
+              </Switch>
+            </LifePod>
           );
         }}
       </Consumer>
