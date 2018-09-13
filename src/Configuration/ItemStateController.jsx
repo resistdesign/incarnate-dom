@@ -374,7 +374,7 @@ export default class ItemStateController extends PureComponent {
                   setExistingActive(true);
 
                   try {
-                    const remoteExistingItems = (await reconcileExisting(...args)) || [];
+                    const remoteExistingItems = (await reconcileExisting(query, ...args)) || [];
 
                     remoteExistingItems.forEach(item => {
                       const {[primaryKey]: key} = item;
