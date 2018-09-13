@@ -31,7 +31,7 @@ export const OPERATIONS = {
 export function updateList(list = [], replace = {}, remove = []) {
   return list
     .map((item, index) => replace.hasOwnProperty(index) ? replace[index] : item)
-    .filters(item => remove.indexOf(item) === -1);
+    .filter(item => remove.indexOf(item) === -1);
 }
 
 const ITEM_IN_MAP_TESTER_FACTORY_FACTORY = (primaryKey = DEFAULT_PRIMARY_KEY) => {
