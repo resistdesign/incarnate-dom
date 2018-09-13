@@ -111,7 +111,7 @@ export default class ItemStateController extends PureComponent {
             factory: () => []
           },
           [STATES.EXISTING]: {
-            factory: () => []
+            factory: () => ({})
           },
           [STATES.CHANGED]: {
             factory: () => []
