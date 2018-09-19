@@ -12,6 +12,7 @@ export default class LifePod extends PureComponent {
   static propTypes = {
     name: T.string,
     ...DepencencyDeclarationShape,
+    mapToProps: DepencencyDeclarationShape.factory,
     alwaysRender: T.bool,
     children: T.oneOfType([
       T.func.isRequired,
@@ -65,10 +66,16 @@ export default class LifePod extends PureComponent {
         name,
         alwaysRender,
         children,
+        mapToProps,
         ...dependencyDeclaration
       } = this.props;
 
       this.incarnateDOM = incarnateDOMInstance;
+
+      // NOTE: Alias `factory` with `mapToProps`.
+      dependencyDeclaration.factory = mapToProps instanceof Function ?
+        mapToProps :
+        dependencyDeclaration.factory;
 
       if (name && incarnateInstance.map instanceof Object) {
         // Configure the incarnateInstance and get the dependency.
