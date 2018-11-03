@@ -140,9 +140,6 @@ export default class IncarnateRoute extends PureComponent {
                     );
                     // TODO: There needs to be a way to invalidate `ROUTE_PROPS` without triggering events during rendering.
 
-                    // TODO: PROBLEM: The first `ROUTE_PROPS` `LifePod` in an `Incarnate` is going to block any others.
-                    // TODO: ^: This means only the first route to render in an `Incarnate` will expose `ROUTE_PROPS`.
-
                     return (
                       <Provider
                         value={{
