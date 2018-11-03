@@ -85,7 +85,6 @@ export default class LifePod extends PureComponent {
   setLifePod(lifePod) {
     if (this.lifePod instanceof LifePodProper) {
       this.lifePod.removeChangeHandler('', this.onChildPropsChange);
-      this.lifePod.setValue(undefined);
     }
 
     this.lifePod = lifePod;
