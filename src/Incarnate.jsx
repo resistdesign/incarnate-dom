@@ -83,21 +83,15 @@ export default class Incarnate extends PureComponent {
           ...subMapDeclaration,
           name: targetName
         };
-        const {
-          subMap: {
-            [targetName]: existingDeclaration
-          } = {},
-          handleResolveError
-        } = parentIncarnate;
+        const {handleResolveError} = parentIncarnate;
 
-        if (!existingDeclaration) {
-          parentIncarnate.subMap[targetName] = {
+        this.incarnate = parentIncarnate.createIncarnate(
+          targetName,
+          {
             ...targetSubMapDeclaration,
             handleResolveError
-          };
-        }
-
-        this.incarnate = parentIncarnate.getDependency(targetName);
+          }
+        );
       } else {
         // Create a standalone Incarnate instance.
         this.incarnate = new IncarnateProper(subMapDeclaration);
