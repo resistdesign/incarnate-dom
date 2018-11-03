@@ -118,17 +118,17 @@ export default class LifePod extends PureComponent {
           LifePod.DEFAULT_MAP_KEY,
           this._lifePodHashMatrixKey
         ]);
-        const {subMap: {[targetName]: existingDeclaration} = {}} = parentIncarnate;
 
-        if (!existingDeclaration) {
-          parentIncarnate.subMap[targetName] = {
-            ...dependencyDeclaration,
-            name: targetName,
-            factory: targetFactory
-          };
-        }
-
-        this.setLifePod(parentIncarnate.getDependency(targetName));
+        this.setLifePod(
+          parentIncarnate.createLifePod(
+            targetName,
+            {
+              ...dependencyDeclaration,
+              name: targetName,
+              factory: targetFactory
+            }
+          )
+        );
       } else {
         // Create a standalone LifePod instance.
         this.setLifePod(new LifePodProper(
