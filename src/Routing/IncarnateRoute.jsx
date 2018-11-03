@@ -11,13 +11,10 @@ import {
   LifePod
 } from '../index';
 
-const GLOBAL_REF = window || global;
-const GLOBAL_REF_FACTORY = () => GLOBAL_REF;
 const URL_DELIMITER = '/';
 const CLASS_IDENTIFIER = {};
 
 export const PATH_NAMES = {
-  GLOBAL: 'GLOBAL',
   ROUTE_PROPS: 'ROUTE_PROPS'
 };
 
@@ -106,7 +103,7 @@ export default class IncarnateRoute extends PureComponent {
 
       if (onRoutePropsChange instanceof Function) {
         // Update route props dependency.
-        setTimeout(onRoutePropsChange, 0);
+        onRoutePropsChange();
       }
     }
 
@@ -138,7 +135,6 @@ export default class IncarnateRoute extends PureComponent {
                       parentRouteProps,
                       parentIncarnate
                     );
-                    // TODO: There needs to be a way to invalidate `ROUTE_PROPS` without triggering events during rendering.
 
                     return (
                       <Provider
@@ -148,12 +144,9 @@ export default class IncarnateRoute extends PureComponent {
                         }}
                       >
                         <LifePod
-                          name={PATH_NAMES.GLOBAL}
-                          factory={GLOBAL_REF_FACTORY}
-                        />
-                        <LifePod
                           name={PATH_NAMES.ROUTE_PROPS}
                           factory={() => mergedRouteProps}
+                          noCache
                         />
                         {children instanceof Function ? children(mergedRouteProps) : children}
                       </Provider>

@@ -40,6 +40,7 @@ export default class LifePod extends PureComponent {
     ),
     transformArgs: T.func,
     strict: T.bool,
+    noCache: T.bool,
     factory: T.func,
     mapToProps: T.func,
     handleResolveError: T.func,
@@ -61,6 +62,8 @@ export default class LifePod extends PureComponent {
 
   _lifePodHashMatrixKey;
 
+  rendering = false;
+
   constructor(props) {
     super(props);
 
@@ -80,6 +83,15 @@ export default class LifePod extends PureComponent {
     this.mounted = false;
 
     this.setLifePod(undefined);
+  }
+
+  initializeRendering() {
+    // TRICKY: If `rendering` is `true`, then it is already being managed.
+    if (!this.rendering) {
+      this.rendering = true;
+
+      setTimeout(() => this.rendering = false, 0);
+    }
   }
 
   setLifePod(lifePod) {
@@ -145,7 +157,11 @@ export default class LifePod extends PureComponent {
 
   safeSetState = (...args) => {
     if (this.mounted) {
-      return this.setState(...args);
+      if (!this.rendering) {
+        this.setState(...args);
+      } else {
+        setTimeout(() => this.safeSetState(...args), 0);
+      }
     }
   };
 
@@ -227,6 +243,8 @@ export default class LifePod extends PureComponent {
       handleResolveError,
       ...dependencyDeclaration
     } = this.props;
+
+    this.initializeRendering();
 
     return (
       <Consumer>
