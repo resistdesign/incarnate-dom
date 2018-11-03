@@ -38,6 +38,7 @@ export default class Incarnate extends PureComponent {
     transformArgs: T.func,
     strict: T.bool,
     incarnateInstanceRef: T.func,
+    handleResolveError: T.func,
     children: T.node
   };
 
@@ -82,10 +83,18 @@ export default class Incarnate extends PureComponent {
           ...subMapDeclaration,
           name: targetName
         };
-        const {subMap: {[targetName]: existingDeclaration} = {}} = parentIncarnate;
+        const {
+          subMap: {
+            [targetName]: existingDeclaration
+          } = {},
+          handleResolveError
+        } = parentIncarnate;
 
         if (!existingDeclaration) {
-          parentIncarnate.subMap[targetName] = targetSubMapDeclaration;
+          parentIncarnate.subMap[targetName] = {
+            ...targetSubMapDeclaration,
+            handleResolveError
+          };
         }
 
         this.incarnate = parentIncarnate.getDependency(targetName);
