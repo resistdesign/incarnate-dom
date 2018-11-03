@@ -138,6 +138,7 @@ export default class IncarnateRoute extends PureComponent {
                       parentRouteProps,
                       parentIncarnate
                     );
+                    // TODO: There needs to be a way to invalidate `ROUTE_PROPS` without triggering events during rendering.
 
                     return (
                       <Provider
