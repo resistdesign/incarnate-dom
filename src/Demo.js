@@ -13,6 +13,7 @@ export class Demo extends Component {
     return (
       <IncarnateRouter
         name='Demo'
+        incarnateInstanceRef={inc => window.INC = inc}
       >
         <Incarnate
           name='State'

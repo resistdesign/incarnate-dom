@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {BrowserRouter} from 'react-router-dom';
 import Incarnate from '../Incarnate';
-import IncarnateRoute from './IncarnateRoute';
-import {Provider} from './RoutingContext';
 
 function removeProps(from = {}, by = {}) {
   return Object.keys(from)
@@ -33,25 +31,11 @@ export default class IncarnateRouter extends Component {
       <BrowserRouter
         {...browserRouterProps}
       >
-        <IncarnateRoute
-          subPath='/'
+        <Incarnate
+          {...incarnateProps}
         >
-          {routeProps => (
-            <Provider
-              value={{
-                parentUrl: undefined,
-                routeProps
-              }}
-            >
-              <Incarnate
-                {...incarnateProps}
-                routeProps={routeProps}
-              >
-                {children}
-              </Incarnate>
-            </Provider>
-          )}
-        </IncarnateRoute>
+          {children}
+        </Incarnate>
       </BrowserRouter>
     );
   }

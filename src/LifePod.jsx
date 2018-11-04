@@ -5,6 +5,7 @@ import IncarnateProper, {
   DependencyDeclaration,
   LifePod as LifePodProper
 } from 'incarnate';
+import getDefaultMapKeyDelimiter from './Utils/getDefaultMapKeyDelimiter';
 
 const DEFAULT_FACTORY = (...args) => args;
 
@@ -131,10 +132,10 @@ export default class LifePod extends Component {
         // Get the LifePod instance from a parent Incarnate.
         const {override} = this.props;
         const {name} = dependencyDeclaration;
-        const targetName = name || parentIncarnate.getPathString([
+        const targetName = name || [
           LifePod.DEFAULT_MAP_KEY,
           this._lifePodHashMatrixKey
-        ]);
+        ].join(getDefaultMapKeyDelimiter(parentIncarnate.pathDelimiter));
         const {subMap, subMap: {[targetName]: existingMapEntry} = {}} = parentIncarnate;
         const targetConfig = {
           ...dependencyDeclaration,

@@ -2,6 +2,7 @@ import T from 'prop-types';
 import React, {Component} from 'react';
 import IncarnateProper from 'incarnate';
 import {Provider, Consumer} from './Context';
+import getDefaultMapKeyDelimiter from './Utils/getDefaultMapKeyDelimiter';
 
 let INCARNATE_COUNT = 0;
 
@@ -41,6 +42,9 @@ export default class Incarnate extends Component {
     handleResolveError: T.func,
     children: T.node
   };
+  static defaultProps = {
+    subMap: {}
+  };
 
   _incarnateHashMatrixKey;
   mounted = false;
@@ -75,10 +79,10 @@ export default class Incarnate extends Component {
       if (parentIncarnate instanceof IncarnateProper) {
         // Get the Incarnate instance from a parent Incarnate.
         const {name} = subMapDeclaration;
-        const targetName = name || parentIncarnate.getPathString([
+        const targetName = name || [
           Incarnate.DEFAULT_MAP_KEY,
           this._incarnateHashMatrixKey
-        ]);
+        ].join(getDefaultMapKeyDelimiter(parentIncarnate.pathDelimiter));
         const targetSubMapDeclaration = {
           ...subMapDeclaration,
           name: targetName
