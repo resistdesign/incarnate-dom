@@ -37,10 +37,12 @@ export class Demo extends Component {
                 routeProps: 'ROUTE_PROPS'
               }}
               factory={({
-                          routeProps: {
-                            match: {
-                              params: {
-                                x = 2
+                          dependencies: {
+                            routeProps: {
+                              match: {
+                                params: {
+                                  x = 2
+                                } = {}
                               } = {}
                             } = {}
                           } = {}
@@ -52,10 +54,12 @@ export class Demo extends Component {
                 routeProps: 'ROUTE_PROPS'
               }}
               factory={({
-                          routeProps: {
-                            match: {
-                              params: {
-                                y = 2
+                          dependencies: {
+                            routeProps: {
+                              match: {
+                                params: {
+                                  y = 2
+                                } = {}
                               } = {}
                             } = {}
                           } = {}
@@ -66,13 +70,13 @@ export class Demo extends Component {
         <Incarnate
           name='Data'
           shared={{
-            RandomRange: 'State.RandomRange'
+            State: 'State'
           }}
         >
           <LifePod
             name='RandomNumber'
             dependencies={{
-              range: 'RandomRange'
+              range: 'State.RandomRange'
             }}
             factory={({dependencies: {range = 0} = {}} = {}) => Math.random() * range}
           />
