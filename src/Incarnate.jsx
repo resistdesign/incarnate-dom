@@ -27,7 +27,6 @@ export default class Incarnate extends Component {
         listeners: T.objectOf(
           T.string
         ),
-        transformArgs: T.func,
         strict: T.bool,
         factory: T.func,
         handlerAsyncFactoryError: T.func
@@ -36,7 +35,6 @@ export default class Incarnate extends Component {
     shared: T.objectOf(
       T.string
     ),
-    transformArgs: T.func,
     strict: T.bool,
     incarnateInstanceRef: T.func,
     handleResolveError: T.func,

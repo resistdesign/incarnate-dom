@@ -51,7 +51,6 @@ export default class LifePod extends Component {
     listeners: T.objectOf(
       T.string
     ),
-    transformArgs: T.func,
     strict: T.bool,
     noCache: T.bool,
     factory: T.func,
