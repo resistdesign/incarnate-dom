@@ -90,7 +90,6 @@ export default class IncarnateRoute extends Component {
       !shallowObjectsMatch(routeProps, this.routeProps) ||
       !shallowObjectsMatch(parentRouteProps, this.parentRouteProps)
     ) {
-    } else {
       const onRoutePropsChange = this.getOnRoutePropsChange(parentIncarnate);
 
       this.parentRouteProps = parentRouteProps;
