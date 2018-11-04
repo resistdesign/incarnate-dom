@@ -15,7 +15,6 @@ const OVERRIDE_MAP = {
   setters: true,
   invalidators: true,
   listeners: true,
-  transformArgs: true,
   strict: true,
   noCache: true,
   factory: true
@@ -30,6 +29,22 @@ function getFactoryFromProps(props = {}) {
   } = props;
 
   return factory || mapToProps;
+}
+
+function getMergedDependencies({
+                                 dependencies,
+                                 getters,
+                                 setters,
+                                 invalidators,
+                                 listeners
+                               } = {}) {
+  return {
+    ...dependencies,
+    ...getters,
+    ...setters,
+    ...invalidators,
+    ...listeners
+  };
 }
 
 export default class LifePod extends Component {
@@ -133,7 +148,12 @@ export default class LifePod extends Component {
         const factory = getFactoryFromProps(this.props);
 
         if (factory instanceof Function) {
-          return factory(...args);
+          const [
+            rawDependencies,
+            ...otherArgs
+          ] = args || [];
+
+          return factory(getMergedDependencies(rawDependencies), ...otherArgs);
         }
       };
 

@@ -25,13 +25,13 @@ export default class Memoize extends PureComponent {
       <LifePod
         name={name}
         dependencies={{
-          dep: dependencyPath
+          depValue: dependencyPath
         }}
         override
-        factory={({dependencies: {dep} = {}} = {}) => {
+        factory={({depValue} = {}) => {
           this.value = [
             ...this.value,
-            dep
+            depValue
           ];
 
           return this.value;

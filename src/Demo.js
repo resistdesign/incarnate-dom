@@ -38,12 +38,10 @@ export class Demo extends Component {
                 routeProps: 'ROUTE_PROPS'
               }}
               factory={({
-                          dependencies: {
-                            routeProps: {
-                              match: {
-                                params: {
-                                  x = 2
-                                } = {}
+                          routeProps: {
+                            match: {
+                              params: {
+                                x = 2
                               } = {}
                             } = {}
                           } = {}
@@ -55,12 +53,10 @@ export class Demo extends Component {
                 routeProps: 'ROUTE_PROPS'
               }}
               factory={({
-                          dependencies: {
-                            routeProps: {
-                              match: {
-                                params: {
-                                  y = 2
-                                } = {}
+                          routeProps: {
+                            match: {
+                              params: {
+                                y = 2
                               } = {}
                             } = {}
                           } = {}
@@ -79,7 +75,7 @@ export class Demo extends Component {
             dependencies={{
               range: 'State.RandomRange'
             }}
-            factory={({dependencies: {range = 0} = {}} = {}) => Math.random() * range}
+            factory={({range = 0} = {}) => Math.random() * range}
           />
           <LifePod
             name='Product'
@@ -87,7 +83,7 @@ export class Demo extends Component {
               x: 'State.Multiply.X',
               y: 'State.Multiply.Y'
             }}
-            factory={({dependencies: {x = 2, y = 2} = {}} = {}) => x * y}
+            factory={({x = 2, y = 2} = {}) => x * y}
           />
         </Incarnate>
         <LifePod
@@ -98,12 +94,10 @@ export class Demo extends Component {
           }}
         >
           {({
-              dependencies: {
-                x = 2,
-                y = 2,
-                routeProps: {
-                  history
-                } = {}
+              x = 2,
+              y = 2,
+              routeProps: {
+                history
               } = {}
             } = {}) => (
             <div>
@@ -144,14 +138,10 @@ export class Demo extends Component {
               }}
             >
               {({
-                  dependencies: {
-                    randomRange = '',
-                    randomRangeHistory = [],
-                    random = 0
-                  },
-                  setters: {
-                    setRandomRange
-                  }
+                  randomRange = '',
+                  randomRangeHistory = [],
+                  random = 0,
+                  setRandomRange
                 } = {}) => (
                 <div>
                   Random Number: {random}
@@ -191,13 +181,11 @@ export class Demo extends Component {
               }}
             >
               {({
-                  dependencies: {
-                    x = 2,
-                    y = 2,
-                    product = 0,
-                    routeProps: {
-                      history
-                    } = {}
+                  x = 2,
+                  y = 2,
+                  product = 0,
+                  routeProps: {
+                    history
                   } = {}
                 } = {}) => (
                 <div>
