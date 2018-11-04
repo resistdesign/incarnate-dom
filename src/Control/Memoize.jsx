@@ -27,6 +27,7 @@ export default class Memoize extends PureComponent {
         dependencies={{
           dep: dependencyPath
         }}
+        override
         factory={({dependencies: {dep} = {}} = {}) => {
           this.value = [
             ...this.value,

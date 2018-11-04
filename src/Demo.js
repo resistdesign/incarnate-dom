@@ -168,8 +168,10 @@ export class Demo extends Component {
                   <br/>
                   Random Range History:
                   <br/>
-                  {randomRangeHistory.map(v => (
-                    <div>
+                  {randomRangeHistory.map((v, i) => (
+                    <div
+                      key={`Value:${i}`}
+                    >
                       {v}
                     </div>
                   ))}

@@ -163,7 +163,7 @@ export default class LifePod extends Component {
 
         // TRICKY: If `override` is `true`, override only the relevant properties on the existing LifePod with the
         // values from a temporary LifePod created by the `parentIncarnate`.
-        if (override && lifePodInstance instanceof LifePodProper) {
+        if (!!existingMapEntry && override && lifePodInstance instanceof LifePodProper) {
           const tempDepDec = new DependencyDeclaration(targetConfig);
           const tempLifePod = parentIncarnate.createLifePod(targetName, tempDepDec);
 
@@ -190,7 +190,12 @@ export default class LifePod extends Component {
   safeSetState = (...args) => {
     if (this.mounted) {
       if (!this.rendering) {
-        this.setState(...args);
+        try {
+          // IMPORTANT: Don't break the rendering cycle.
+          this.setState(...args);
+        } catch (error) {
+          // Ignore.
+        }
       } else {
         setTimeout(() => this.safeSetState(...args), 0);
       }
