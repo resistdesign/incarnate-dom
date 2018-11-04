@@ -1,11 +1,11 @@
 import T from 'prop-types';
-import React, {cloneElement, Children, PureComponent} from 'react';
+import React, {cloneElement, Children, Component} from 'react';
 import {Switch} from 'react-router-dom';
 import {Consumer} from './RoutingContext';
 import IncarnateRoute, {getUrl} from './IncarnateRoute';
 import IncarnateRedirect from './IncarnateRedirect';
 
-export default class IncarnateSwitch extends PureComponent {
+export default class IncarnateSwitch extends Component {
   static propTypes = {
     ...Switch.propTypes,
     defaultSubPath: T.string

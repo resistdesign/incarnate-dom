@@ -1,11 +1,11 @@
 import T from 'prop-types';
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import IncarnateProper from 'incarnate';
 import {Provider, Consumer} from './Context';
 
 let INCARNATE_COUNT = 0;
 
-export default class Incarnate extends PureComponent {
+export default class Incarnate extends Component {
   static DEFAULT_MAP_KEY = '__INCARNATES__';
   static propTypes = {
     name: T.string,

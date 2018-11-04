@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import {BrowserRouter} from 'react-router-dom';
 import Incarnate from '../Incarnate';
 import IncarnateRoute from './IncarnateRoute';
@@ -15,7 +15,7 @@ function removeProps(from = {}, by = {}) {
     }, {});
 }
 
-export default class IncarnateRouter extends PureComponent {
+export default class IncarnateRouter extends Component {
   static propTypes = {
     ...BrowserRouter.propTypes,
     ...Incarnate.propTypes

@@ -1,5 +1,5 @@
 import T from 'prop-types';
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import {Route} from 'react-router-dom';
 import {Consumer as IncarnateConsumer} from '../Context';
 import {
@@ -52,7 +52,7 @@ export function shallowObjectsMatch(a, b) {
   return true;
 }
 
-export default class IncarnateRoute extends PureComponent {
+export default class IncarnateRoute extends Component {
   // TRICKY: Use this to see if a React element is of the IncarnateRoute class type in IncarnateSwitch.
   // React, somehow manipulates the type of an element and a class function equality test is not directly possible.
   static CLASS_IDENTIFIER = () => CLASS_IDENTIFIER;

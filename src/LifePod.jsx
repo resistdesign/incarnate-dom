@@ -1,5 +1,5 @@
 import T from 'prop-types';
-import React, {isValidElement, cloneElement, PureComponent} from 'react';
+import React, {isValidElement, cloneElement, Component} from 'react';
 import {Consumer} from './Context';
 import IncarnateProper, {
   DependencyDeclaration,
@@ -19,7 +19,7 @@ function getFactoryFromProps(props = {}) {
   return factory || mapToProps;
 }
 
-export default class LifePod extends PureComponent {
+export default class LifePod extends Component {
   static DEFAULT_MAP_KEY = '__LIFEPODS__';
   static propTypes = {
     name: T.string,
