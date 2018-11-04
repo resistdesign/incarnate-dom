@@ -1,6 +1,7 @@
 import {hot} from 'react-hot-loader';
 import React, {Component} from 'react';
 import {
+  Memoize,
   IncarnateRouter,
   IncarnateSwitch,
   IncarnateRoute,
@@ -122,6 +123,10 @@ export class Demo extends Component {
             </div>
           )}
         </LifePod>
+        <Memoize
+          name='RandomRangeHistory'
+          dependencyPath='State.RandomRange'
+        />
         <IncarnateSwitch
           defaultSubPath='random'
         >
@@ -131,6 +136,7 @@ export class Demo extends Component {
             <LifePod
               dependencies={{
                 randomRange: 'State.RandomRange',
+                randomRangeHistory: 'RandomRangeHistory',
                 random: 'Data.RandomNumber'
               }}
               setters={{
@@ -140,6 +146,7 @@ export class Demo extends Component {
               {({
                   dependencies: {
                     randomRange = '',
+                    randomRangeHistory = [],
                     random = 0
                   },
                   setters: {
@@ -157,6 +164,15 @@ export class Demo extends Component {
                     value={randomRange}
                     onChange={({target: {value} = {}} = {}) => setRandomRange(parseFloat(value))}
                   />
+                  <br/>
+                  <br/>
+                  Random Range History:
+                  <br/>
+                  {randomRangeHistory.map(v => (
+                    <div>
+                      {v}
+                    </div>
+                  ))}
                 </div>
               )}
             </LifePod>
