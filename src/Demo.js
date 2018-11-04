@@ -113,7 +113,7 @@ export class Demo extends Component {
               </button>
               &nbsp;
               <button
-                onClick={() => history.push(`multiply/${x}/${y}`)}
+                onClick={() => history.push(`/multiply/${x}/${y}`)}
               >
                 Multiply
               </button>

@@ -8,6 +8,18 @@ import IncarnateProper, {
 import getDefaultMapKeyDelimiter from './Utils/getDefaultMapKeyDelimiter';
 
 const DEFAULT_FACTORY = (...args) => args;
+const OVERRIDE_MAP = {
+  name: true,
+  dependencies: true,
+  getters: true,
+  setters: true,
+  invalidators: true,
+  listeners: true,
+  transformArgs: true,
+  strict: true,
+  noCache: true,
+  factory: true
+};
 
 let LIFEPOD_COUNT = 0;
 
@@ -151,11 +163,11 @@ export default class LifePod extends Component {
 
         // TRICKY: If `override` is `true`, override only the relevant properties on the existing LifePod with the
         // values from a temporary LifePod created by the `parentIncarnate`.
-        if (override && lifePodInstance instanceof LifePod) {
+        if (override && lifePodInstance instanceof LifePodProper) {
           const tempDepDec = new DependencyDeclaration(targetConfig);
-          const tempLifePod = parentIncarnate.createLifePod(tempDepDec);
+          const tempLifePod = parentIncarnate.createLifePod(targetName, tempDepDec);
 
-          for (const k in tempDepDec) {
+          for (const k in OVERRIDE_MAP) {
             lifePodInstance[k] = tempLifePod[k];
           }
         }
@@ -262,6 +274,8 @@ export default class LifePod extends Component {
       alwaysRender,
       handleResolveError,
       override,
+      factory,
+      mapToProps,
       ...dependencyDeclaration
     } = this.props;
 
