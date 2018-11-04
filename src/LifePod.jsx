@@ -43,6 +43,10 @@ export default class LifePod extends PureComponent {
     noCache: T.bool,
     factory: T.func,
     mapToProps: T.func,
+    /**
+     * Override the properties of an preexisting LifePod if one is encountered.
+     * */
+    override: T.bool,
     handleResolveError: T.func,
     alwaysRender: T.bool,
     children: T.oneOfType([
@@ -125,22 +129,37 @@ export default class LifePod extends PureComponent {
 
       if (parentIncarnate instanceof IncarnateProper) {
         // Get the LifePod instance from a parent Incarnate.
+        const {override} = this.props;
         const {name} = dependencyDeclaration;
         const targetName = name || parentIncarnate.getPathString([
           LifePod.DEFAULT_MAP_KEY,
           this._lifePodHashMatrixKey
         ]);
+        const {subMap, subMap: {[targetName]: existingMapEntry} = {}} = parentIncarnate;
+        const targetConfig = {
+          ...dependencyDeclaration,
+          name: targetName,
+          factory: targetFactory
+        };
 
-        this.setLifePod(
-          parentIncarnate.createLifePod(
-            targetName,
-            {
-              ...dependencyDeclaration,
-              name: targetName,
-              factory: targetFactory
-            }
-          )
-        );
+        if (!existingMapEntry) {
+          subMap[targetName] = targetConfig;
+        }
+
+        const lifePodInstance = parentIncarnate.getDependency(targetName);
+
+        // TRICKY: If `override` is `true`, override only the relevant properties on the existing LifePod with the
+        // values from a temporary LifePod created by the `parentIncarnate`.
+        if (override && lifePodInstance instanceof LifePod) {
+          const tempDepDec = new DependencyDeclaration(targetConfig);
+          const tempLifePod = parentIncarnate.createLifePod(tempDepDec);
+
+          for (const k in tempDepDec) {
+            lifePodInstance[k] = tempLifePod[k];
+          }
+        }
+
+        this.setLifePod(lifePodInstance);
       } else {
         // Create a standalone LifePod instance.
         this.setLifePod(new LifePodProper(
@@ -241,6 +260,7 @@ export default class LifePod extends PureComponent {
       children,
       alwaysRender,
       handleResolveError,
+      override,
       ...dependencyDeclaration
     } = this.props;
 

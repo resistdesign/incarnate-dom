@@ -205,3 +205,4 @@ export class Demo extends Component {
 }
 
 export default hot(module)(Demo);
+// TODO: Reattach Incarnate and LifePod instances in their components. Create `override` property for LifePod.
