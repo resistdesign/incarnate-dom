@@ -16,14 +16,54 @@ export class Demo extends Component {
       >
         <Incarnate
           name='State'
+          shared={{
+            ROUTE_PROPS: 'ROUTE_PROPS'
+          }}
         >
           <LifePod
             name='RandomRange'
             factory={() => 10}
           />
+          <Incarnate
+            name='Multiply'
+            shared={{
+              ROUTE_PROPS: 'ROUTE_PROPS'
+            }}
+          >
+            <LifePod
+              name='X'
+              dependencies={{
+                routeProps: 'ROUTE_PROPS'
+              }}
+              factory={({
+                          routeProps: {
+                            match: {
+                              params: {
+                                x = 2
+                              } = {}
+                            } = {}
+                          } = {}
+                        } = {}) => parseFloat(x)}
+            />
+            <LifePod
+              name='Y'
+              dependencies={{
+                routeProps: 'ROUTE_PROPS'
+              }}
+              factory={({
+                          routeProps: {
+                            match: {
+                              params: {
+                                y = 2
+                              } = {}
+                            } = {}
+                          } = {}
+                        } = {}) => parseFloat(y)}
+            />
+          </Incarnate>
         </Incarnate>
         <Incarnate
-          name='Utils'
+          name='Data'
           shared={{
             RandomRange: 'State.RandomRange'
           }}
@@ -35,7 +75,48 @@ export class Demo extends Component {
             }}
             factory={({dependencies: {range = 0} = {}} = {}) => Math.random() * range}
           />
+          <LifePod
+            name='Product'
+            dependencies={{
+              x: 'State.Multiply.X',
+              y: 'State.Multiply.Y'
+            }}
+            factory={({dependencies: {x = 2, y = 2} = {}} = {}) => x * y}
+          />
         </Incarnate>
+        <LifePod
+          dependencies={{
+            x: 'State.Multiply.X',
+            y: 'State.Multiply.Y',
+            routeProps: 'ROUTE_PROPS'
+          }}
+        >
+          {({
+              dependencies: {
+                x = 2,
+                y = 2,
+                routeProps: {
+                  history
+                } = {}
+              } = {}
+            } = {}) => (
+            <div>
+              <button
+                onClick={() => history.push('/random')}
+              >
+                Random Number
+              </button>
+              &nbsp;
+              <button
+                onClick={() => history.push(`multiply/${x}/${y}`)}
+              >
+                Multiply
+              </button>
+              <br/>
+              <br/>
+            </div>
+          )}
+        </LifePod>
         <IncarnateSwitch
           defaultSubPath='random'
         >
@@ -45,7 +126,7 @@ export class Demo extends Component {
             <LifePod
               dependencies={{
                 randomRange: 'State.RandomRange',
-                random: 'Utils.RandomNumber'
+                random: 'Data.RandomNumber'
               }}
               setters={{
                 setRandomRange: 'State.RandomRange'
@@ -78,7 +159,44 @@ export class Demo extends Component {
           <IncarnateRoute
             subPath='multiply/:x/:y'
           >
-
+            <LifePod
+              dependencies={{
+                x: 'State.Multiply.X',
+                y: 'State.Multiply.Y',
+                product: 'Data.Product',
+                routeProps: 'ROUTE_PROPS'
+              }}
+            >
+              {({
+                  dependencies: {
+                    x = 2,
+                    y = 2,
+                    product = 0,
+                    routeProps: {
+                      history
+                    } = {}
+                  } = {}
+                } = {}) => (
+                <div>
+                  Product: {product}
+                  <br/>
+                  <br/>
+                  <input
+                    type='number'
+                    value={x}
+                    onChange={({target: {value = 0} = {}} = {}) => history.push(`/multiply/${value}/${y}`)}
+                  />
+                  &nbsp;
+                  *
+                  &nbsp;
+                  <input
+                    type='number'
+                    value={y}
+                    onChange={({target: {value = 0} = {}} = {}) => history.push(`/multiply/${x}/${value}`)}
+                  />
+                </div>
+              )}
+            </LifePod>
           </IncarnateRoute>
         </IncarnateSwitch>
       </IncarnateRouter>
