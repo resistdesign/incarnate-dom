@@ -34,7 +34,9 @@ export default class Memoize extends PureComponent {
             depValue
           ];
 
-          return this.value;
+          return [
+            ...this.value
+          ];
         }}
       />
     );
