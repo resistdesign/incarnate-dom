@@ -147,6 +147,7 @@ export default class IncarnateRoute extends PureComponent {
                           name={PATH_NAMES.ROUTE_PROPS}
                           factory={() => mergedRouteProps}
                           noCache
+                          override
                         />
                         {children instanceof Function ? children(mergedRouteProps) : children}
                       </Provider>
