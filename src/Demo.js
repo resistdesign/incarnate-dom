@@ -142,13 +142,17 @@ export class Demo extends Component {
               setters={{
                 setRandomRange: 'State.RandomRange'
               }}
+              invalidators={{
+                invalidateRandom: 'Data.RandomNumber'
+              }}
             >
               {({
                   randomRange = '',
                   randomRangeHistory = [],
                   randomRangeHistoryController,
                   random = 0,
-                  setRandomRange
+                  setRandomRange,
+                  invalidateRandom
                 } = {}) => (
                 <div>
                   Random Number: {random}
@@ -161,6 +165,12 @@ export class Demo extends Component {
                     value={randomRange}
                     onChange={({target: {value} = {}} = {}) => setRandomRange(parseFloat(value))}
                   />
+                  &nbsp;
+                  <button
+                    onClick={() => invalidateRandom()}
+                  >
+                    Regenerate
+                  </button>
                   <br/>
                   <br/>
                   <button
