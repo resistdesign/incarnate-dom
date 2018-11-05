@@ -65,7 +65,7 @@ export default class Traverse extends Component {
     }
   };
 
-  back = (offset = 0) => {
+  back = (offset = 1) => {
     this.moveCursor(offset * -1);
   };
 
@@ -80,7 +80,7 @@ export default class Traverse extends Component {
     }
   };
 
-  forward = (offset = 0) => {
+  forward = (offset = 1) => {
     this.moveCursor(offset);
   };
 

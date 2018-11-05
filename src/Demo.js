@@ -2,6 +2,7 @@ import {hot} from 'react-hot-loader';
 import React, {Component} from 'react';
 import {
   Memoize,
+  Traverse,
   IncarnateRouter,
   IncarnateSwitch,
   IncarnateRoute,
@@ -127,11 +128,16 @@ export class Demo extends Component {
           <IncarnateRoute
             subPath='random'
           >
+            <Traverse
+              name='RandomRangeHistoryController'
+              dependencyPath='State.RandomRange'
+            />
             <LifePod
               dependencies={{
                 randomRange: 'State.RandomRange',
                 randomRangeHistory: 'RandomRangeHistory',
-                random: 'Data.RandomNumber'
+                randomRangeHistoryController: 'RandomRangeHistoryController',
+                random: 'Data.RandomNumber',
               }}
               setters={{
                 setRandomRange: 'State.RandomRange'
@@ -140,6 +146,7 @@ export class Demo extends Component {
               {({
                   randomRange = '',
                   randomRangeHistory = [],
+                  randomRangeHistoryController,
                   random = 0,
                   setRandomRange
                 } = {}) => (
@@ -154,6 +161,19 @@ export class Demo extends Component {
                     value={randomRange}
                     onChange={({target: {value} = {}} = {}) => setRandomRange(parseFloat(value))}
                   />
+                  <br/>
+                  <br/>
+                  <button
+                    onClick={randomRangeHistoryController.back}
+                  >
+                    Undo
+                  </button>
+                  &nbsp;
+                  <button
+                    onClick={randomRangeHistoryController.forward}
+                  >
+                    Redo
+                  </button>
                   <br/>
                   <br/>
                   Random Range History:
