@@ -165,12 +165,14 @@ export class Demo extends Component {
                   <br/>
                   <button
                     onClick={randomRangeHistoryController.back}
+                    disabled={!randomRangeHistoryController.canUndo()}
                   >
                     Undo
                   </button>
                   &nbsp;
                   <button
                     onClick={randomRangeHistoryController.forward}
+                    disabled={!randomRangeHistoryController.canRedo()}
                   >
                     Redo
                   </button>

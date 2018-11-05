@@ -20,7 +20,9 @@ export default class Traverse extends Component {
       this.controller = {
         back: this.back,
         forward: this.forward,
-        clear: this.clear
+        clear: this.clear,
+        canUndo: this.canUndo,
+        canRedo: this.canRedo
       };
     }
 
@@ -34,7 +36,8 @@ export default class Traverse extends Component {
   future = [];
 
   moveCursor = (offset = 0) => {
-    const cleanOffset = parseInt(`${offset}`, 10);
+    const parsedOffset = parseInt(`${offset}`, 10);
+    const cleanOffset = `${parsedOffset}` !== 'NaN' ? parsedOffset : 0;
 
     if (cleanOffset !== 0) {
       const currentIndex = this.past.length;
@@ -46,16 +49,16 @@ export default class Traverse extends Component {
 
       let newIndex = currentIndex + cleanOffset;
 
-      if (newIndex < 0) {
-        newIndex = 0;
-      }
-
       if (newIndex > fullHistory.length - 1) {
         newIndex = fullHistory.length - 1;
       }
 
+      if (newIndex < 0) {
+        newIndex = 0;
+      }
+
       this.past = fullHistory.slice(0, newIndex);
-      this.present = fullHistory.slice(newIndex, newIndex + 1);
+      this.present = fullHistory[newIndex];
       this.future = fullHistory.slice(newIndex + 1, fullHistory.length);
 
       if (this.setDepValue instanceof Function) {
@@ -66,27 +69,45 @@ export default class Traverse extends Component {
   };
 
   back = (offset = 1) => {
-    this.moveCursor(offset * -1);
+    const cleanOffset = typeof offset === 'number' || typeof offset === 'string' ? offset : 1;
+
+    this.moveCursor(cleanOffset * -1);
   };
+
+  firstUpdate = true;
 
   updatePresent = (depValue) => {
     if (depValue !== this.present) {
-      this.past = [
-        ...this.past,
-        this.present
-      ];
+      if (this.firstUpdate) {
+        this.firstUpdate = false;
+      } else {
+        this.past = [
+          ...this.past,
+          this.present
+        ];
+      }
       this.present = depValue;
       this.future = [];
     }
   };
 
   forward = (offset = 1) => {
-    this.moveCursor(offset);
+    const cleanOffset = typeof offset === 'number' || typeof offset === 'string' ? offset : 1;
+
+    this.moveCursor(cleanOffset);
   };
 
   clear = () => {
     this.past = [];
     this.future = [];
+  };
+
+  canUndo = () => {
+    return this.past instanceof Array && this.past.length > 0;
+  };
+
+  canRedo = () => {
+    return this.future instanceof Array && this.future.length > 0;
   };
 
   render() {
