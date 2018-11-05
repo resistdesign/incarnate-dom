@@ -1,8 +1,8 @@
 import T from 'prop-types';
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import {LifePod} from '../index';
 
-export default class Memoize extends PureComponent {
+export default class Memoize extends Component {
   static propTypes = {
     name: T.string,
     dependencyPath: T.oneOfType([
