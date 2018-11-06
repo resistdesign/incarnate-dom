@@ -29,7 +29,9 @@ export default class Collection extends PureComponent {
   getController() {
     if (!this.controller) {
       this.controller = {
+        addItems: this.addItems,
         addItem: this.addItem,
+        addItemsAtIndex: this.addItemsAtIndex,
         addItemAtIndex: this.addItemAtIndex,
         removeItem: this.removeItem,
         removeItemAtIndex: this.removeItemAtIndex,
@@ -75,31 +77,39 @@ export default class Collection extends PureComponent {
     }
   }
 
-  addItem = (item) => {
+  addItems = (items = []) => {
     const value = this.getCurrentDepValue();
 
     this.setNewDepValue([
       ...value,
-      item
+      ...items
     ]);
   };
 
-  addItemAtIndex = (item, index = 0) => {
+  addItem = (item) => {
+    this.addItems([item]);
+  };
+
+  addItemsAtIndex = (items = [], index = 0) => {
     const value = this.getCurrentDepValue();
     const cleanIndex = getCleanIndex(index);
 
     if (cleanIndex >= value.length) {
-      this.addItem(item);
+      this.addItems(items);
     } else {
       const before = value.slice(0, cleanIndex);
       const after = value.slice(cleanIndex, value.length);
 
       this.setNewDepValue([
         ...before,
-        item,
+        ...items,
         ...after
       ]);
     }
+  };
+
+  addItemAtIndex = (item, index = 0) => {
+    this.addItemsAtIndex([item], index);
   };
 
   removeItem = (item) => {
