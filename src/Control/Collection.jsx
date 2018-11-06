@@ -40,6 +40,10 @@ export default class Collection extends PureComponent {
         setFromMap: this.setFromMap,
         moveItemByIndex: this.moveItemByIndex,
         switchItemsByIndices: this.switchItemsByIndices,
+        switchItems: this.switchItems,
+        updateItemByPrimaryKeyValue: this.updateItemByPrimaryKeyValue,
+        updateItem: this.updateItem,
+        updateItemsByMap: this.updateItemsByMap,
         clear: this.clear
       };
     }
@@ -228,6 +232,41 @@ export default class Collection extends PureComponent {
     if (typeof indexA !== 'undefined' && typeof indexB !== 'undefined') {
       this.switchItemsByIndices(indexA, indexB);
     }
+  };
+
+  updateItemByPrimaryKeyValue = (primaryKeyValue, item) => {
+    const {primaryKey} = this.props;
+    const value = this.getCurrentDepValue();
+
+    this.setNewDepValue(
+      value.map((v = {}) => {
+        const {[primaryKey]: pkv} = v;
+
+        return pkv === primaryKeyValue ? item : v;
+      })
+    );
+  };
+
+  updateItem = (item) => {
+    if (item instanceof Object) {
+      const {primaryKey} = this.props;
+      const {[primaryKey]: primaryKeyValue} = item;
+
+      this.updateItemByPrimaryKeyValue(primaryKeyValue, item);
+    }
+  };
+
+  updateItemsByMap = (map = {}) => {
+    const {primaryKey} = this.props;
+    const value = this.getCurrentDepValue();
+
+    this.setNewDepValue(
+      value.map((v = {}) => {
+        const {[primaryKey]: pkv} = v;
+
+        return map.hasOwnProperty(pkv) ? map[pkv] : v;
+      })
+    );
   };
 
   clear = () => {
