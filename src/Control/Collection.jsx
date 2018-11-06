@@ -33,6 +33,7 @@ export default class Collection extends PureComponent {
         addItemAtIndex: this.addItemAtIndex,
         removeItem: this.removeItem,
         removeItemAtIndex: this.removeItemAtIndex,
+        removeItemByPrimaryKeyValue: this.removeItemByPrimaryKeyValue,
         getIndicesForItem: this.getIndicesForItem,
         getItemAtIndex: this.getItemAtIndex,
         getItemByPrimaryKeyValue: this.getItemByPrimaryKeyValue,
@@ -115,6 +116,15 @@ export default class Collection extends PureComponent {
 
     this.setNewDepValue(
       value.filter((v, i) => i !== cleanIndex)
+    );
+  };
+
+  removeItemByPrimaryKeyValue = (primaryKeyValue) => {
+    const {primaryKey} = this.props;
+    const value = this.getCurrentDepValue();
+
+    this.setNewDepValue(
+      value.filter(({[primaryKey]: pkv} = {}) => pkv !== primaryKeyValue)
     );
   };
 
