@@ -41,6 +41,7 @@ export default class Collection extends PureComponent {
         getItemByPrimaryKeyValue: this.getItemByPrimaryKeyValue,
         getMapByPrimaryKey: this.getMapByPrimaryKey,
         setFromMap: this.setFromMap,
+        addFromMap: this.addFromMap,
         moveItemByIndex: this.moveItemByIndex,
         switchItemsByIndices: this.switchItemsByIndices,
         switchItems: this.switchItems,
@@ -182,6 +183,20 @@ export default class Collection extends PureComponent {
       Object
         .keys(map)
         .map(k => map[k])
+    );
+  };
+
+  addFromMap = (map = {}) => {
+    const valueMap = this.getMapByPrimaryKey();
+    const fullMap = {
+      ...valueMap,
+      ...map
+    };
+
+    this.setNewDepValue(
+      Object
+        .keys(fullMap)
+        .map(k => fullMap[k])
     );
   };
 
