@@ -1,10 +1,10 @@
 import T from 'prop-types';
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import {Consumer} from './RoutingContext';
 import {Redirect} from 'react-router-dom';
 import {getUrl} from './IncarnateRoute';
 
-export default class IncarnateRedirect extends PureComponent {
+export default class IncarnateRedirect extends Component {
   static propTypes = {
     ...Redirect.propTypes,
     from: T.string,

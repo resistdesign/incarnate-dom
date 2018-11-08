@@ -3,6 +3,15 @@
   "version": "1.1.0",
   "description": "Integrate Incarnate with React and React Router DOM.",
   "main": "./src/index.jsx",
+  "files": [
+    "./src/Control/",
+    "./src/Routing/",
+    "./src/Utils/",
+    "./src/Context.jsx",
+    "./src/Incarnate.jsx",
+    "./src/index.jsx",
+    "./src/LifePod.jsx"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:demo": "rdx serve",
@@ -24,12 +33,12 @@
   },
   "homepage": "https://github.com/resistdesign/incarnate-dom#readme",
   "dependencies": {
-    "incarnate": "^4.0.0",
-    "prop-types": "^15.5.10",
-    "query-string": "^6.1.0",
-    "react": "^15.4.0",
-    "react-dom": "^15.4.0",
-    "react-router-dom": "^4.2.2"
+    "incarnate": "^5.1.0",
+    "prop-types": "^15.6.2",
+    "query-string": "^6.2.0",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "react-router-dom": "^4.3.1"
   },
   "engines": {
     "rdx": "^4.0.0"

@@ -1,34 +1,99 @@
 import T from 'prop-types';
-import React, {isValidElement, cloneElement, PureComponent} from 'react';
+import React, {isValidElement, cloneElement, Component} from 'react';
 import {Consumer} from './Context';
-import IncarnateProper, {LifePod as LifePodProper} from 'incarnate';
-import {DepencencyDeclarationShape} from './Shapes';
-import Incarnate from './index';
+import IncarnateProper, {
+  DependencyDeclaration,
+  LifePod as LifePodProper
+} from 'incarnate';
+import getDefaultMapKeyDelimiter from './Utils/getDefaultMapKeyDelimiter';
+
+const DEFAULT_FACTORY = (...args) => args;
+const OVERRIDE_MAP = {
+  name: true,
+  dependencies: true,
+  getters: true,
+  setters: true,
+  invalidators: true,
+  listeners: true,
+  strict: true,
+  noCache: true,
+  factory: true
+};
 
 let LIFEPOD_COUNT = 0;
 
-export default class LifePod extends PureComponent {
+function getFactoryFromProps(props = {}) {
+  const {
+    factory,
+    mapToProps
+  } = props;
+
+  return factory || mapToProps;
+}
+
+function getMergedDependencies({
+                                 dependencies,
+                                 getters,
+                                 setters,
+                                 invalidators,
+                                 listeners
+                               } = {}) {
+  return {
+    ...dependencies,
+    ...getters,
+    ...setters,
+    ...invalidators,
+    ...listeners
+  };
+}
+
+export default class LifePod extends Component {
   static DEFAULT_MAP_KEY = '__LIFEPODS__';
   static propTypes = {
     name: T.string,
-    ...DepencencyDeclarationShape,
-    mapToProps: DepencencyDeclarationShape.factory,
+    dependencies: T.objectOf(
+      T.string
+    ),
+    getters: T.objectOf(
+      T.string
+    ),
+    setters: T.objectOf(
+      T.string
+    ),
+    invalidators: T.objectOf(
+      T.string
+    ),
+    listeners: T.objectOf(
+      T.string
+    ),
+    strict: T.bool,
+    noCache: T.bool,
+    factory: T.func,
+    mapToProps: T.func,
+    /**
+     * Override the properties of an preexisting LifePod if one is encountered.
+     * */
+    override: T.bool,
+    handleResolveError: T.func,
     alwaysRender: T.bool,
     children: T.oneOfType([
-      T.func.isRequired,
-      T.element.isRequired
+      T.func,
+      T.element
     ])
   };
   static defaultProps = {
-    factory: (...args) => args
+    factory: DEFAULT_FACTORY,
+    mapToProps: DEFAULT_FACTORY
   };
 
   mounted = false;
 
-  incarnateDOM;
+  parentIncarnate;
   lifePod;
 
   _lifePodHashMatrixKey;
+
+  rendering = false;
 
   constructor(props) {
     super(props);
@@ -48,168 +113,204 @@ export default class LifePod extends PureComponent {
   componentWillUnmount() {
     this.mounted = false;
 
-    if (this.lifePod instanceof LifePodProper) {
-      this.lifePod.removeChangeHandler('', this.onChildPropsChange);
-      this.lifePod.setValue(undefined);
+    this.setLifePod(undefined);
+  }
+
+  initializeRendering() {
+    // TRICKY: If `rendering` is `true`, then it is already being managed.
+    if (!this.rendering) {
+      this.rendering = true;
+
+      setTimeout(() => this.rendering = false, 0);
     }
   }
 
-  setLifePod(incarnateDOMInstance) {
-    if (
-      !(this.lifePod instanceof LifePodProper) &&
-      incarnateDOMInstance instanceof Incarnate &&
-      incarnateDOMInstance.incarnate instanceof IncarnateProper
-    ) {
-      /* PARENT INCARNATE INSTANCE AVAILABLE */
-      const incarnateInstance = incarnateDOMInstance.incarnate;
-      const {
-        name,
-        alwaysRender,
-        children,
-        mapToProps,
-        ...dependencyDeclaration
-      } = this.props;
+  setLifePod(lifePod) {
+    if (this.lifePod instanceof LifePodProper) {
+      this.lifePod.removeChangeHandler('', this.onChildPropsChange);
+    }
 
-      this.incarnateDOM = incarnateDOMInstance;
+    this.lifePod = lifePod;
 
-      // NOTE: Alias `factory` with `mapToProps`.
-      dependencyDeclaration.factory = mapToProps instanceof Function ?
-        mapToProps :
-        dependencyDeclaration.factory;
+    if (this.lifePod instanceof LifePodProper) {
+      this.lifePod.addChangeHandler('', this.onChildPropsChange);
+    }
+  }
 
-      if (name && incarnateInstance.map instanceof Object) {
-        // Configure the incarnateInstance and get the dependency.
-        incarnateInstance.map[name] = dependencyDeclaration;
-        this.lifePod = incarnateInstance.getDependency(name);
-      } else {
-        // Just create an instance with a dynamic name.
-        const targetName = name || incarnateInstance.getPathString([
+  /**
+   * @param {IncarnateProper} parentIncarnate
+   * @param {Object} dependencyDeclaration
+   * */
+  getLifePod(parentIncarnate, dependencyDeclaration = {}) {
+    if (!(this.lifePod instanceof LifePodProper)) {
+      const targetFactory = (...args) => {
+        // TRICKY: Always use the current factory.
+        const factory = getFactoryFromProps(this.props);
+
+        if (factory instanceof Function) {
+          const [
+            rawDependencies,
+            ...otherArgs
+          ] = args || [];
+
+          return factory(getMergedDependencies(rawDependencies), ...otherArgs);
+        }
+      };
+
+      this.parentIncarnate = parentIncarnate;
+
+      if (parentIncarnate instanceof IncarnateProper) {
+        // Get the LifePod instance from a parent Incarnate.
+        const {override} = this.props;
+        const {name} = dependencyDeclaration;
+        const targetName = name || [
           LifePod.DEFAULT_MAP_KEY,
           this._lifePodHashMatrixKey
-        ]);
+        ].join(getDefaultMapKeyDelimiter(parentIncarnate.pathDelimiter));
+        const {subMap, subMap: {[targetName]: existingMapEntry} = {}} = parentIncarnate;
+        const targetConfig = {
+          ...dependencyDeclaration,
+          name: targetName,
+          factory: targetFactory
+        };
 
-        this.lifePod = incarnateInstance.createLifePod(
-          targetName,
-          dependencyDeclaration
-        );
+        if (!existingMapEntry) {
+          subMap[targetName] = targetConfig;
+        }
+
+        const lifePodInstance = parentIncarnate.getDependency(targetName);
+
+        // TRICKY: If `override` is `true`, override only the relevant properties on the existing LifePod with the
+        // values from a temporary LifePod created by the `parentIncarnate`.
+        if (!!existingMapEntry && override && lifePodInstance instanceof LifePodProper) {
+          const tempDepDec = new DependencyDeclaration(targetConfig);
+          const tempLifePod = parentIncarnate.createLifePod(targetName, tempDepDec);
+
+          for (const k in OVERRIDE_MAP) {
+            lifePodInstance[k] = tempLifePod[k];
+          }
+        }
+
+        this.setLifePod(lifePodInstance);
+      } else {
+        // Create a standalone LifePod instance.
+        this.setLifePod(new LifePodProper(
+          new DependencyDeclaration({
+            ...dependencyDeclaration,
+            factory: targetFactory
+          })
+        ));
       }
-
-      this.lifePod.addChangeHandler('', this.onChildPropsChange);
-      setTimeout(this.onChildPropsChange, 0);
     }
+
+    return this.lifePod;
   }
 
   safeSetState = (...args) => {
     if (this.mounted) {
-      return this.setState(...args);
+      if (!this.rendering) {
+        try {
+          // IMPORTANT: Don't break the rendering cycle.
+          this.setState(...args);
+        } catch (error) {
+          // Ignore.
+        }
+      } else {
+        setTimeout(() => this.safeSetState(...args), 0);
+      }
     }
   };
 
-  handlerResolveChildPropsPromiseError = (error) => {
-    const {handleResolveError} = this.incarnateDOM || {};
+  handleResolveError = (error) => {
+    const {handleResolveError} = this.props;
 
     if (handleResolveError instanceof Function) {
       handleResolveError(error);
     }
+
+    if (
+      this.parentIncarnate instanceof IncarnateProper &&
+      this.parentIncarnate.handleResolveError instanceof Function
+    ) {
+      this.parentIncarnate.handleResolveError(error);
+    }
   };
 
-  async resolveChildPropsPromise(promise) {
-    try {
-      const childProps = await promise;
+  getChildProps() {
+    let childProps;
 
-      this.safeSetState({
-        childProps
-      });
-    } catch (error) {
-      this.safeSetState({
-        childProps: undefined
-      });
+    if (this.lifePod instanceof LifePodProper) {
+      try {
+        const value = this.lifePod.getValue();
 
-      this.handlerResolveChildPropsPromiseError(error);
+        if (!(value instanceof Promise)) {
+          childProps = value;
+        }
+      } catch (error) {
+        this.handleResolveError(error);
+      }
     }
-  }
 
-  async resolveAsyncDependency(promise) {
-    if (promise instanceof Promise) {
-      await promise;
-      this.onChildPropsChange();
-    }
+    return childProps;
   }
 
   onChildPropsChange = () => {
-    try {
-      const childProps = this.lifePod.resolve();
-
-      if (childProps instanceof Promise) {
-        this.resolveChildPropsPromise(childProps);
-
-        this.safeSetState({
-          childProps: undefined
-        });
-      } else {
-        this.safeSetState({
-          childProps
-        });
-      }
-    } catch (error) {
-      const {message, subject} = error || {};
-
-      if (
-        message === LifePodProper.ERRORS.UNRESOLVED_ASYNCHRONOUS_DEPENDENCY &&
-        subject instanceof LifePodProper &&
-        subject.resolving &&
-        subject.resolver instanceof Promise
-      ) {
-        // TRICKY: Dependency creation and acquisition timing could be off due to Incarnate and React lifecycle
-        // interactions, so do this manually in case some dependencies were acquired before their target LifePod
-        // was configured.
-        this.resolveAsyncDependency(subject.resolver);
-      } else {
-        this.safeSetState({
-          childProps: undefined
-        });
-
-        // TRICKY: If a route is changing rapidly, due to a redirect or other reason,
-        // it might trigger a LifePod's recursive dependency resolution detection.
-        // So, simply wait a tick and try again.
-        // Additionally, the childProps are still invalid, due to the error,
-        // so allow the above safeSetState call to clear them.
-        if (message === LifePodProper.ERRORS.DEPENDENCY_RESOLUTION_RECURSION) {
-          setTimeout(this.onChildPropsChange, 0);
-        } else {
-          this.handlerResolveChildPropsPromiseError(error);
-        }
-      }
-    }
+    this.safeSetState({
+      childProps: this.getChildProps()
+    });
   };
 
+  renderChildren() {
+    const {
+      children,
+      alwaysRender
+    } = this.props;
+    const factory = getFactoryFromProps(this.props);
+    const currentChildProps = this.getChildProps();
+    const {childProps: childPropsFromState} = this.state;
+    const childProps = typeof currentChildProps !== 'undefined' && alwaysRender ?
+      childPropsFromState :
+      currentChildProps;
+
+    if (typeof childProps !== 'undefined' || alwaysRender) {
+      if (children instanceof Function) {
+        if (factory === DEFAULT_FACTORY && childProps instanceof Array) {
+          return children(...childProps);
+        } else {
+          return children(childProps);
+        }
+      } else if (isValidElement(children)) {
+        const {props: baseChildProps = {}} = children;
+
+        return cloneElement(children, {
+          ...childProps,
+          ...baseChildProps
+        });
+      } else {
+        return children;
+      }
+    }
+  }
+
   render() {
-    const {childProps} = this.state;
-    const {children, alwaysRender, factory} = this.props;
+    const {
+      children,
+      alwaysRender,
+      handleResolveError,
+      override,
+      factory,
+      mapToProps,
+      ...dependencyDeclaration
+    } = this.props;
+
+    this.initializeRendering();
 
     return (
       <Consumer>
         {parentInstance => {
-          this.setLifePod(parentInstance);
+          this.getLifePod(parentInstance, dependencyDeclaration);
 
-          if (typeof childProps !== 'undefined' || alwaysRender) {
-            if (children instanceof Function) {
-              if (factory === LifePod.defaultProps.factory && childProps instanceof Array) {
-                return children(...childProps);
-              } else {
-                return children(childProps);
-              }
-            } else if (isValidElement(children)) {
-              const {props: baseChildProps = {}} = children;
-
-              return cloneElement(children, {
-                ...childProps,
-                ...baseChildProps
-              });
-            } else {
-              return children;
-            }
-          }
+          return this.renderChildren();
         }}
       </Consumer>
     );

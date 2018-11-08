@@ -1,7 +1,6 @@
 import T from 'prop-types';
 import React, {PureComponent} from 'react';
 import Incarnate from '../Incarnate';
-import LifePod from '../LifePod';
 
 export const DEFAULT_PRIMARY_KEY = 'id';
 export const STATES = {
@@ -32,7 +31,7 @@ export const OPERATIONS = {
 export function updateList(list = [], replace = {}, remove = []) {
   return list
     .map((item, index) => replace.hasOwnProperty(index) ? replace[index] : item)
-    .filters(item => remove.indexOf(item) === -1);
+    .filter(item => remove.indexOf(item) === -1);
 }
 
 const ITEM_IN_MAP_TESTER_FACTORY_FACTORY = (primaryKey = DEFAULT_PRIMARY_KEY) => {
@@ -65,80 +64,69 @@ export default class ItemStateController extends PureComponent {
     const {
       name,
       primaryKey,
-      reconciliationMap = {}
+      reconciliationMap = {},
+      ...props
     } = this.props;
-
-    return (
-      <Incarnate
-        name={name}
-      >
-        <Incarnate
-          name={SETS.ACTIVE}
-        >
-          <LifePod
-            name={STATES.NEW}
-            factory={() => false}
-          />
-          <LifePod
-            name={STATES.EXISTING}
-            factory={() => false}
-          />
-          <LifePod
-            name={STATES.CHANGED}
-            factory={() => false}
-          />
-          <LifePod
-            name={STATES.DELETED}
-            factory={() => false}
-          />
-          <LifePod
-            name={STATES.ALL}
-            required={[
+    const map = {
+      [SETS.ACTIVE]: {
+        subMap: {
+          [STATES.NEW]: {
+            required: [],
+            factory: () => false
+          },
+          [STATES.EXISTING]: {
+            required: [],
+            factory: () => false
+          },
+          [STATES.CHANGED]: {
+            required: [],
+            factory: () => false
+          },
+          [STATES.DELETED]: {
+            required: [],
+            factory: () => false
+          },
+          [STATES.ALL]: {
+            required: [
               STATES.NEW,
               STATES.EXISTING,
               STATES.CHANGED,
               STATES.DELETED
-            ]}
-            factory={(
+            ],
+            factory: (
               newActive,
               existingActive,
               changedActive,
               deletedActive
-            ) => newActive || existingActive || changedActive || deletedActive}
-          />
-        </Incarnate>
-        <Incarnate
-          name={SETS.ITEMS}
-        >
-          <LifePod
-            name={STATES.SELECTED}
-            factory={() => []}
-          />
-          <LifePod
-            name={STATES.NEW}
-            factory={() => []}
-          />
-          <LifePod
-            name={STATES.EXISTING}
-            factory={() => ({})}
-          />
-          <LifePod
-            name={STATES.CHANGED}
-            factory={() => ({})}
-          />
-          <LifePod
-            name={STATES.DELETED}
-            factory={() => ({})}
-          />
-          <LifePod
-            name={STATES.ALL}
-            required={[
+            ) => newActive || existingActive || changedActive || deletedActive
+          }
+        }
+      },
+      [SETS.ITEMS]: {
+        subMap: {
+          [STATES.SELECTED]: {
+            factory: () => []
+          },
+          [STATES.NEW]: {
+            factory: () => []
+          },
+          [STATES.EXISTING]: {
+            factory: () => ({})
+          },
+          [STATES.CHANGED]: {
+            factory: () => []
+          },
+          [STATES.DELETED]: {
+            factory: () => []
+          },
+          [STATES.ALL]: {
+            required: [
               STATES.NEW,
               STATES.EXISTING,
               STATES.CHANGED,
               STATES.DELETED
-            ]}
-            factory={(
+            ],
+            factory: (
               newItems = [],
               existingItems = {},
               changedItems = {},
@@ -167,37 +155,32 @@ export default class ItemStateController extends PureComponent {
                   .keys(cleanMap)
                   .map(key => cleanMap[key])
               ];
-            }}
-          />
-        </Incarnate>
-        <Incarnate
-          name={SETS.ERRORS}
-        >
-          <LifePod
-            name={STATES.NEW}
-            factory={() => []}
-          />
-          <LifePod
-            name={STATES.EXISTING}
-            factory={() => ({})}
-          />
-          <LifePod
-            name={STATES.CHANGED}
-            factory={() => ({})}
-          />
-          <LifePod
-            name={STATES.DELETED}
-            factory={() => ({})}
-          />
-          <LifePod
-            name={STATES.ALL}
-            required={[
+            }
+          }
+        }
+      },
+      [SETS.ERRORS]: {
+        subMap: {
+          [STATES.NEW]: {
+            factory: () => []
+          },
+          [STATES.EXISTING]: {
+            factory: () => []
+          },
+          [STATES.CHANGED]: {
+            factory: () => []
+          },
+          [STATES.DELETED]: {
+            factory: () => []
+          },
+          [STATES.ALL]: {
+            required: [
               STATES.NEW,
               STATES.EXISTING,
               STATES.CHANGED,
               STATES.DELETED
-            ]}
-            factory={(
+            ],
+            factory: (
               newErrors = [],
               existingErrors = {},
               changedErrors = {},
@@ -213,72 +196,63 @@ export default class ItemStateController extends PureComponent {
               ...Object
                 .keys(deletedErrors)
                 .map(key => deletedErrors[key]),
-            ]}
-          />
-        </Incarnate>
-        <Incarnate
-          name={OPERATIONS.IS}
-          shared={{
-            [SETS.ITEMS]: SETS.ITEMS
-          }}
-        >
-          <LifePod
-            name={STATES.SELECTED}
-            getters={[
+            ]
+          }
+        }
+      },
+      [OPERATIONS.IS]: {
+        subMap: {
+          [STATES.SELECTED]: {
+            getters: [
               [SETS.ITEMS, STATES.SELECTED]
-            ]}
-            factory={(getSelected) => {
+            ],
+            factory: (getSelected) => {
               return (item) => {
                 const selected = getSelected() || [];
 
                 return selected.indexOf(item) !== -1;
               };
-            }}
-          />
-          <LifePod
-            name={STATES.NEW}
-            getters={[
+            }
+          },
+          [STATES.NEW]: {
+            getters: [
               [SETS.ITEMS, STATES.NEW]
-            ]}
-            factory={(getNew) => {
+            ],
+            factory: (getNew) => {
               return (item) => {
                 const newItems = getNew() || [];
 
                 return newItems.indexOf(item) !== -1;
               };
-            }}
-          />
-          <LifePod
-            name={STATES.EXISTING}
-            getters={[
+            }
+          },
+          [STATES.EXISTING]: {
+            getters: [
               [SETS.ITEMS, STATES.EXISTING]
-            ]}
-            factory={ITEM_IN_MAP_TESTER_FACTORY_FACTORY(primaryKey)}
-          />
-          <LifePod
-            name={STATES.CHANGED}
-            getters={[
+            ],
+            factory: ITEM_IN_MAP_TESTER_FACTORY_FACTORY(primaryKey)
+          },
+          [STATES.CHANGED]: {
+            getters: [
               [SETS.ITEMS, STATES.CHANGED]
-            ]}
-            factory={ITEM_IN_MAP_TESTER_FACTORY_FACTORY(primaryKey)}
-          />
-          <LifePod
-            name={STATES.DELETED}
-            getters={[
+            ],
+            factory: ITEM_IN_MAP_TESTER_FACTORY_FACTORY(primaryKey)
+          },
+          [STATES.DELETED]: {
+            getters: [
               [SETS.ITEMS, STATES.DELETED]
-            ]}
-            factory={ITEM_IN_MAP_TESTER_FACTORY_FACTORY(primaryKey)}
-          />
-          <LifePod
-            name={STATES.ALL}
-            required={[
+            ],
+            factory: ITEM_IN_MAP_TESTER_FACTORY_FACTORY(primaryKey)
+          },
+          [STATES.ALL]: {
+            required: [
               STATES.SELECTED,
               STATES.NEW,
               STATES.EXISTING,
               STATES.CHANGED,
               STATES.DELETED
-            ]}
-            factory={(
+            ],
+            factory: (
               itemIsSelected,
               itemIsNew,
               itemIsExisting,
@@ -292,32 +266,26 @@ export default class ItemStateController extends PureComponent {
                   itemIsChanged(item) ||
                   itemIsDeleted(item);
               };
-            }}
-          />
-        </Incarnate>
-        <Incarnate
-          name={OPERATIONS.RECONCILE}
-          shared={{
-            [SETS.ACTIVE]: SETS.ACTIVE,
-            [SETS.ITEMS]: SETS.ITEMS,
-            [SETS.ERRORS]: SETS.ERRORS
-          }}
-        >
-          <LifePod
-            name={STATES.NEW}
-            getters={[
+            }
+          }
+        }
+      },
+      [OPERATIONS.RECONCILE]: {
+        subMap: {
+          [STATES.NEW]: {
+            getters: [
               [SETS.ITEMS, STATES.SELECTED],
               [SETS.ITEMS, STATES.NEW],
               [SETS.ITEMS, STATES.EXISTING]
-            ]}
-            setters={[
+            ],
+            setters: [
               [SETS.ACTIVE, STATES.NEW],
               [SETS.ITEMS, STATES.SELECTED],
               [SETS.ITEMS, STATES.NEW],
               [SETS.ITEMS, STATES.EXISTING],
               [SETS.ERRORS, STATES.NEW]
-            ]}
-            factory={(
+            ],
+            factory: (
               getSelectedItems,
               getNewItems,
               getExistingItems,
@@ -367,22 +335,21 @@ export default class ItemStateController extends PureComponent {
                   setNewActive(false);
                 }
               };
-            }}
-          />
-          <LifePod
-            name={STATES.EXISTING}
-            getters={[
+            }
+          },
+          [STATES.EXISTING]: {
+            getters: [
               [SETS.ITEMS, STATES.SELECTED],
               [SETS.ITEMS, STATES.EXISTING],
               [SETS.ERRORS, STATES.EXISTING]
-            ]}
-            setters={[
+            ],
+            setters: [
               [SETS.ACTIVE, STATES.EXISTING],
               [SETS.ITEMS, STATES.SELECTED],
               [SETS.ITEMS, STATES.EXISTING],
               [SETS.ERRORS, STATES.EXISTING]
-            ]}
-            factory={(
+            ],
+            factory: (
               getSelectedItems,
               getExistingItems,
               getExistingErrors,
@@ -407,7 +374,7 @@ export default class ItemStateController extends PureComponent {
                   setExistingActive(true);
 
                   try {
-                    const remoteExistingItems = (await reconcileExisting(...args)) || [];
+                    const remoteExistingItems = (await reconcileExisting(query, ...args)) || [];
 
                     remoteExistingItems.forEach(item => {
                       const {[primaryKey]: key} = item;
@@ -430,23 +397,22 @@ export default class ItemStateController extends PureComponent {
                   setExistingActive(false);
                 }
               };
-            }}
-          />
-          <LifePod
-            name={STATES.CHANGED}
-            getters={[
+            }
+          },
+          [STATES.CHANGED]: {
+            getters: [
               [SETS.ITEMS, STATES.SELECTED],
               [SETS.ITEMS, STATES.CHANGED],
               [SETS.ITEMS, STATES.EXISTING]
-            ]}
-            setters={[
+            ],
+            setters: [
               [SETS.ACTIVE, STATES.CHANGED],
               [SETS.ITEMS, STATES.SELECTED],
               [SETS.ITEMS, STATES.CHANGED],
               [SETS.ITEMS, STATES.EXISTING],
               [SETS.ERRORS, STATES.CHANGED]
-            ]}
-            factory={(
+            ],
+            factory: (
               getSelectedItems,
               getChangedItems,
               getExistingItems,
@@ -502,21 +468,20 @@ export default class ItemStateController extends PureComponent {
                   setChangedActive(false);
                 }
               };
-            }}
-          />
-          <LifePod
-            name={STATES.DELETED}
-            getters={[
+            }
+          },
+          [STATES.DELETED]: {
+            getters: [
               [SETS.ITEMS, STATES.DELETED],
               [SETS.ITEMS, STATES.EXISTING]
-            ]}
-            setters={[
+            ],
+            setters: [
               [SETS.ACTIVE, STATES.DELETED],
               [SETS.ITEMS, STATES.DELETED],
               [SETS.ITEMS, STATES.EXISTING],
               [SETS.ERRORS, STATES.DELETED]
-            ]}
-            factory={(
+            ],
+            factory: (
               getDeletedItems,
               getExistingItems,
               setDeletedActive,
@@ -559,17 +524,16 @@ export default class ItemStateController extends PureComponent {
                   setDeletedActive(false);
                 }
               };
-            }}
-          />
-          <LifePod
-            name={STATES.ALL}
-            required={[
+            }
+          },
+          [STATES.ALL]: {
+            required: [
               STATES.CHANGED,
               STATES.DELETED,
               STATES.NEW,
               STATES.EXISTING
-            ]}
-            factory={(
+            ],
+            factory: (
               reconcileChanged,
               reconcileDeleted,
               reconcileNew,
@@ -586,301 +550,302 @@ export default class ItemStateController extends PureComponent {
                 // Get the results.
                 await reconcileExisting();
               };
-            }}
-          />
-        </Incarnate>
-        <LifePod
-          name={OPERATIONS.SELECT}
-          required={[
-            [OPERATIONS.IS, STATES.SELECTED]
-          ]}
-          getters={[
-            [SETS.ITEMS, STATES.SELECTED]
-          ]}
-          setters={[
-            [SETS.ITEMS, STATES.SELECTED]
-          ]}
-          factory={(
-            isSelected,
-            getSelected,
-            setSelected
-          ) => {
-            return (item, moreThanOnce = false) => {
-              if (moreThanOnce || !isSelected(item)) {
-                const selectedList = getSelected() || [];
-                const newSelectedList = [
-                  ...selectedList,
-                  item
-                ];
-
-                setSelected(newSelectedList);
-              }
-            };
-          }}
-        />
-        <LifePod
-          name={OPERATIONS.DESELECT}
-          required={[
-            [OPERATIONS.IS, STATES.SELECTED]
-          ]}
-          getters={[
-            [SETS.ITEMS, STATES.SELECTED]
-          ]}
-          setters={[
-            [SETS.ITEMS, STATES.SELECTED]
-          ]}
-          factory={(
-            isSelected,
-            getSelected,
-            setSelected
-          ) => {
-            return (item, moreThanOnce = false) => {
-              if (isSelected(item)) {
-                const selectedList = getSelected() || [];
-                const newSelectedList = [];
-
-                let removedAtLeastOnce = false;
-
-                for (let i = 0; i < selectedList.length; i++) {
-                  const selectedItem = selectedList[i];
-
-                  if (
-                    item === selectedItem &&
-                    (moreThanOnce || !removedAtLeastOnce)
-                  ) {
-                    // Don't keep the selected item.
-                    removedAtLeastOnce = true;
-                  } else {
-                    // Keep the selected item.
-                    newSelectedList.push(selectedItem);
-                  }
-                }
-
-                setSelected(newSelectedList);
-              }
-            };
-          }}
-        />
-        <LifePod
-          name={OPERATIONS.TOGGLE_SELECTION}
-          required={[
-            [OPERATIONS.IS, STATES.SELECTED],
-            OPERATIONS.SELECT,
-            OPERATIONS.DESELECT
-          ]}
-          factory={(
-            isSelected,
-            select,
-            deselect
-          ) => {
-            return (item) => {
-              if (isSelected(item)) {
-                deselect(item, true);
-              } else {
-                select(item);
-              }
-            };
-          }}
-        />
-        <LifePod
-          name={OPERATIONS.CREATE}
-          getters={[
-            [SETS.ITEMS, STATES.NEW]
-          ]}
-          setters={[
-            [SETS.ITEMS, STATES.NEW]
-          ]}
-          factory={(
-            getNewItems,
-            setNewItems
-          ) => {
-            return (item) => {
-              const newItem = {
-                ...item
-              };
-              const newItemList = getNewItems() || [];
-              const newNewItemList = [
-                newItem,
-                ...newItemList
+            }
+          }
+        }
+      },
+      [OPERATIONS.SELECT]: {
+        required: [
+          [OPERATIONS.IS, STATES.SELECTED]
+        ],
+        getters: [
+          [SETS.ITEMS, STATES.SELECTED]
+        ],
+        setters: [
+          [SETS.ITEMS, STATES.SELECTED]
+        ],
+        factory: (
+          isSelected,
+          getSelected,
+          setSelected
+        ) => {
+          return (item, moreThanOnce = false) => {
+            if (moreThanOnce || !isSelected(item)) {
+              const selectedList = getSelected() || [];
+              const newSelectedList = [
+                ...selectedList,
+                item
               ];
 
-              delete newItem[primaryKey];
+              setSelected(newSelectedList);
+            }
+          };
+        }
+      },
+      [OPERATIONS.DESELECT]: {
+        required: [
+          [OPERATIONS.IS, STATES.SELECTED]
+        ],
+        getters: [
+          [SETS.ITEMS, STATES.SELECTED]
+        ],
+        setters: [
+          [SETS.ITEMS, STATES.SELECTED]
+        ],
+        factory: (
+          isSelected,
+          getSelected,
+          setSelected
+        ) => {
+          return (item, moreThanOnce = false) => {
+            if (isSelected(item)) {
+              const selectedList = getSelected() || [];
+              const newSelectedList = [];
 
-              setNewItems(newNewItemList);
+              let removedAtLeastOnce = false;
 
-              return newItem;
-            };
-          }}
-        />
-        <LifePod
-          name={OPERATIONS.READ}
-          getters={[
-            [SETS.ITEMS, STATES.CHANGED],
-            [SETS.ITEMS, STATES.EXISTING]
-          ]}
-          factory={(
-            getChangedItems,
-            getExistingItems
-          ) => {
-            return (key, existingOnly = false) => {
-              const {[key]: changedItem} = getChangedItems() || {};
-              const {[key]: existingItem} = getExistingItems() || {};
+              for (let i = 0; i < selectedList.length; i++) {
+                const selectedItem = selectedList[i];
 
-              return existingOnly ?
-                existingItem :
-                (
-                  !!changedItem ?
-                    changedItem :
-                    existingItem
-                );
-            };
-          }}
-        />
-        <LifePod
-          name={OPERATIONS.UPDATE}
-          required={[
-            [OPERATIONS.IS, STATES.NEW]
-          ]}
-          getters={[
-            [SETS.ITEMS, STATES.SELECTED],
-            [SETS.ITEMS, STATES.NEW],
-            [SETS.ITEMS, STATES.EXISTING],
-            [SETS.ITEMS, STATES.CHANGED]
-          ]}
-          setters={[
-            [SETS.ITEMS, STATES.SELECTED],
-            [SETS.ITEMS, STATES.NEW],
-            [SETS.ITEMS, STATES.CHANGED]
-          ]}
-          factory={(
-            itemIsNew,
-            getSelectedItems,
-            getNewItems,
-            getExistingItems,
-            getChangedItems,
-            setSelectedItems,
-            setNewItems,
-            setChangedItems
-          ) => {
-            return (newItem, oldItem) => {
-              const selectedItemsList = getSelectedItems() || [];
-              const replaceSelected = {};
-
-              if (itemIsNew(oldItem)) {
-                const newItemsList = getNewItems() || [];
-                const newNewItemsList = [];
-
-                for (let i = 0; i < newItemsList.length; i++) {
-                  const itemInNew = newItemsList[i];
-
-                  if (oldItem === itemInNew) {
-                    const selectedItemIndex = selectedItemsList.indexOf(oldItem);
-
-                    newNewItemsList.push(newItem);
-
-                    if (selectedItemIndex !== -1) {
-                      replaceSelected[selectedItemIndex] = newItem;
-                    }
-                  } else {
-                    newNewItemsList.push(itemInNew);
-                  }
+                if (
+                  item === selectedItem &&
+                  (moreThanOnce || !removedAtLeastOnce)
+                ) {
+                  // Don't keep the selected item.
+                  removedAtLeastOnce = true;
+                } else {
+                  // Keep the selected item.
+                  newSelectedList.push(selectedItem);
                 }
+              }
 
-                setNewItems(newNewItemsList);
-              } else {
-                const {[primaryKey]: key} = newItem;
+              setSelected(newSelectedList);
+            }
+          };
+        }
+      },
+      [OPERATIONS.TOGGLE_SELECTION]: {
+        required: [
+          [OPERATIONS.IS, STATES.SELECTED],
+          OPERATIONS.SELECT,
+          OPERATIONS.DESELECT
+        ],
+        factory: (
+          isSelected,
+          select,
+          deselect
+        ) => {
+          return (item) => {
+            if (isSelected(item)) {
+              deselect(item, true);
+            } else {
+              select(item);
+            }
+          };
+        }
+      },
+      [OPERATIONS.CREATE]: {
+        getters: [
+          [SETS.ITEMS, STATES.NEW]
+        ],
+        setters: [
+          [SETS.ITEMS, STATES.NEW]
+        ],
+        factory: (
+          getNewItems,
+          setNewItems
+        ) => {
+          return (item) => {
+            const newItem = {
+              ...item
+            };
+            const newItemList = getNewItems() || [];
+            const newNewItemList = [
+              newItem,
+              ...newItemList
+            ];
+
+            delete newItem[primaryKey];
+
+            setNewItems(newNewItemList);
+
+            return newItem;
+          };
+        }
+      },
+      [OPERATIONS.READ]: {
+        getters: [
+          [SETS.ITEMS, STATES.CHANGED],
+          [SETS.ITEMS, STATES.EXISTING]
+        ],
+        factory: (
+          getChangedItems,
+          getExistingItems
+        ) => {
+          return (key, existingOnly = false) => {
+            const {[key]: changedItem} = getChangedItems() || {};
+            const {[key]: existingItem} = getExistingItems() || {};
+
+            return existingOnly ?
+              existingItem :
+              (
+                !!changedItem ?
+                  changedItem :
+                  existingItem
+              );
+          };
+        }
+      },
+      [OPERATIONS.UPDATE]: {
+        required: [
+          [OPERATIONS.IS, STATES.NEW]
+        ],
+        getters: [
+          [SETS.ITEMS, STATES.SELECTED],
+          [SETS.ITEMS, STATES.NEW],
+          [SETS.ITEMS, STATES.EXISTING],
+          [SETS.ITEMS, STATES.CHANGED]
+        ],
+        setters: [
+          [SETS.ITEMS, STATES.SELECTED],
+          [SETS.ITEMS, STATES.NEW],
+          [SETS.ITEMS, STATES.CHANGED]
+        ],
+        factory: (
+          itemIsNew,
+          getSelectedItems,
+          getNewItems,
+          getExistingItems,
+          getChangedItems,
+          setSelectedItems,
+          setNewItems,
+          setChangedItems
+        ) => {
+          return (newItem, oldItem) => {
+            const selectedItemsList = getSelectedItems() || [];
+            const replaceSelected = {};
+
+            if (itemIsNew(oldItem)) {
+              const newItemsList = getNewItems() || [];
+              const newNewItemsList = [];
+
+              for (let i = 0; i < newItemsList.length; i++) {
+                const itemInNew = newItemsList[i];
+
+                if (oldItem === itemInNew) {
+                  const selectedItemIndex = selectedItemsList.indexOf(oldItem);
+
+                  newNewItemsList.push(newItem);
+
+                  if (selectedItemIndex !== -1) {
+                    replaceSelected[selectedItemIndex] = newItem;
+                  }
+                } else {
+                  newNewItemsList.push(itemInNew);
+                }
+              }
+
+              setNewItems(newNewItemsList);
+            } else {
+              const {[primaryKey]: key} = newItem;
+              const changedItemsMap = getChangedItems() || {};
+              const existingItemsMap = getExistingItems() || {};
+              const oldChangedItem = changedItemsMap[key];
+              const oldExistingItem = existingItemsMap[key];
+              const newChangedItemsMap = {
+                [key]: newItem,
+                ...changedItemsMap
+              };
+              const changedSelectedItemIndex = selectedItemsList.indexOf(oldChangedItem);
+              const existingSelectedItemIndex = selectedItemsList.indexOf(oldExistingItem);
+
+              setChangedItems(newChangedItemsMap);
+
+              if (changedSelectedItemIndex !== -1) {
+                replaceSelected[changedSelectedItemIndex] = newItem;
+              } else if (existingSelectedItemIndex !== -1) {
+                replaceSelected[existingSelectedItemIndex] = newItem;
+              }
+            }
+
+            setSelectedItems(updateList(selectedItemsList, replaceSelected));
+          };
+        }
+      },
+      [OPERATIONS.DELETE]: {
+        required: [
+          [OPERATIONS.IS, STATES.NEW],
+          [OPERATIONS.IS, STATES.CHANGED],
+          OPERATIONS.DESELECT
+        ],
+        getters: [
+          [SETS.ITEMS, STATES.NEW],
+          [SETS.ITEMS, STATES.CHANGED],
+          [SETS.ITEMS, STATES.DELETED]
+        ],
+        setters: [
+          [SETS.ITEMS, STATES.NEW],
+          [SETS.ITEMS, STATES.CHANGED],
+          [SETS.ITEMS, STATES.DELETED]
+        ],
+        factory: (
+          itemIsNew,
+          itemIsChanged,
+          deselectItem,
+          getNewItems,
+          getChangedItems,
+          getDeletedItems,
+          setNewItems,
+          setChangedItems,
+          setDeletedItems
+        ) => {
+          return (item) => {
+            if (itemIsNew(item)) {
+              const newItemsList = getNewItems() || [];
+              const newNewItemsList = [];
+
+              for (let i = 0; i < newItemsList.length; i++) {
+                const itemInNew = newItemsList[i];
+
+                if (item !== itemInNew) {
+                  newNewItemsList.push(itemInNew);
+                }
+              }
+
+              setNewItems(newNewItemsList);
+            } else {
+              const {[primaryKey]: key} = item;
+              const deletedItemsMap = getDeletedItems() || {};
+              const newDeletedItemsMap = {
+                [key]: item,
+                ...deletedItemsMap
+              };
+
+              if (itemIsChanged(item)) {
+                // TRICKY: IMPORTANT: Remove any changed item so that they are not reconciled.
                 const changedItemsMap = getChangedItems() || {};
-                const existingItemsMap = getExistingItems() || {};
-                const oldChangedItem = changedItemsMap[key];
-                const oldExistingItem = existingItemsMap[key];
-                const newChangedItemsMap = {
-                  [key]: newItem,
-                  ...changedItemsMap
-                };
-                const changedSelectedItemIndex = selectedItemsList.indexOf(oldChangedItem);
-                const existingSelectedItemIndex = selectedItemsList.indexOf(oldExistingItem);
+                const newChangedItemsMap = {...changedItemsMap};
+
+                delete newChangedItemsMap[key];
 
                 setChangedItems(newChangedItemsMap);
-
-                if (changedSelectedItemIndex !== -1) {
-                  replaceSelected[changedSelectedItemIndex] = newItem;
-                } else if (existingSelectedItemIndex !== -1) {
-                  replaceSelected[existingSelectedItemIndex] = newItem;
-                }
               }
 
-              setSelectedItems(updateList(selectedItemsList, replaceSelected));
-            };
-          }}
-        />
-        <LifePod
-          name={OPERATIONS.DELETE}
-          required={[
-            [OPERATIONS.IS, STATES.NEW],
-            [OPERATIONS.IS, STATES.CHANGED],
-            OPERATIONS.DESELECT
-          ]}
-          getters={[
-            [SETS.ITEMS, STATES.NEW],
-            [SETS.ITEMS, STATES.CHANGED],
-            [SETS.ITEMS, STATES.DELETED]
-          ]}
-          setters={[
-            [SETS.ITEMS, STATES.NEW],
-            [SETS.ITEMS, STATES.CHANGED],
-            [SETS.ITEMS, STATES.DELETED]
-          ]}
-          factory={(
-            itemIsNew,
-            itemIsChanged,
-            deselectItem,
-            getNewItems,
-            getChangedItems,
-            getDeletedItems,
-            setNewItems,
-            setChangedItems,
-            setDeletedItems
-          ) => {
-            return (item) => {
-              if (itemIsNew(item)) {
-                const newItemsList = getNewItems() || [];
-                const newNewItemsList = [];
+              setDeletedItems(newDeletedItemsMap);
+            }
 
-                for (let i = 0; i < newItemsList.length; i++) {
-                  const itemInNew = newItemsList[i];
+            deselectItem(item, true);
+          };
+        }
+      }
+    };
 
-                  if (item !== itemInNew) {
-                    newNewItemsList.push(itemInNew);
-                  }
-                }
-
-                setNewItems(newNewItemsList);
-              } else {
-                const {[primaryKey]: key} = item;
-                const deletedItemsMap = getDeletedItems() || {};
-                const newDeletedItemsMap = {
-                  [key]: item,
-                  ...deletedItemsMap
-                };
-
-                if (itemIsChanged(item)) {
-                  // TRICKY: IMPORTANT: Remove any changed item so that they are not reconciled.
-                  const changedItemsMap = getChangedItems() || {};
-                  const newChangedItemsMap = {...changedItemsMap};
-
-                  delete newChangedItemsMap[key];
-
-                  setChangedItems(newChangedItemsMap);
-                }
-
-                setDeletedItems(newDeletedItemsMap);
-              }
-
-              deselectItem(item, true);
-            };
-          }}
-        />
-      </Incarnate>
+    return (
+      <Incarnate
+        {...props}
+        name={name}
+        map={map}
+      />
     );
   }
 }
