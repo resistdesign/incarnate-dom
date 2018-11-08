@@ -1,3 +1,4 @@
+import QueryString from 'query-string';
 import T from 'prop-types';
 import React, {Component} from 'react';
 import {Route} from 'react-router-dom';
@@ -52,6 +53,15 @@ export function shallowObjectsMatch(a, b) {
   return true;
 }
 
+export function getQueryObjectFromRouteProps({location: {search = ''} = {}} = {}) {
+  return QueryString.parse(
+    search,
+    {
+      arrayFormat: 'bracket'
+    }
+  );
+}
+
 export default class IncarnateRoute extends Component {
   // TRICKY: Use this to see if a React element is of the IncarnateRoute class type in IncarnateSwitch.
   // React, somehow manipulates the type of an element and a class function equality test is not directly possible.
@@ -69,6 +79,7 @@ export default class IncarnateRoute extends Component {
   onRoutePropsChange;
   parentRouteProps;
   routeProps;
+  // TODO: Add a parsed query object.
   mergedRouteProps = {};
 
   getOnRoutePropsChange(parentIncarnate) {
@@ -99,6 +110,9 @@ export default class IncarnateRoute extends Component {
         // TRICKY: Always overwrite overlapping `parentRouteProps` property values.
         ...this.routeProps
       };
+
+      // Add the `query` object.
+      this.mergedRouteProps.query = getQueryObjectFromRouteProps(this.mergedRouteProps);
 
       if (onRoutePropsChange instanceof Function) {
         // Update route props dependency.
