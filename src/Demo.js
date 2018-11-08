@@ -217,11 +217,14 @@ export class Demo extends Component {
                   y = 2,
                   product = 0,
                   routeProps: {
-                    history
+                    history,
+                    query: {
+                      units = 'feet'
+                    } = {}
                   } = {}
                 } = {}) => (
                 <div>
-                  Product: {product}
+                  Product: {product} {units}
                   <br/>
                   <br/>
                   <input
@@ -236,6 +239,15 @@ export class Demo extends Component {
                     type='number'
                     value={y}
                     onChange={({target: {value = 0} = {}} = {}) => history.push(`/multiply/${x}/${value}`)}
+                  />
+                  <br/>
+                  <br/>
+                  Units:
+                  &nbsp;
+                  <input
+                    type='text'
+                    value={units}
+                    onChange={({target: {value = 'feet'} = {}} = {}) => history.push(`/multiply/${x}/${y}?units=${value}`)}
                   />
                 </div>
               )}
