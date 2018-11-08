@@ -28,7 +28,10 @@ function getFactoryFromProps(props = {}) {
     mapToProps
   } = props;
 
-  return factory || mapToProps;
+  return mapToProps instanceof Function &&
+  (!(factory instanceof Function) || factory === DEFAULT_FACTORY) ?
+    mapToProps :
+    factory;
 }
 
 function getMergedDependencies({
