@@ -8,9 +8,9 @@ import {
   Consumer
 } from './RoutingContext';
 import {
-  Incarnate,
   LifePod
 } from '../index';
+import IncarnateProper from 'incarnate';
 
 const URL_DELIMITER = '/';
 const CLASS_IDENTIFIER = {};
@@ -86,7 +86,7 @@ export default class IncarnateRoute extends Component {
     if (this.parentIncarnate !== parentIncarnate) {
       this.parentIncarnate = parentIncarnate;
 
-      if (this.parentIncarnate instanceof Incarnate) {
+      if (this.parentIncarnate instanceof IncarnateProper) {
         this.onRoutePropsChange = this.parentIncarnate.createInvalidator(PATH_NAMES.ROUTE_PROPS);
       } else {
         this.onRoutePropsChange = undefined;
