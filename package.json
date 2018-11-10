@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/resistdesign/incarnate-dom#readme",
   "dependencies": {
-    "incarnate": "^5.2.0",
+    "incarnate": "^5.2.1",
     "prop-types": "^15.6.2",
     "query-string": "^6.2.0",
     "react": "^16.6.0",
