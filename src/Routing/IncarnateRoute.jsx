@@ -91,9 +91,9 @@ export default class IncarnateRoute extends Component {
                   >
                     <LifePod
                       name={PATH_NAMES.ROUTE_PROPS_LIST}
-                      factory={() => newRoutePropsList}
                       noCache
                       override
+                      factory={() => newRoutePropsList}
                     />
                     <Incarnate
                       name={PATH_NAMES.ROUTE_PROPS}
@@ -104,6 +104,8 @@ export default class IncarnateRoute extends Component {
                           <LifePod
                             key={`${PATH_NAMES.ROUTE_PROPS}:${k}`}
                             name={k}
+                            noCache
+                            override
                             factory={() => newRouteProps[k]}
                           />
                         ))}
