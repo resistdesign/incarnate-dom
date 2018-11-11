@@ -2,20 +2,14 @@ import QueryString from 'query-string';
 import T from 'prop-types';
 import React, {Component} from 'react';
 import {Route} from 'react-router-dom';
-import {Consumer as IncarnateConsumer} from '../Context';
-import {
-  Provider,
-  Consumer
-} from './RoutingContext';
-import {
-  LifePod
-} from '../index';
-import IncarnateProper from 'incarnate';
+import {Provider, Consumer} from './RoutingContext';
+import Incarnate, {LifePod} from '../index';
 
 const URL_DELIMITER = '/';
 const CLASS_IDENTIFIER = {};
 
 export const PATH_NAMES = {
+  ROUTE_PROPS_LIST: 'ROUTE_PROPS_LIST',
   ROUTE_PROPS: 'ROUTE_PROPS'
 };
 
@@ -34,23 +28,8 @@ export function getUrl(parentUrl = '', url = '') {
   }
 }
 
-export function shallowObjectsMatch(a, b) {
-  if (a !== b) {
-    const a2 = {...a};
-    const b2 = {...b};
-    const keys = Object.keys({...a2, ...b2});
-
-    for (const k of keys) {
-      const vA = a2[k];
-      const vB = b2[k];
-
-      if (vA !== vB) {
-        return false;
-      }
-    }
-  }
-
-  return true;
+export function getParamsObjectFromRouteProps({match: {params} = {}} = {}) {
+  return params;
 }
 
 export function getQueryObjectFromRouteProps({location: {search = ''} = {}} = {}) {
@@ -75,54 +54,6 @@ export default class IncarnateRoute extends Component {
     CLASS_IDENTIFIER: IncarnateRoute.CLASS_IDENTIFIER
   };
 
-  parentIncarnate;
-  onRoutePropsChange;
-  parentRouteProps;
-  routeProps;
-  // TODO: Add a parsed query object.
-  mergedRouteProps = {};
-
-  getOnRoutePropsChange(parentIncarnate) {
-    if (this.parentIncarnate !== parentIncarnate) {
-      this.parentIncarnate = parentIncarnate;
-
-      if (this.parentIncarnate instanceof IncarnateProper) {
-        this.onRoutePropsChange = this.parentIncarnate.createInvalidator(PATH_NAMES.ROUTE_PROPS);
-      } else {
-        this.onRoutePropsChange = undefined;
-      }
-    }
-
-    return this.onRoutePropsChange;
-  }
-
-  getMergedRouteProps(routeProps, parentRouteProps, parentIncarnate) {
-    if (
-      !shallowObjectsMatch(routeProps, this.routeProps) ||
-      !shallowObjectsMatch(parentRouteProps, this.parentRouteProps)
-    ) {
-      const onRoutePropsChange = this.getOnRoutePropsChange(parentIncarnate);
-
-      this.parentRouteProps = parentRouteProps;
-      this.routeProps = routeProps;
-      this.mergedRouteProps = {
-        ...this.parentRouteProps,
-        // TRICKY: Always overwrite overlapping `parentRouteProps` property values.
-        ...this.routeProps
-      };
-
-      // Add the `query` object.
-      this.mergedRouteProps.query = getQueryObjectFromRouteProps(this.mergedRouteProps);
-
-      if (onRoutePropsChange instanceof Function) {
-        // Update route props dependency.
-        onRoutePropsChange();
-      }
-    }
-
-    return this.mergedRouteProps;
-  }
-
   render() {
     const {
       path,
@@ -132,46 +63,59 @@ export default class IncarnateRoute extends Component {
     } = this.props;
 
     return (
-      <IncarnateConsumer>
-        {parentIncarnate => (
-          <Consumer>
-            {({parentUrl, routeProps: parentRouteProps}) => {
-              const fullPath = typeof subPath === 'string' ? getUrl(parentUrl, subPath) : path;
+      <Consumer>
+        {({parentUrl, routePropsList = []}) => {
+          const fullPath = typeof subPath === 'string' ? getUrl(parentUrl, subPath) : path;
 
-              return (
-                <Route
-                  {...props}
-                  path={fullPath}
-                  render={routeProps => {
-                    const mergedRouteProps = this.getMergedRouteProps(
-                      routeProps,
-                      parentRouteProps,
-                      parentIncarnate
-                    );
+          return (
+            <Route
+              {...props}
+              path={fullPath}
+              render={routeProps => {
+                const newRouteProps = {
+                  ...routeProps,
+                  params: getParamsObjectFromRouteProps(routeProps),
+                  query: getQueryObjectFromRouteProps(routeProps)
+                };
+                const newRoutePropsList = [
+                  newRouteProps,
+                  ...routePropsList
+                ];
 
-                    return (
-                      <Provider
-                        value={{
-                          parentUrl: fullPath,
-                          routeProps: mergedRouteProps
-                        }}
-                      >
-                        <LifePod
-                          name={PATH_NAMES.ROUTE_PROPS}
-                          factory={() => mergedRouteProps}
-                          noCache
-                          override
-                        />
-                        {children instanceof Function ? children(mergedRouteProps) : children}
-                      </Provider>
-                    );
-                  }}
-                />
-              );
-            }}
-          </Consumer>
-        )}
-      </IncarnateConsumer>
+                return (
+                  <Provider
+                    value={{
+                      parentUrl: fullPath,
+                      routePropsList: newRoutePropsList
+                    }}
+                  >
+                    <LifePod
+                      name={PATH_NAMES.ROUTE_PROPS_LIST}
+                      factory={() => newRoutePropsList}
+                      noCache
+                      override
+                    />
+                    <Incarnate
+                      name={PATH_NAMES.ROUTE_PROPS}
+                    >
+                      {Object
+                        .keys(newRouteProps)
+                        .map(k => (
+                          <LifePod
+                            key={`${PATH_NAMES.ROUTE_PROPS}:${k}`}
+                            name={k}
+                            factory={() => newRouteProps[k]}
+                          />
+                        ))}
+                    </Incarnate>
+                    {children instanceof Function ? children(newRouteProps) : children}
+                  </Provider>
+                );
+              }}
+            />
+          );
+        }}
+      </Consumer>
     );
   }
 }
