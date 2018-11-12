@@ -16,7 +16,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:demo": "rdx serve",
-    "build:demo": "rdx compile -o docs"
+    "build:demo": "rdx compile -o docs && cp src/CNAME docs/CNAME"
   },
   "author": "Ryan T. Graff",
   "license": "MIT",
