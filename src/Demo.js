@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {
   Memoize,
   Traverse,
+  Tree,
   IncarnateRouter,
   IncarnateSwitch,
   IncarnateRoute,
@@ -254,6 +255,14 @@ export class Demo extends Component {
             </LifePod>
           </IncarnateRoute>
         </IncarnateSwitch>
+        <Tree
+          dependencyPath='Data'
+          popup
+        />
+        <Tree
+          dependencyPath='State'
+          popup
+        />
       </IncarnateRouter>
     );
   }

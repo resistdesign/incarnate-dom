@@ -5,6 +5,7 @@
   "main": "./src/index.jsx",
   "files": [
     "src/Control/",
+    "src/Monitoring/",
     "src/Routing/",
     "src/Utils/",
     "src/Context.jsx",
