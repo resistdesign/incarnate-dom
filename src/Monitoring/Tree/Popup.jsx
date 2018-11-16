@@ -73,9 +73,11 @@ export default class Popup extends Component {
     const {data} = this.state;
 
     return (
-      <ValueRenderer
-        value={data}
-      />
+      <main>
+        <ValueRenderer
+          value={data}
+        />
+      </main>
     );
   }
 }
