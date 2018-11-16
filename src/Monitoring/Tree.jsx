@@ -7,7 +7,7 @@ import DefaultStyle from '!raw!resistdesign-default-style';
 import {cleanDataStructure} from './Tree/Utils';
 import Popup from './Tree/Popup';
 
-const DEFAULT_POPUP_WIDTH = 300;
+const DEFAULT_POPUP_WIDTH = 400;
 
 function toJSON(value) {
   return JSON.stringify(

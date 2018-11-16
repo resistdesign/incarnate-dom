@@ -269,6 +269,9 @@ export class Demo extends Component {
             dependencyPath='State'
             popup
           />
+          <Tree
+            popup
+          />
         </IncarnateRouter>
       </div>
     );
