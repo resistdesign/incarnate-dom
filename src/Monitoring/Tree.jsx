@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import React, {Component} from 'react';
 import {Consumer} from '../Context';
 import IncarnateProper from 'incarnate';
+import DefaultStyle from '!raw!resistdesign-default-style';
 import {cleanDataStructure} from './Tree/Utils';
 import Popup from './Tree/Popup';
 
-const DEFAULT_POPUP_WIDTH = 300;
+const DEFAULT_POPUP_WIDTH = 400;
 
 function toJSON(value) {
   return JSON.stringify(
@@ -92,7 +93,14 @@ export default class Tree extends Component {
         true
       );
       this._popupWindow.onbeforeunload = this.onClosePopupWindow;
+      // TRICKY: Clear the popup head and body in case this window is being replaced/reused.
+      this._popupWindow.document.head.innerHTML = '';
+      this._popupWindow.document.body.innerHTML = '';
       this._popupWindow.document.title = `Incarnate DOM Tree: '${fullDepName}'`;
+      const popupStyleElement = this._popupWindow.document.createElement('style');
+      popupStyleElement.setAttribute('type', 'text/css');
+      popupStyleElement.innerText = DefaultStyle;
+      this._popupWindow.document.head.appendChild(popupStyleElement);
       const popupRootElement = this._popupWindow.document.createElement('div');
       this._popupWindow.document.body.appendChild(popupRootElement);
       ReactDOM.render(

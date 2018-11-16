@@ -1,32 +1,77 @@
 import T from 'prop-types';
 import React, {Component} from 'react';
-import {BASE_STYLE} from './Constants';
 import ValueRenderer from './ValueRenderer';
 
 export default class ArrayRenderer extends Component {
   static propTypes = {
-    value: T.array
+    value: T.array,
+    path: T.arrayOf(
+      T.oneOfType([
+        T.string,
+        T.number
+      ])
+    ),
+    onPathChange: T.func
+  };
+
+  onPathChange = (newPath = []) => {
+    const {onPathChange} = this.props;
+
+    if (onPathChange instanceof Function) {
+      onPathChange(newPath);
+    }
+  };
+
+  onSelectName = ({target: {name} = {}} = {}) => {
+    if (!!name) {
+      const {path = []} = this.props;
+
+      this.onPathChange([
+        ...path,
+        name
+      ]);
+    }
   };
 
   render() {
     const {
-      value = []
+      value = [],
+      path = []
     } = this.props;
 
     return (
-      <div
-        style={{
-          ...BASE_STYLE
-        }}
-      >
+      <details>
+        <summary>
+          Items:
+        </summary>
         {value
           .map((v, i) => (
-            <ValueRenderer
+            <details
               key={`ArrayValue:${i}`}
-              value={v}
-            />
+            >
+              <summary>
+                <a
+                  href='#'
+                  name={`${i}`}
+                  onClick={this.onSelectName}
+                  style={{
+                    color: '#777777'
+                  }}
+                >
+                  {i}:
+                </a>
+              </summary>
+              <ValueRenderer
+                value={v}
+                path={[
+                  ...path,
+                  i
+                ]}
+                onPathChange={this.onPathChange}
+              />
+            </details>
           ))}
-      </div>
+      </details>
     );
   }
 }

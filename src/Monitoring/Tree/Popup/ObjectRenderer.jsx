@@ -1,46 +1,73 @@
 import T from 'prop-types';
 import React, {Component} from 'react';
-import {BASE_STYLE} from './Constants';
 import ValueRenderer from './ValueRenderer';
 
 export default class ObjectRenderer extends Component {
   static propTypes = {
-    value: T.object
+    value: T.object,
+    path: T.arrayOf(
+      T.oneOfType([
+        T.string,
+        T.number
+      ])
+    ),
+    onPathChange: T.func
+  };
+
+  onPathChange = (newPath = []) => {
+    const {onPathChange} = this.props;
+
+    if (onPathChange instanceof Function) {
+      onPathChange(newPath);
+    }
+  };
+
+  onSelectName = ({target: {name} = {}} = {}) => {
+    if (!!name) {
+      const {path = []} = this.props;
+
+      this.onPathChange([
+        ...path,
+        name
+      ]);
+    }
   };
 
   render() {
     const {
-      value = {}
+      value = {},
+      path = []
     } = this.props;
 
     return (
-      <div
-        style={{
-          ...BASE_STYLE
-        }}
-      >
+      <div>
         {Object
           .keys(value)
           .map(k => (
-            <div
+            <details
               key={`ObjectKeyValueSet:${k}`}
-              style={{
-                ...BASE_STYLE,
-                marginLeft: '2em'
-              }}
             >
-              <div
-                style={{
-                  ...BASE_STYLE,
-                  marginBottom: '1em'
-                }}
-              >
-                {k}:
-              </div>
+              <summary>
+                <a
+                  href='#'
+                  name={k}
+                  onClick={this.onSelectName}
+                  style={{
+                    color: '#777777'
+                  }}
+                >
+                  {k}:
+                </a>
+              </summary>
               <ValueRenderer
                 value={value[k]}
+                path={[
+                  ...path,
+                  k
+                ]}
+                onPathChange={this.onPathChange}
               />
-            </div>
+            </details>
           ))}
       </div>
     );
