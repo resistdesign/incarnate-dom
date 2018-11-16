@@ -4,8 +4,8 @@
   "description": "Integrate Incarnate with React and React Router DOM.",
   "main": "./src/index.jsx",
   "files": [
+    "Monitoring/",
     "src/Control/",
-    "src/Monitoring/",
     "src/Routing/",
     "src/Utils/",
     "src/Context.jsx",

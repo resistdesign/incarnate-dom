@@ -4,13 +4,13 @@ import Style from './Demo.less';
 import {
   Memoize,
   Traverse,
-  Tree,
   IncarnateRouter,
   IncarnateSwitch,
   IncarnateRoute,
   Incarnate,
   LifePod
 } from './index';
+import Tree from '../Monitoring/Tree';
 
 const {Demo: ClassName} = Style;
 
