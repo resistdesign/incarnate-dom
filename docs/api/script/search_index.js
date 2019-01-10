@@ -24,6 +24,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "incarnate-dom~explicitlycachedvalue",
+    "variable/index.html#static-variable-ExplicitlyCachedValue",
+    "<span>ExplicitlyCachedValue</span> <span class=\"search-result-import-path\">incarnate-dom</span>",
+    "variable"
+  ],
+  [
     "incarnate-dom/src/incarnate.jsx~incarnate",
     "class/src/Incarnate.jsx~Incarnate.html",
     "<span>Incarnate</span> <span class=\"search-result-import-path\">incarnate-dom/src/Incarnate.jsx</span>",

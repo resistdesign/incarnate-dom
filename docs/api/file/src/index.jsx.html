@@ -33,6 +33,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/LifePod.jsx~LifePod.html">LifePod</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Provider">Provider</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Collection">Collection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ExplicitlyCachedValue">ExplicitlyCachedValue</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Incarnate">Incarnate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IncarnateRedirect">IncarnateRedirect</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IncarnateRoute">IncarnateRoute</a></span></span></li>
@@ -68,6 +69,7 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/index.jsx</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import CollectionInternal from &apos;./Control/Collection&apos;;
+import ExplicitlyCachedValueInternal from &apos;./Control/ExplicitlyCachedValue&apos;;
 import MemoizeInternal from &apos;./Control/Memoize&apos;;
 import TraverseInternal from &apos;./Control/Traverse&apos;;
 import IncarnateRouterInternal from &apos;./Routing/IncarnateRouter&apos;;
@@ -78,6 +80,8 @@ import LifePodInternal from &apos;./LifePod&apos;;
 import IncarnateInternal from &apos;./Incarnate&apos;;
 
 export const Collection = CollectionInternal;
+
+export const ExplicitlyCachedValue = ExplicitlyCachedValueInternal;
 
 export const Memoize = MemoizeInternal;
 

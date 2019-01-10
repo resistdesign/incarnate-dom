@@ -2857,7 +2857,7 @@
     "__docId__": 181,
     "kind": "file",
     "name": "src/index.jsx",
-    "content": "import CollectionInternal from './Control/Collection';\nimport MemoizeInternal from './Control/Memoize';\nimport TraverseInternal from './Control/Traverse';\nimport IncarnateRouterInternal from './Routing/IncarnateRouter';\nimport IncarnateRouteInternal from './Routing/IncarnateRoute';\nimport IncarnateSwitchInternal from './Routing/IncarnateSwitch';\nimport IncarnateRedirectInternal from './Routing/IncarnateRedirect';\nimport LifePodInternal from './LifePod';\nimport IncarnateInternal from './Incarnate';\n\nexport const Collection = CollectionInternal;\n\nexport const Memoize = MemoizeInternal;\n\nexport const Traverse = TraverseInternal;\n\nexport const IncarnateRouter = IncarnateRouterInternal;\n\nexport const IncarnateRoute = IncarnateRouteInternal;\n\nexport const IncarnateSwitch = IncarnateSwitchInternal;\n\nexport const IncarnateRedirect = IncarnateRedirectInternal;\n\nexport const LifePod = LifePodInternal;\n\nexport const Incarnate = IncarnateInternal;\n\nexport default Incarnate;\n",
+    "content": "import CollectionInternal from './Control/Collection';\nimport ExplicitlyCachedValueInternal from './Control/ExplicitlyCachedValue';\nimport MemoizeInternal from './Control/Memoize';\nimport TraverseInternal from './Control/Traverse';\nimport IncarnateRouterInternal from './Routing/IncarnateRouter';\nimport IncarnateRouteInternal from './Routing/IncarnateRoute';\nimport IncarnateSwitchInternal from './Routing/IncarnateSwitch';\nimport IncarnateRedirectInternal from './Routing/IncarnateRedirect';\nimport LifePodInternal from './LifePod';\nimport IncarnateInternal from './Incarnate';\n\nexport const Collection = CollectionInternal;\n\nexport const ExplicitlyCachedValue = ExplicitlyCachedValueInternal;\n\nexport const Memoize = MemoizeInternal;\n\nexport const Traverse = TraverseInternal;\n\nexport const IncarnateRouter = IncarnateRouterInternal;\n\nexport const IncarnateRoute = IncarnateRouteInternal;\n\nexport const IncarnateSwitch = IncarnateSwitchInternal;\n\nexport const IncarnateRedirect = IncarnateRedirectInternal;\n\nexport const LifePod = LifePodInternal;\n\nexport const Incarnate = IncarnateInternal;\n\nexport default Incarnate;\n",
     "static": true,
     "longname": "/Users/ryan/Projects/incarnate-dom/src/index.jsx",
     "access": "public",
@@ -2876,7 +2876,7 @@
     "importPath": "incarnate-dom",
     "importStyle": "{Collection}",
     "description": null,
-    "lineNumber": 11,
+    "lineNumber": 12,
     "undocument": true,
     "type": {
       "types": [
@@ -2887,16 +2887,16 @@
   {
     "__docId__": 183,
     "kind": "variable",
-    "name": "Memoize",
+    "name": "ExplicitlyCachedValue",
     "memberof": "src/index.jsx",
     "static": true,
-    "longname": "src/index.jsx~Memoize",
+    "longname": "src/index.jsx~ExplicitlyCachedValue",
     "access": "public",
     "export": true,
     "importPath": "incarnate-dom",
-    "importStyle": "{Memoize}",
+    "importStyle": "{ExplicitlyCachedValue}",
     "description": null,
-    "lineNumber": 13,
+    "lineNumber": 14,
     "undocument": true,
     "type": {
       "types": [
@@ -2907,16 +2907,16 @@
   {
     "__docId__": 184,
     "kind": "variable",
-    "name": "Traverse",
+    "name": "Memoize",
     "memberof": "src/index.jsx",
     "static": true,
-    "longname": "src/index.jsx~Traverse",
+    "longname": "src/index.jsx~Memoize",
     "access": "public",
     "export": true,
     "importPath": "incarnate-dom",
-    "importStyle": "{Traverse}",
+    "importStyle": "{Memoize}",
     "description": null,
-    "lineNumber": 15,
+    "lineNumber": 16,
     "undocument": true,
     "type": {
       "types": [
@@ -2927,16 +2927,16 @@
   {
     "__docId__": 185,
     "kind": "variable",
-    "name": "IncarnateRouter",
+    "name": "Traverse",
     "memberof": "src/index.jsx",
     "static": true,
-    "longname": "src/index.jsx~IncarnateRouter",
+    "longname": "src/index.jsx~Traverse",
     "access": "public",
     "export": true,
     "importPath": "incarnate-dom",
-    "importStyle": "{IncarnateRouter}",
+    "importStyle": "{Traverse}",
     "description": null,
-    "lineNumber": 17,
+    "lineNumber": 18,
     "undocument": true,
     "type": {
       "types": [
@@ -2947,16 +2947,16 @@
   {
     "__docId__": 186,
     "kind": "variable",
-    "name": "IncarnateRoute",
+    "name": "IncarnateRouter",
     "memberof": "src/index.jsx",
     "static": true,
-    "longname": "src/index.jsx~IncarnateRoute",
+    "longname": "src/index.jsx~IncarnateRouter",
     "access": "public",
     "export": true,
     "importPath": "incarnate-dom",
-    "importStyle": "{IncarnateRoute}",
+    "importStyle": "{IncarnateRouter}",
     "description": null,
-    "lineNumber": 19,
+    "lineNumber": 20,
     "undocument": true,
     "type": {
       "types": [
@@ -2967,16 +2967,16 @@
   {
     "__docId__": 187,
     "kind": "variable",
-    "name": "IncarnateSwitch",
+    "name": "IncarnateRoute",
     "memberof": "src/index.jsx",
     "static": true,
-    "longname": "src/index.jsx~IncarnateSwitch",
+    "longname": "src/index.jsx~IncarnateRoute",
     "access": "public",
     "export": true,
     "importPath": "incarnate-dom",
-    "importStyle": "{IncarnateSwitch}",
+    "importStyle": "{IncarnateRoute}",
     "description": null,
-    "lineNumber": 21,
+    "lineNumber": 22,
     "undocument": true,
     "type": {
       "types": [
@@ -2987,16 +2987,16 @@
   {
     "__docId__": 188,
     "kind": "variable",
-    "name": "IncarnateRedirect",
+    "name": "IncarnateSwitch",
     "memberof": "src/index.jsx",
     "static": true,
-    "longname": "src/index.jsx~IncarnateRedirect",
+    "longname": "src/index.jsx~IncarnateSwitch",
     "access": "public",
     "export": true,
     "importPath": "incarnate-dom",
-    "importStyle": "{IncarnateRedirect}",
+    "importStyle": "{IncarnateSwitch}",
     "description": null,
-    "lineNumber": 23,
+    "lineNumber": 24,
     "undocument": true,
     "type": {
       "types": [
@@ -3007,16 +3007,16 @@
   {
     "__docId__": 189,
     "kind": "variable",
-    "name": "LifePod",
+    "name": "IncarnateRedirect",
     "memberof": "src/index.jsx",
     "static": true,
-    "longname": "src/index.jsx~LifePod",
+    "longname": "src/index.jsx~IncarnateRedirect",
     "access": "public",
     "export": true,
     "importPath": "incarnate-dom",
-    "importStyle": "{LifePod}",
+    "importStyle": "{IncarnateRedirect}",
     "description": null,
-    "lineNumber": 25,
+    "lineNumber": 26,
     "undocument": true,
     "type": {
       "types": [
@@ -3027,6 +3027,26 @@
   {
     "__docId__": 190,
     "kind": "variable",
+    "name": "LifePod",
+    "memberof": "src/index.jsx",
+    "static": true,
+    "longname": "src/index.jsx~LifePod",
+    "access": "public",
+    "export": true,
+    "importPath": "incarnate-dom",
+    "importStyle": "{LifePod}",
+    "description": null,
+    "lineNumber": 28,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 191,
+    "kind": "variable",
     "name": "Incarnate",
     "memberof": "src/index.jsx",
     "static": true,
@@ -3036,7 +3056,7 @@
     "importPath": "incarnate-dom",
     "importStyle": "{Incarnate}",
     "description": null,
-    "lineNumber": 27,
+    "lineNumber": 30,
     "undocument": true,
     "type": {
       "types": [
