@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/LifePod.jsx | incarnate-dom</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Integrate Incarnate with React and React Router DOM."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="incarnate-dom"><meta property="twitter:description" content="Integrate Incarnate with React and React Router DOM."></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/resistdesign/incarnate-dom"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Incarnate.jsx~Incarnate.html">Incarnate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/LifePod.jsx~LifePod.html">LifePod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Provider">Provider</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Collection">Collection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Incarnate">Incarnate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IncarnateRedirect">IncarnateRedirect</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IncarnateRoute">IncarnateRoute</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IncarnateRouter">IncarnateRouter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IncarnateSwitch">IncarnateSwitch</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LifePod">LifePod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Memoize">Memoize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Traverse">Traverse</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#control">Control</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Control/Collection.jsx~Collection.html">Collection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Control/ExplicitlyCachedValue.jsx~ExplicitlyCachedValue.html">ExplicitlyCachedValue</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Control/Memoize.jsx~Memoize.html">Memoize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Control/Traverse.jsx~Traverse.html">Traverse</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#future">Future</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Future/ItemState.jsx~ItemState.html">ItemState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Future/ItemStateController.jsx~ItemStateController.html">ItemStateController</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateList">updateList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DEFAULT_PRIMARY_KEY">DEFAULT_PRIMARY_KEY</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-OPERATIONS">OPERATIONS</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SETS">SETS</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-STATES">STATES</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#routing">Routing</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Routing/IncarnateRedirect.jsx~IncarnateRedirect.html">IncarnateRedirect</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Routing/IncarnateRoute.jsx~IncarnateRoute.html">IncarnateRoute</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Routing/IncarnateRouter.jsx~IncarnateRouter.html">IncarnateRouter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Routing/IncarnateSwitch.jsx~IncarnateSwitch.html">IncarnateSwitch</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getParamsObjectFromRouteProps">getParamsObjectFromRouteProps</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getQueryObjectFromRouteProps">getQueryObjectFromRouteProps</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getUrl">getUrl</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PATH_NAMES">PATH_NAMES</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Provider">Provider</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">Utils</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getDefaultMapKeyDelimiter">getDefaultMapKeyDelimiter</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/LifePod.jsx</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import T from &apos;prop-types&apos;;
+import React, {isValidElement, cloneElement, Component} from &apos;react&apos;;
+import {Consumer} from &apos;./Context&apos;;
+import IncarnateProper, {
+  DependencyDeclaration,
+  LifePod as LifePodProper
+} from &apos;incarnate&apos;;
+import getDefaultMapKeyDelimiter from &apos;./Utils/getDefaultMapKeyDelimiter&apos;;
+
+const DEFAULT_FACTORY = (...args) =&gt; args;
+const OVERRIDE_MAP = {
+  name: true,
+  dependencies: true,
+  getters: true,
+  setters: true,
+  invalidators: true,
+  listeners: true,
+  strict: true,
+  noCache: true,
+  factory: true
+};
+
+let LIFEPOD_COUNT = 0;
+
+function getFactoryFromProps(props = {}) {
+  const {
+    factory,
+    mapToProps
+  } = props;
+
+  return mapToProps instanceof Function &amp;&amp;
+  (!(factory instanceof Function) || factory === DEFAULT_FACTORY) ?
+    mapToProps :
+    factory;
+}
+
+function getMergedDependencies({
+                                 dependencies,
+                                 getters,
+                                 setters,
+                                 invalidators,
+                                 listeners
+                               } = {}) {
+  return {
+    ...dependencies,
+    ...getters,
+    ...setters,
+    ...invalidators,
+    ...listeners
+  };
+}
+
+export default class LifePod extends Component {
+  static DEFAULT_MAP_KEY = &apos;__LIFEPODS__&apos;;
+  static propTypes = {
+    name: T.string,
+    dependencies: T.objectOf(
+      T.string
+    ),
+    getters: T.objectOf(
+      T.string
+    ),
+    setters: T.objectOf(
+      T.string
+    ),
+    invalidators: T.objectOf(
+      T.string
+    ),
+    listeners: T.objectOf(
+      T.string
+    ),
+    strict: T.bool,
+    noCache: T.bool,
+    factory: T.func,
+    mapToProps: T.func,
+    /**
+     * Override the properties of an preexisting LifePod if one is encountered.
+     * */
+    override: T.bool,
+    handleResolveError: T.func,
+    alwaysRender: T.bool,
+    children: T.oneOfType([
+      T.func,
+      T.element
+    ])
+  };
+  static defaultProps = {
+    factory: DEFAULT_FACTORY,
+    mapToProps: DEFAULT_FACTORY
+  };
+
+  mounted = false;
+
+  parentIncarnate;
+  lifePod;
+
+  _lifePodHashMatrixKey;
+
+  rendering = false;
+
+  constructor(props) {
+    super(props);
+
+    this._lifePodHashMatrixKey = LIFEPOD_COUNT;
+    LIFEPOD_COUNT++;
+  }
+
+  state = {
+    childProps: undefined
+  };
+
+  componentWillMount() {
+    this.mounted = true;
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
+
+    this.setLifePod(undefined);
+  }
+
+  initializeRendering() {
+    // TRICKY: If `rendering` is `true`, then it is already being managed.
+    if (!this.rendering) {
+      this.rendering = true;
+
+      setTimeout(() =&gt; this.rendering = false, 0);
+    }
+  }
+
+  setLifePod(lifePod) {
+    if (this.lifePod instanceof LifePodProper) {
+      this.lifePod.removeChangeHandler(&apos;&apos;, this.onChildPropsChange);
+    }
+
+    this.lifePod = lifePod;
+
+    if (this.lifePod instanceof LifePodProper) {
+      this.lifePod.addChangeHandler(&apos;&apos;, this.onChildPropsChange);
+    }
+  }
+
+  /**
+   * @param {IncarnateProper} parentIncarnate
+   * @param {Object} dependencyDeclaration
+   * */
+  getLifePod(parentIncarnate, dependencyDeclaration = {}) {
+    if (!(this.lifePod instanceof LifePodProper)) {
+      const targetFactory = (...args) =&gt; {
+        // TRICKY: Always use the current factory.
+        const factory = getFactoryFromProps(this.props);
+
+        if (factory instanceof Function) {
+          const [
+            rawDependencies,
+            ...otherArgs
+          ] = args || [];
+
+          return factory(getMergedDependencies(rawDependencies), ...otherArgs);
+        }
+      };
+
+      this.parentIncarnate = parentIncarnate;
+
+      if (parentIncarnate instanceof IncarnateProper) {
+        // Get the LifePod instance from a parent Incarnate.
+        const {override} = this.props;
+        const {name} = dependencyDeclaration;
+        const targetName = name || [
+          LifePod.DEFAULT_MAP_KEY,
+          this._lifePodHashMatrixKey
+        ].join(getDefaultMapKeyDelimiter(parentIncarnate.pathDelimiter));
+        const {subMap, subMap: {[targetName]: existingMapEntry} = {}} = parentIncarnate;
+        const targetConfig = {
+          ...dependencyDeclaration,
+          name: targetName,
+          factory: targetFactory
+        };
+
+        if (!existingMapEntry) {
+          subMap[targetName] = targetConfig;
+        }
+
+        const lifePodInstance = parentIncarnate.getDependency(targetName);
+
+        // TRICKY: If `override` is `true`, override only the relevant properties on the existing LifePod with the
+        // values from a temporary LifePod created by the `parentIncarnate`.
+        if (!!existingMapEntry &amp;&amp; override &amp;&amp; lifePodInstance instanceof LifePodProper) {
+          const tempDepDec = new DependencyDeclaration(targetConfig);
+          const tempLifePod = parentIncarnate.createLifePod(targetName, tempDepDec);
+
+          for (const k in OVERRIDE_MAP) {
+            lifePodInstance[k] = tempLifePod[k];
+          }
+        }
+
+        this.setLifePod(lifePodInstance);
+      } else {
+        // Create a standalone LifePod instance.
+        this.setLifePod(new LifePodProper(
+          new DependencyDeclaration({
+            ...dependencyDeclaration,
+            factory: targetFactory
+          })
+        ));
+      }
+    }
+
+    return this.lifePod;
+  }
+
+  safeSetState = (...args) =&gt; {
+    if (this.mounted) {
+      if (!this.rendering) {
+        try {
+          // IMPORTANT: Don&apos;t break the rendering cycle.
+          this.setState(...args);
+        } catch (error) {
+          // Ignore.
+        }
+      } else {
+        setTimeout(() =&gt; this.safeSetState(...args), 0);
+      }
+    }
+  };
+
+  handleResolveError = (error) =&gt; {
+    const {handleResolveError} = this.props;
+
+    if (handleResolveError instanceof Function) {
+      handleResolveError(error);
+    }
+
+    if (
+      this.parentIncarnate instanceof IncarnateProper &amp;&amp;
+      this.parentIncarnate.handleResolveError instanceof Function
+    ) {
+      this.parentIncarnate.handleResolveError(error);
+    }
+  };
+
+  getChildProps() {
+    let childProps;
+
+    if (this.lifePod instanceof LifePodProper) {
+      try {
+        const value = this.lifePod.getValue();
+
+        if (!(value instanceof Promise)) {
+          childProps = value;
+        }
+      } catch (error) {
+        this.handleResolveError(error);
+      }
+    }
+
+    return childProps;
+  }
+
+  onChildPropsChange = () =&gt; {
+    this.safeSetState({
+      childProps: this.getChildProps()
+    });
+  };
+
+  renderChildren() {
+    const {
+      children,
+      alwaysRender
+    } = this.props;
+    const factory = getFactoryFromProps(this.props);
+    const currentChildProps = this.getChildProps();
+    const {childProps: childPropsFromState} = this.state;
+    const childProps = typeof currentChildProps !== &apos;undefined&apos; &amp;&amp; alwaysRender ?
+      childPropsFromState :
+      currentChildProps;
+
+    if (typeof childProps !== &apos;undefined&apos; || alwaysRender) {
+      if (children instanceof Function) {
+        if (factory === DEFAULT_FACTORY &amp;&amp; childProps instanceof Array) {
+          return children(...childProps);
+        } else {
+          return children(childProps);
+        }
+      } else if (isValidElement(children)) {
+        const {props: baseChildProps = {}} = children;
+
+        return cloneElement(children, {
+          ...childProps,
+          ...baseChildProps
+        });
+      } else {
+        return children;
+      }
+    }
+  }
+
+  render() {
+    const {
+      children,
+      alwaysRender,
+      handleResolveError,
+      override,
+      factory,
+      mapToProps,
+      ...dependencyDeclaration
+    } = this.props;
+
+    this.initializeRendering();
+
+    return (
+      &lt;Consumer&gt;
+        {parentInstance =&gt; {
+          this.getLifePod(parentInstance, dependencyDeclaration);
+
+          return this.renderChildren();
+        }}
+      &lt;/Consumer&gt;
+    );
+  }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

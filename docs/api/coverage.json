@@ -1,0 +1,245 @@
+{
+  "coverage": "2.06%",
+  "expectCount": 145,
+  "actualCount": 3,
+  "files": {
+    "src/Context.jsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "src/Control/Collection.jsx": {
+      "expectCount": 31,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        12,
+        13,
+        23,
+        27,
+        29,
+        58,
+        59,
+        61,
+        75,
+        81,
+        90,
+        94,
+        112,
+        116,
+        124,
+        133,
+        142,
+        154,
+        161,
+        168,
+        181,
+        189,
+        203,
+        238,
+        263,
+        272,
+        285,
+        294,
+        307,
+        311
+      ]
+    },
+    "src/Control/ExplicitlyCachedValue.jsx": {
+      "expectCount": 5,
+      "actualCount": 1,
+      "undocumentLines": [
+        10,
+        15,
+        16,
+        18
+      ]
+    },
+    "src/Control/Memoize.jsx": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        6,
+        16,
+        18
+      ]
+    },
+    "src/Control/Traverse.jsx": {
+      "expectCount": 17,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        6,
+        16,
+        18,
+        32,
+        34,
+        35,
+        36,
+        38,
+        71,
+        77,
+        79,
+        94,
+        100,
+        105,
+        109,
+        113
+      ]
+    },
+    "src/Future/ItemState.jsx": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        9,
+        10,
+        14,
+        16,
+        24
+      ]
+    },
+    "src/Future/ItemStateController.jsx": {
+      "expectCount": 10,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        6,
+        14,
+        19,
+        31,
+        37,
+        47,
+        48,
+        58,
+        63
+      ]
+    },
+    "src/Incarnate.jsx": {
+      "expectCount": 13,
+      "actualCount": 1,
+      "undocumentLines": [
+        7,
+        9,
+        10,
+        11,
+        43,
+        47,
+        48,
+        49,
+        51,
+        58,
+        62,
+        112
+      ]
+    },
+    "src/LifePod.jsx": {
+      "expectCount": 27,
+      "actualCount": 1,
+      "undocumentLines": [
+        10,
+        11,
+        23,
+        25,
+        37,
+        53,
+        54,
+        55,
+        87,
+        92,
+        94,
+        95,
+        97,
+        99,
+        101,
+        108,
+        112,
+        116,
+        122,
+        131,
+        212,
+        227,
+        242,
+        260,
+        266,
+        298
+      ]
+    },
+    "src/Routing/IncarnateRedirect.jsx": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        7,
+        8,
+        14
+      ]
+    },
+    "src/Routing/IncarnateRoute.jsx": {
+      "expectCount": 11,
+      "actualCount": 0,
+      "undocumentLines": [
+        8,
+        9,
+        11,
+        16,
+        31,
+        35,
+        44,
+        47,
+        48,
+        53,
+        57
+      ]
+    },
+    "src/Routing/IncarnateRouter.jsx": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        16,
+        17,
+        22
+      ]
+    },
+    "src/Routing/IncarnateSwitch.jsx": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        8,
+        9,
+        14
+      ]
+    },
+    "src/Routing/RoutingContext.jsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "src/Utils/getDefaultMapKeyDelimiter.jsx": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        1
+      ]
+    },
+    "src/index.jsx": {
+      "expectCount": 9,
+      "actualCount": 0,
+      "undocumentLines": [
+        11,
+        13,
+        15,
+        17,
+        19,
+        21,
+        23,
+        25,
+        27
+      ]
+    }
+  }
+}

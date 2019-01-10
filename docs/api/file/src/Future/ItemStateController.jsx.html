@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/Future/ItemStateController.jsx | incarnate-dom</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Integrate Incarnate with React and React Router DOM."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="incarnate-dom"><meta property="twitter:description" content="Integrate Incarnate with React and React Router DOM."></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/resistdesign/incarnate-dom"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Incarnate.jsx~Incarnate.html">Incarnate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/LifePod.jsx~LifePod.html">LifePod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Provider">Provider</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Collection">Collection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Incarnate">Incarnate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IncarnateRedirect">IncarnateRedirect</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IncarnateRoute">IncarnateRoute</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IncarnateRouter">IncarnateRouter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IncarnateSwitch">IncarnateSwitch</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LifePod">LifePod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Memoize">Memoize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Traverse">Traverse</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#control">Control</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Control/Collection.jsx~Collection.html">Collection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Control/ExplicitlyCachedValue.jsx~ExplicitlyCachedValue.html">ExplicitlyCachedValue</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Control/Memoize.jsx~Memoize.html">Memoize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Control/Traverse.jsx~Traverse.html">Traverse</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#future">Future</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Future/ItemState.jsx~ItemState.html">ItemState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Future/ItemStateController.jsx~ItemStateController.html">ItemStateController</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateList">updateList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DEFAULT_PRIMARY_KEY">DEFAULT_PRIMARY_KEY</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-OPERATIONS">OPERATIONS</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SETS">SETS</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-STATES">STATES</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#routing">Routing</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Routing/IncarnateRedirect.jsx~IncarnateRedirect.html">IncarnateRedirect</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Routing/IncarnateRoute.jsx~IncarnateRoute.html">IncarnateRoute</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Routing/IncarnateRouter.jsx~IncarnateRouter.html">IncarnateRouter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Routing/IncarnateSwitch.jsx~IncarnateSwitch.html">IncarnateSwitch</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getParamsObjectFromRouteProps">getParamsObjectFromRouteProps</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getQueryObjectFromRouteProps">getQueryObjectFromRouteProps</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getUrl">getUrl</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PATH_NAMES">PATH_NAMES</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Provider">Provider</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">Utils</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getDefaultMapKeyDelimiter">getDefaultMapKeyDelimiter</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/Future/ItemStateController.jsx</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import T from &apos;prop-types&apos;;
+import React, {PureComponent} from &apos;react&apos;;
+import Incarnate from &apos;../Incarnate&apos;;
+
+export const DEFAULT_PRIMARY_KEY = &apos;id&apos;;
+export const STATES = {
+  SELECTED: &apos;SELECTED&apos;,
+  NEW: &apos;NEW&apos;,
+  EXISTING: &apos;EXISTING&apos;,
+  CHANGED: &apos;CHANGED&apos;,
+  DELETED: &apos;DELETED&apos;,
+  ALL: &apos;ALL&apos;
+};
+export const SETS = {
+  ACTIVE: &apos;ACTIVE&apos;,
+  ITEMS: &apos;ITEMS&apos;,
+  ERRORS: &apos;ERRORS&apos;
+};
+export const OPERATIONS = {
+  SELECT: &apos;SELECT&apos;,
+  DESELECT: &apos;DESELECT&apos;,
+  TOGGLE_SELECTION: &apos;TOGGLE_SELECTION&apos;,
+  CREATE: &apos;CREATE&apos;,
+  READ: &apos;READ&apos;,
+  UPDATE: &apos;UPDATE&apos;,
+  DELETE: &apos;DELETE&apos;,
+  RECONCILE: &apos;RECONCILE&apos;,
+  IS: &apos;IS&apos;
+};
+
+export function updateList(list = [], replace = {}, remove = []) {
+  return list
+    .map((item, index) =&gt; replace.hasOwnProperty(index) ? replace[index] : item)
+    .filter(item =&gt; remove.indexOf(item) === -1);
+}
+
+const ITEM_IN_MAP_TESTER_FACTORY_FACTORY = (primaryKey = DEFAULT_PRIMARY_KEY) =&gt; {
+  return (getItemMap) =&gt; {
+    return ({[primaryKey]: key} = {}) =&gt; {
+      const {[key]: item} = getItemMap() || {};
+
+      return !!item;
+    };
+  };
+};
+
+export default class ItemStateController extends PureComponent {
+  static propTypes = {
+    name: T.string,
+    primaryKey: T.string,
+    reconciliationMap: T.shape({
+      [STATES.NEW]: T.func,
+      [STATES.EXISTING]: T.func,
+      [STATES.CHANGED]: T.func,
+      [STATES.DELETED]: T.func
+    })
+  };
+  static defaultProps = {
+    primaryKey: DEFAULT_PRIMARY_KEY,
+    reconciliationMap: {}
+  };
+
+  render() {
+    const {
+      name,
+      primaryKey,
+      reconciliationMap = {},
+      ...props
+    } = this.props;
+    const map = {
+      [SETS.ACTIVE]: {
+        subMap: {
+          [STATES.NEW]: {
+            required: [],
+            factory: () =&gt; false
+          },
+          [STATES.EXISTING]: {
+            required: [],
+            factory: () =&gt; false
+          },
+          [STATES.CHANGED]: {
+            required: [],
+            factory: () =&gt; false
+          },
+          [STATES.DELETED]: {
+            required: [],
+            factory: () =&gt; false
+          },
+          [STATES.ALL]: {
+            required: [
+              STATES.NEW,
+              STATES.EXISTING,
+              STATES.CHANGED,
+              STATES.DELETED
+            ],
+            factory: (
+              newActive,
+              existingActive,
+              changedActive,
+              deletedActive
+            ) =&gt; newActive || existingActive || changedActive || deletedActive
+          }
+        }
+      },
+      [SETS.ITEMS]: {
+        subMap: {
+          [STATES.SELECTED]: {
+            factory: () =&gt; []
+          },
+          [STATES.NEW]: {
+            factory: () =&gt; []
+          },
+          [STATES.EXISTING]: {
+            factory: () =&gt; ({})
+          },
+          [STATES.CHANGED]: {
+            factory: () =&gt; []
+          },
+          [STATES.DELETED]: {
+            factory: () =&gt; []
+          },
+          [STATES.ALL]: {
+            required: [
+              STATES.NEW,
+              STATES.EXISTING,
+              STATES.CHANGED,
+              STATES.DELETED
+            ],
+            factory: (
+              newItems = [],
+              existingItems = {},
+              changedItems = {},
+              deletedItems = {}
+            ) =&gt; {
+              // Transpose changes.
+              const updatedMap = {
+                ...existingItems,
+                ...changedItems
+              };
+              // Remove deletes.
+              const cleanMap = Object
+                .keys(updatedMap)
+                .reduce((acc, key) =&gt; {
+                  if (!deletedItems.hasOwnProperty(key)) {
+                    acc[key] = updatedMap[key];
+                  }
+
+                  return acc;
+                }, {});
+
+              // Combine new and clean.
+              return [
+                ...newItems,
+                ...Object
+                  .keys(cleanMap)
+                  .map(key =&gt; cleanMap[key])
+              ];
+            }
+          }
+        }
+      },
+      [SETS.ERRORS]: {
+        subMap: {
+          [STATES.NEW]: {
+            factory: () =&gt; []
+          },
+          [STATES.EXISTING]: {
+            factory: () =&gt; []
+          },
+          [STATES.CHANGED]: {
+            factory: () =&gt; []
+          },
+          [STATES.DELETED]: {
+            factory: () =&gt; []
+          },
+          [STATES.ALL]: {
+            required: [
+              STATES.NEW,
+              STATES.EXISTING,
+              STATES.CHANGED,
+              STATES.DELETED
+            ],
+            factory: (
+              newErrors = [],
+              existingErrors = {},
+              changedErrors = {},
+              deletedErrors = {}
+            ) =&gt; [
+              ...newErrors,
+              ...Object
+                .keys(existingErrors)
+                .map(key =&gt; existingErrors[key]),
+              ...Object
+                .keys(changedErrors)
+                .map(key =&gt; changedErrors[key]),
+              ...Object
+                .keys(deletedErrors)
+                .map(key =&gt; deletedErrors[key]),
+            ]
+          }
+        }
+      },
+      [OPERATIONS.IS]: {
+        subMap: {
+          [STATES.SELECTED]: {
+            getters: [
+              [SETS.ITEMS, STATES.SELECTED]
+            ],
+            factory: (getSelected) =&gt; {
+              return (item) =&gt; {
+                const selected = getSelected() || [];
+
+                return selected.indexOf(item) !== -1;
+              };
+            }
+          },
+          [STATES.NEW]: {
+            getters: [
+              [SETS.ITEMS, STATES.NEW]
+            ],
+            factory: (getNew) =&gt; {
+              return (item) =&gt; {
+                const newItems = getNew() || [];
+
+                return newItems.indexOf(item) !== -1;
+              };
+            }
+          },
+          [STATES.EXISTING]: {
+            getters: [
+              [SETS.ITEMS, STATES.EXISTING]
+            ],
+            factory: ITEM_IN_MAP_TESTER_FACTORY_FACTORY(primaryKey)
+          },
+          [STATES.CHANGED]: {
+            getters: [
+              [SETS.ITEMS, STATES.CHANGED]
+            ],
+            factory: ITEM_IN_MAP_TESTER_FACTORY_FACTORY(primaryKey)
+          },
+          [STATES.DELETED]: {
+            getters: [
+              [SETS.ITEMS, STATES.DELETED]
+            ],
+            factory: ITEM_IN_MAP_TESTER_FACTORY_FACTORY(primaryKey)
+          },
+          [STATES.ALL]: {
+            required: [
+              STATES.SELECTED,
+              STATES.NEW,
+              STATES.EXISTING,
+              STATES.CHANGED,
+              STATES.DELETED
+            ],
+            factory: (
+              itemIsSelected,
+              itemIsNew,
+              itemIsExisting,
+              itemIsChanged,
+              itemIsDeleted
+            ) =&gt; {
+              return (item) =&gt; {
+                return itemIsSelected(item) ||
+                  itemIsNew(item) ||
+                  itemIsExisting(item) ||
+                  itemIsChanged(item) ||
+                  itemIsDeleted(item);
+              };
+            }
+          }
+        }
+      },
+      [OPERATIONS.RECONCILE]: {
+        subMap: {
+          [STATES.NEW]: {
+            getters: [
+              [SETS.ITEMS, STATES.SELECTED],
+              [SETS.ITEMS, STATES.NEW],
+              [SETS.ITEMS, STATES.EXISTING]
+            ],
+            setters: [
+              [SETS.ACTIVE, STATES.NEW],
+              [SETS.ITEMS, STATES.SELECTED],
+              [SETS.ITEMS, STATES.NEW],
+              [SETS.ITEMS, STATES.EXISTING],
+              [SETS.ERRORS, STATES.NEW]
+            ],
+            factory: (
+              getSelectedItems,
+              getNewItems,
+              getExistingItems,
+              setNewActive,
+              setSelectedItems,
+              setNewItems,
+              setExistingItems,
+              setNewErrors
+            ) =&gt; {
+              return async () =&gt; {
+                const newItems = getNewItems() || [];
+                const {[STATES.NEW]: reconcileNew} = reconciliationMap;
+
+                if (reconcileNew instanceof Function &amp;&amp; newItems.length) {
+                  const selectedItemsList = getSelectedItems() || [];
+                  const replaceSelected = {};
+                  const newErrors = [];
+                  const newNewItems = [];
+                  const existingItems = getExistingItems();
+                  const newExistingItems = {...existingItems};
+
+                  setNewActive(true);
+
+                  for (let i = 0; i &lt; newItems.length; i++) {
+                    const item = newItems[i];
+                    const selectedItemIndex = selectedItemsList.indexOf(item);
+
+                    try {
+                      const newItem = await reconcileNew(item);
+                      const {[primaryKey]: newKey} = newItem;
+
+                      newExistingItems[newKey] = newItem;
+
+                      if (selectedItemIndex !== -1) {
+                        replaceSelected[selectedItemIndex] = newItem;
+                      }
+                    } catch (error) {
+                      newErrors.push(error);
+                      newNewItems.push(item);
+                    }
+                  }
+
+                  setNewErrors(newErrors);
+                  setNewItems(newNewItems);
+                  setExistingItems(newExistingItems);
+                  setSelectedItems(updateList(selectedItemsList, replaceSelected));
+                  setNewActive(false);
+                }
+              };
+            }
+          },
+          [STATES.EXISTING]: {
+            getters: [
+              [SETS.ITEMS, STATES.SELECTED],
+              [SETS.ITEMS, STATES.EXISTING],
+              [SETS.ERRORS, STATES.EXISTING]
+            ],
+            setters: [
+              [SETS.ACTIVE, STATES.EXISTING],
+              [SETS.ITEMS, STATES.SELECTED],
+              [SETS.ITEMS, STATES.EXISTING],
+              [SETS.ERRORS, STATES.EXISTING]
+            ],
+            factory: (
+              getSelectedItems,
+              getExistingItems,
+              getExistingErrors,
+              setExistingActive,
+              setSelectedItems,
+              setExistingItems,
+              setExistingErrors
+            ) =&gt; {
+              return async (query = `${Date.now()}`, ...args) =&gt; {
+                const {[STATES.EXISTING]: reconcileExisting} = reconciliationMap;
+
+                if (reconcileExisting instanceof Function) {
+                  const selectedItemsList = getSelectedItems() || [];
+                  const replaceSelected = {};
+                  const existingItemsMap = getExistingItems() || {};
+                  const newExistingItemsMap = {
+                    ...existingItemsMap
+                  };
+                  const existingErrors = getExistingErrors() || {};
+                  const newExistingErrors = {...existingErrors};
+
+                  setExistingActive(true);
+
+                  try {
+                    const remoteExistingItems = (await reconcileExisting(query, ...args)) || [];
+
+                    remoteExistingItems.forEach(item =&gt; {
+                      const {[primaryKey]: key} = item;
+                      const oldItem = existingItemsMap[key];
+                      const selectedItemIndex = selectedItemsList.indexOf(oldItem);
+
+                      newExistingItemsMap[key] = item;
+
+                      if (selectedItemIndex !== -1) {
+                        replaceSelected[selectedItemIndex] = item;
+                      }
+                    });
+                  } catch (error) {
+                    newExistingErrors[query] = error;
+                  }
+
+                  setExistingErrors(newExistingErrors);
+                  setExistingItems(newExistingItemsMap);
+                  setSelectedItems(updateList(selectedItemsList, replaceSelected));
+                  setExistingActive(false);
+                }
+              };
+            }
+          },
+          [STATES.CHANGED]: {
+            getters: [
+              [SETS.ITEMS, STATES.SELECTED],
+              [SETS.ITEMS, STATES.CHANGED],
+              [SETS.ITEMS, STATES.EXISTING]
+            ],
+            setters: [
+              [SETS.ACTIVE, STATES.CHANGED],
+              [SETS.ITEMS, STATES.SELECTED],
+              [SETS.ITEMS, STATES.CHANGED],
+              [SETS.ITEMS, STATES.EXISTING],
+              [SETS.ERRORS, STATES.CHANGED]
+            ],
+            factory: (
+              getSelectedItems,
+              getChangedItems,
+              getExistingItems,
+              setChangedActive,
+              setSelectedItems,
+              setChangedItems,
+              setExistingItems,
+              setChangedErrors
+            ) =&gt; {
+              return async () =&gt; {
+                const {[STATES.CHANGED]: reconcileChanged} = reconciliationMap;
+                const changedItems = getChangedItems() || {};
+                const changedItemsList = Object
+                  .keys(changedItems)
+                  .map(key =&gt; changedItems[key]);
+
+                if (reconcileChanged instanceof Function &amp;&amp; changedItemsList.length) {
+                  const selectedItemsList = getSelectedItems() || [];
+                  const replaceSelected = {};
+                  const existingItems = getExistingItems() || {};
+                  const newExistingItems = {...existingItems};
+                  const newChangedItems = {};
+                  const newChangedErrors = {};
+
+                  setChangedActive(true);
+
+                  for (let i = 0; i &lt; changedItemsList.length; i++) {
+                    const item = changedItemsList[i];
+                    const {[primaryKey]: oldKey} = item;
+                    const oldItem = existingItems[oldKey];
+                    const selectedItemIndex = selectedItemsList.indexOf(oldItem);
+
+                    try {
+                      const newItem = await reconcileChanged(item, oldItem);
+                      const {[primaryKey]: newKey} = newItem;
+
+                      newExistingItems[newKey] = newItem;
+                      delete newExistingItems[oldKey];
+
+                      if (selectedItemIndex !== -1) {
+                        replaceSelected[selectedItemIndex] = newItem;
+                      }
+                    } catch (error) {
+                      newChangedErrors[oldKey] = error;
+                      newChangedItems[oldKey] = item;
+                    }
+                  }
+
+                  setChangedErrors(newChangedErrors);
+                  setChangedItems(newChangedItems);
+                  setExistingItems(newExistingItems);
+                  setSelectedItems(updateList(selectedItemsList, replaceSelected));
+                  setChangedActive(false);
+                }
+              };
+            }
+          },
+          [STATES.DELETED]: {
+            getters: [
+              [SETS.ITEMS, STATES.DELETED],
+              [SETS.ITEMS, STATES.EXISTING]
+            ],
+            setters: [
+              [SETS.ACTIVE, STATES.DELETED],
+              [SETS.ITEMS, STATES.DELETED],
+              [SETS.ITEMS, STATES.EXISTING],
+              [SETS.ERRORS, STATES.DELETED]
+            ],
+            factory: (
+              getDeletedItems,
+              getExistingItems,
+              setDeletedActive,
+              setDeletedItems,
+              setExistingItems,
+              setDeletedErrors
+            ) =&gt; {
+              return async () =&gt; {
+                const {[STATES.DELETED]: reconcileDeleted} = reconciliationMap;
+                const deletedItems = getDeletedItems() || {};
+                const deletedItemsList = Object
+                  .keys
+                  .map(key =&gt; deletedItems[key]);
+
+                if (reconcileDeleted instanceof Function &amp;&amp; deletedItemsList.length) {
+                  const existingItems = getExistingItems() || {};
+                  const newExistingItems = {...existingItems};
+                  const newDeletedItems = {};
+                  const newDeletedErrors = {};
+
+                  setDeletedActive(true);
+
+                  for (let i = 0; i &lt; deletedItemsList.length; i++) {
+                    const item = deletedItemsList[i];
+                    const {[primaryKey]: key} = item;
+
+                    try {
+                      await reconcileDeleted(item);
+
+                      delete newExistingItems[key];
+                    } catch (error) {
+                      newDeletedErrors[key] = error;
+                      newDeletedItems[key] = item;
+                    }
+                  }
+
+                  setDeletedErrors(newDeletedErrors);
+                  setDeletedItems(newDeletedItems);
+                  setExistingItems(newExistingItems);
+                  setDeletedActive(false);
+                }
+              };
+            }
+          },
+          [STATES.ALL]: {
+            required: [
+              STATES.CHANGED,
+              STATES.DELETED,
+              STATES.NEW,
+              STATES.EXISTING
+            ],
+            factory: (
+              reconcileChanged,
+              reconcileDeleted,
+              reconcileNew,
+              reconcileExisting
+            ) =&gt; {
+              return async () =&gt; {
+                // TRICKY: IMPORTANT: The order matters.
+                // Make your changes.
+                await reconcileChanged();
+                // Delete item, that may have even just been changed.
+                await reconcileDeleted();
+                // Add any new items.
+                await reconcileNew();
+                // Get the results.
+                await reconcileExisting();
+              };
+            }
+          }
+        }
+      },
+      [OPERATIONS.SELECT]: {
+        required: [
+          [OPERATIONS.IS, STATES.SELECTED]
+        ],
+        getters: [
+          [SETS.ITEMS, STATES.SELECTED]
+        ],
+        setters: [
+          [SETS.ITEMS, STATES.SELECTED]
+        ],
+        factory: (
+          isSelected,
+          getSelected,
+          setSelected
+        ) =&gt; {
+          return (item, moreThanOnce = false) =&gt; {
+            if (moreThanOnce || !isSelected(item)) {
+              const selectedList = getSelected() || [];
+              const newSelectedList = [
+                ...selectedList,
+                item
+              ];
+
+              setSelected(newSelectedList);
+            }
+          };
+        }
+      },
+      [OPERATIONS.DESELECT]: {
+        required: [
+          [OPERATIONS.IS, STATES.SELECTED]
+        ],
+        getters: [
+          [SETS.ITEMS, STATES.SELECTED]
+        ],
+        setters: [
+          [SETS.ITEMS, STATES.SELECTED]
+        ],
+        factory: (
+          isSelected,
+          getSelected,
+          setSelected
+        ) =&gt; {
+          return (item, moreThanOnce = false) =&gt; {
+            if (isSelected(item)) {
+              const selectedList = getSelected() || [];
+              const newSelectedList = [];
+
+              let removedAtLeastOnce = false;
+
+              for (let i = 0; i &lt; selectedList.length; i++) {
+                const selectedItem = selectedList[i];
+
+                if (
+                  item === selectedItem &amp;&amp;
+                  (moreThanOnce || !removedAtLeastOnce)
+                ) {
+                  // Don&apos;t keep the selected item.
+                  removedAtLeastOnce = true;
+                } else {
+                  // Keep the selected item.
+                  newSelectedList.push(selectedItem);
+                }
+              }
+
+              setSelected(newSelectedList);
+            }
+          };
+        }
+      },
+      [OPERATIONS.TOGGLE_SELECTION]: {
+        required: [
+          [OPERATIONS.IS, STATES.SELECTED],
+          OPERATIONS.SELECT,
+          OPERATIONS.DESELECT
+        ],
+        factory: (
+          isSelected,
+          select,
+          deselect
+        ) =&gt; {
+          return (item) =&gt; {
+            if (isSelected(item)) {
+              deselect(item, true);
+            } else {
+              select(item);
+            }
+          };
+        }
+      },
+      [OPERATIONS.CREATE]: {
+        getters: [
+          [SETS.ITEMS, STATES.NEW]
+        ],
+        setters: [
+          [SETS.ITEMS, STATES.NEW]
+        ],
+        factory: (
+          getNewItems,
+          setNewItems
+        ) =&gt; {
+          return (item) =&gt; {
+            const newItem = {
+              ...item
+            };
+            const newItemList = getNewItems() || [];
+            const newNewItemList = [
+              newItem,
+              ...newItemList
+            ];
+
+            delete newItem[primaryKey];
+
+            setNewItems(newNewItemList);
+
+            return newItem;
+          };
+        }
+      },
+      [OPERATIONS.READ]: {
+        getters: [
+          [SETS.ITEMS, STATES.CHANGED],
+          [SETS.ITEMS, STATES.EXISTING]
+        ],
+        factory: (
+          getChangedItems,
+          getExistingItems
+        ) =&gt; {
+          return (key, existingOnly = false) =&gt; {
+            const {[key]: changedItem} = getChangedItems() || {};
+            const {[key]: existingItem} = getExistingItems() || {};
+
+            return existingOnly ?
+              existingItem :
+              (
+                !!changedItem ?
+                  changedItem :
+                  existingItem
+              );
+          };
+        }
+      },
+      [OPERATIONS.UPDATE]: {
+        required: [
+          [OPERATIONS.IS, STATES.NEW]
+        ],
+        getters: [
+          [SETS.ITEMS, STATES.SELECTED],
+          [SETS.ITEMS, STATES.NEW],
+          [SETS.ITEMS, STATES.EXISTING],
+          [SETS.ITEMS, STATES.CHANGED]
+        ],
+        setters: [
+          [SETS.ITEMS, STATES.SELECTED],
+          [SETS.ITEMS, STATES.NEW],
+          [SETS.ITEMS, STATES.CHANGED]
+        ],
+        factory: (
+          itemIsNew,
+          getSelectedItems,
+          getNewItems,
+          getExistingItems,
+          getChangedItems,
+          setSelectedItems,
+          setNewItems,
+          setChangedItems
+        ) =&gt; {
+          return (newItem, oldItem) =&gt; {
+            const selectedItemsList = getSelectedItems() || [];
+            const replaceSelected = {};
+
+            if (itemIsNew(oldItem)) {
+              const newItemsList = getNewItems() || [];
+              const newNewItemsList = [];
+
+              for (let i = 0; i &lt; newItemsList.length; i++) {
+                const itemInNew = newItemsList[i];
+
+                if (oldItem === itemInNew) {
+                  const selectedItemIndex = selectedItemsList.indexOf(oldItem);
+
+                  newNewItemsList.push(newItem);
+
+                  if (selectedItemIndex !== -1) {
+                    replaceSelected[selectedItemIndex] = newItem;
+                  }
+                } else {
+                  newNewItemsList.push(itemInNew);
+                }
+              }
+
+              setNewItems(newNewItemsList);
+            } else {
+              const {[primaryKey]: key} = newItem;
+              const changedItemsMap = getChangedItems() || {};
+              const existingItemsMap = getExistingItems() || {};
+              const oldChangedItem = changedItemsMap[key];
+              const oldExistingItem = existingItemsMap[key];
+              const newChangedItemsMap = {
+                [key]: newItem,
+                ...changedItemsMap
+              };
+              const changedSelectedItemIndex = selectedItemsList.indexOf(oldChangedItem);
+              const existingSelectedItemIndex = selectedItemsList.indexOf(oldExistingItem);
+
+              setChangedItems(newChangedItemsMap);
+
+              if (changedSelectedItemIndex !== -1) {
+                replaceSelected[changedSelectedItemIndex] = newItem;
+              } else if (existingSelectedItemIndex !== -1) {
+                replaceSelected[existingSelectedItemIndex] = newItem;
+              }
+            }
+
+            setSelectedItems(updateList(selectedItemsList, replaceSelected));
+          };
+        }
+      },
+      [OPERATIONS.DELETE]: {
+        required: [
+          [OPERATIONS.IS, STATES.NEW],
+          [OPERATIONS.IS, STATES.CHANGED],
+          OPERATIONS.DESELECT
+        ],
+        getters: [
+          [SETS.ITEMS, STATES.NEW],
+          [SETS.ITEMS, STATES.CHANGED],
+          [SETS.ITEMS, STATES.DELETED]
+        ],
+        setters: [
+          [SETS.ITEMS, STATES.NEW],
+          [SETS.ITEMS, STATES.CHANGED],
+          [SETS.ITEMS, STATES.DELETED]
+        ],
+        factory: (
+          itemIsNew,
+          itemIsChanged,
+          deselectItem,
+          getNewItems,
+          getChangedItems,
+          getDeletedItems,
+          setNewItems,
+          setChangedItems,
+          setDeletedItems
+        ) =&gt; {
+          return (item) =&gt; {
+            if (itemIsNew(item)) {
+              const newItemsList = getNewItems() || [];
+              const newNewItemsList = [];
+
+              for (let i = 0; i &lt; newItemsList.length; i++) {
+                const itemInNew = newItemsList[i];
+
+                if (item !== itemInNew) {
+                  newNewItemsList.push(itemInNew);
+                }
+              }
+
+              setNewItems(newNewItemsList);
+            } else {
+              const {[primaryKey]: key} = item;
+              const deletedItemsMap = getDeletedItems() || {};
+              const newDeletedItemsMap = {
+                [key]: item,
+                ...deletedItemsMap
+              };
+
+              if (itemIsChanged(item)) {
+                // TRICKY: IMPORTANT: Remove any changed item so that they are not reconciled.
+                const changedItemsMap = getChangedItems() || {};
+                const newChangedItemsMap = {...changedItemsMap};
+
+                delete newChangedItemsMap[key];
+
+                setChangedItems(newChangedItemsMap);
+              }
+
+              setDeletedItems(newDeletedItemsMap);
+            }
+
+            deselectItem(item, true);
+          };
+        }
+      }
+    };
+
+    return (
+      &lt;Incarnate
+        {...props}
+        name={name}
+        map={map}
+      /&gt;
+    );
+  }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

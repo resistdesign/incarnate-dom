@@ -16,7 +16,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:demo": "rdx serve",
-    "build:demo": "rdx compile -o docs && cp src/CNAME docs/CNAME"
+    "build:demo": "rdx compile -o docs && cp src/CNAME docs/CNAME",
+    "doc": "esdoc",
+    "build:all": "npm run build:demo && npm run doc"
   },
   "author": "Ryan T. Graff",
   "license": "MIT",
@@ -34,6 +36,10 @@
   },
   "homepage": "https://github.com/resistdesign/incarnate-dom#readme",
   "dependencies": {
+    "esdoc": "^1.0.4",
+    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
+    "esdoc-jsx-plugin": "^1.0.0",
+    "esdoc-standard-plugin": "^1.0.0",
     "incarnate": "^5.2.1",
     "prop-types": "^15.6.2",
     "query-string": "^6.2.0",
