@@ -1,7 +1,7 @@
 import T from 'prop-types';
 import ReactDOM from 'react-dom';
 import React, {Component} from 'react';
-import {Consumer} from '../Context';
+import {Consumer} from '../src/Context';
 import IncarnateProper from 'incarnate';
 import DefaultStyle from '!raw!resistdesign-default-style';
 import {cleanDataStructure} from './Tree/Utils';
