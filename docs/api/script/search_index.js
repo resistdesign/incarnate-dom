@@ -396,16 +396,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/control/explicitlycachedvalue.jsx~explicitlycachedvalue#changehandlerset",
-    "class/src/Control/ExplicitlyCachedValue.jsx~ExplicitlyCachedValue.html#instance-member-changeHandlerSet",
-    "src/Control/ExplicitlyCachedValue.jsx~ExplicitlyCachedValue#changeHandlerSet",
-    "member"
+    "src/control/explicitlycachedvalue.jsx~explicitlycachedvalue#componentwillunmount",
+    "class/src/Control/ExplicitlyCachedValue.jsx~ExplicitlyCachedValue.html#instance-method-componentWillUnmount",
+    "src/Control/ExplicitlyCachedValue.jsx~ExplicitlyCachedValue#componentWillUnmount",
+    "method"
   ],
   [
     "src/control/explicitlycachedvalue.jsx~explicitlycachedvalue#render",
     "class/src/Control/ExplicitlyCachedValue.jsx~ExplicitlyCachedValue.html#instance-method-render",
     "src/Control/ExplicitlyCachedValue.jsx~ExplicitlyCachedValue#render",
     "method"
+  ],
+  [
+    "src/control/explicitlycachedvalue.jsx~explicitlycachedvalue#unlisten",
+    "class/src/Control/ExplicitlyCachedValue.jsx~ExplicitlyCachedValue.html#instance-member-unlisten",
+    "src/Control/ExplicitlyCachedValue.jsx~ExplicitlyCachedValue#unlisten",
+    "member"
   ],
   [
     "src/control/explicitlycachedvalue.jsx~explicitlycachedvalue#value",

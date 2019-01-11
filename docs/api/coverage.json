@@ -1,6 +1,6 @@
 {
-  "coverage": "2.05%",
-  "expectCount": 146,
+  "coverage": "2.04%",
+  "expectCount": 147,
   "actualCount": 3,
   "files": {
     "src/Context.jsx": {
@@ -48,13 +48,14 @@
       ]
     },
     "src/Control/ExplicitlyCachedValue.jsx": {
-      "expectCount": 5,
+      "expectCount": 6,
       "actualCount": 1,
       "undocumentLines": [
         10,
         15,
         16,
-        18
+        18,
+        24
       ]
     },
     "src/Control/Memoize.jsx": {

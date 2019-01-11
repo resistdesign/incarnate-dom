@@ -82,8 +82,14 @@ export default class ExplicitlyCachedValue extends Component {
     dependencyPath: T.string
   };
 
-  value = undefined;
-  changeHandlerSet = false;
+  value;
+  unlisten;
+
+  componentWillUnmount() {
+    if (this.unlisten instanceof Function) {
+      this.unlisten();
+    }
+  }
 
   render() {
     const {
@@ -109,10 +115,8 @@ export default class ExplicitlyCachedValue extends Component {
                     onValueChange,
                     setCachedValue
                   } = {}) =&gt; {
-          if (!this.changeHandlerSet) {
-            this.changeHandlerSet = true;
-
-            onValueChange(() =&gt; {
+          if (!(this.unlisten instanceof Function)) {
+            this.unlisten = onValueChange(() =&gt; {
               const depValue = getValue();
 
               if (typeof depValue !== &apos;undefined&apos;) {
