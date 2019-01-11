@@ -1,5 +1,5 @@
 import T from 'prop-types';
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import {LifePod} from '../index';
 
 function getCleanIndex(index = 0) {
@@ -9,7 +9,7 @@ function getCleanIndex(index = 0) {
   return repairedIndex < 0 ? 0 : repairedIndex;
 }
 
-export default class Collection extends PureComponent {
+export default class Collection extends Component {
   static propTypes = {
     name: T.string,
     dependencyPath: T.oneOfType([

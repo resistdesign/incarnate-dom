@@ -69,7 +69,7 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/Control/Collection.jsx</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import T from &apos;prop-types&apos;;
-import React, {PureComponent} from &apos;react&apos;;
+import React, {Component} from &apos;react&apos;;
 import {LifePod} from &apos;../index&apos;;
 
 function getCleanIndex(index = 0) {
@@ -79,7 +79,7 @@ function getCleanIndex(index = 0) {
   return repairedIndex &lt; 0 ? 0 : repairedIndex;
 }
 
-export default class Collection extends PureComponent {
+export default class Collection extends Component {
   static propTypes = {
     name: T.string,
     dependencyPath: T.oneOfType([
