@@ -1,9 +1,16 @@
-import QueryString from 'query-string';
+import QS from 'qs';
 import T from 'prop-types';
 import React, {Component} from 'react';
 import {Route} from 'react-router-dom';
 import {Provider, Consumer} from './RoutingContext';
 import Incarnate, {LifePod} from '../index';
+
+const QS_OPTIONS = {
+  ignoreQueryPrefix: true,
+  depth: Infinity,
+  parameterLimit: Infinity,
+  allowDots: true
+};
 
 const URL_DELIMITER = '/';
 const CLASS_IDENTIFIER = {};
@@ -33,11 +40,16 @@ export function getParamsObjectFromRouteProps({match: {params} = {}} = {}) {
 }
 
 export function getQueryObjectFromRouteProps({location: {search = ''} = {}} = {}) {
-  return QueryString.parse(
+  return QS.parse(
     search,
-    {
-      arrayFormat: 'bracket'
-    }
+    QS_OPTIONS
+  );
+}
+
+export function createQueryString(query = {}) {
+  return QS.stringify(
+    query,
+    QS_OPTIONS
   );
 }
 
@@ -75,7 +87,22 @@ export default class IncarnateRoute extends Component {
                 const newRouteProps = {
                   ...routeProps,
                   params: getParamsObjectFromRouteProps(routeProps),
-                  query: getQueryObjectFromRouteProps(routeProps)
+                  query: getQueryObjectFromRouteProps(routeProps),
+                  setQuery: (query = {}) => {
+                    const {
+                      history,
+                      location: {
+                        pathname
+                      } = {}
+                    } = routeProps || {};
+
+                    if (!!history) {
+                      history.push({
+                        pathname,
+                        search: createQueryString(query)
+                      });
+                    }
+                  }
                 };
                 const newRoutePropsList = [
                   newRouteProps,

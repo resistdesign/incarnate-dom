@@ -1,6 +1,6 @@
 {
-  "coverage": "2.04%",
-  "expectCount": 147,
+  "coverage": "2.01%",
+  "expectCount": 149,
   "actualCount": 3,
   "files": {
     "src/Context.jsx": {
@@ -178,20 +178,22 @@
       ]
     },
     "src/Routing/IncarnateRoute.jsx": {
-      "expectCount": 11,
+      "expectCount": 13,
       "actualCount": 0,
       "undocumentLines": [
         8,
-        9,
-        11,
+        15,
         16,
-        31,
-        35,
-        44,
-        47,
-        48,
-        53,
-        57
+        18,
+        23,
+        38,
+        42,
+        49,
+        56,
+        59,
+        60,
+        65,
+        69
       ]
     },
     "src/Routing/IncarnateRouter.jsx": {

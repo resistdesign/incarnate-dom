@@ -120,6 +120,12 @@ export class Demo extends Component {
                 >
                   Multiply
                 </button>
+                &nbsp;
+                <button
+                  onClick={() => history.push('/query-interactions')}
+                >
+                  Query Interactions
+                </button>
                 <br/>
                 <br/>
               </div>
@@ -257,6 +263,34 @@ export class Demo extends Component {
                       onChange={({target: {value = 'feet'} = {}} = {}) => history.push(`/multiply/${x}/${y}?units=${value}`)}
                     />
                   </div>
+                )}
+              </LifePod>
+            </IncarnateRoute>
+            <IncarnateRoute
+              subPath='query-interactions'
+            >
+              <LifePod
+                dependencies={{
+                  routeProps: 'ROUTE_PROPS'
+                }}
+              >
+                {({routeProps: {query = {}, setQuery} = {}} = {}) => (
+                  <textarea
+                    cols={50}
+                    rows={20}
+                    defaultValue={JSON.stringify(query, null, '  ')}
+                    onChange={({target: {value = ''} = {}} = {}) => {
+                      try {
+                        setQuery(
+                          JSON.parse(value)
+                        );
+                      } catch (error) {
+                        // Ignore.
+                      }
+                    }}
+                  >
+
+                  </textarea>
                 )}
               </LifePod>
             </IncarnateRoute>

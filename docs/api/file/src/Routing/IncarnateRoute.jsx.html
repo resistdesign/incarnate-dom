@@ -57,6 +57,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Routing/IncarnateRoute.jsx~IncarnateRoute.html">IncarnateRoute</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Routing/IncarnateRouter.jsx~IncarnateRouter.html">IncarnateRouter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Routing/IncarnateSwitch.jsx~IncarnateSwitch.html">IncarnateSwitch</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createQueryString">createQueryString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getParamsObjectFromRouteProps">getParamsObjectFromRouteProps</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getQueryObjectFromRouteProps">getQueryObjectFromRouteProps</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getUrl">getUrl</a></span></span></li>
@@ -68,12 +69,19 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/Routing/IncarnateRoute.jsx</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import QueryString from &apos;query-string&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import QS from &apos;qs&apos;;
 import T from &apos;prop-types&apos;;
 import React, {Component} from &apos;react&apos;;
 import {Route} from &apos;react-router-dom&apos;;
 import {Provider, Consumer} from &apos;./RoutingContext&apos;;
 import Incarnate, {LifePod} from &apos;../index&apos;;
+
+const QS_OPTIONS = {
+  ignoreQueryPrefix: true,
+  depth: Infinity,
+  parameterLimit: Infinity,
+  allowDots: true
+};
 
 const URL_DELIMITER = &apos;/&apos;;
 const CLASS_IDENTIFIER = {};
@@ -103,11 +111,16 @@ export function getParamsObjectFromRouteProps({match: {params} = {}} = {}) {
 }
 
 export function getQueryObjectFromRouteProps({location: {search = &apos;&apos;} = {}} = {}) {
-  return QueryString.parse(
+  return QS.parse(
     search,
-    {
-      arrayFormat: &apos;bracket&apos;
-    }
+    QS_OPTIONS
+  );
+}
+
+export function createQueryString(query = {}) {
+  return QS.stringify(
+    query,
+    QS_OPTIONS
   );
 }
 
@@ -145,7 +158,22 @@ export default class IncarnateRoute extends Component {
                 const newRouteProps = {
                   ...routeProps,
                   params: getParamsObjectFromRouteProps(routeProps),
-                  query: getQueryObjectFromRouteProps(routeProps)
+                  query: getQueryObjectFromRouteProps(routeProps),
+                  setQuery: (query = {}) =&gt; {
+                    const {
+                      history,
+                      location: {
+                        pathname
+                      } = {}
+                    } = routeProps || {};
+
+                    if (!!history) {
+                      history.push({
+                        pathname,
+                        search: createQueryString(query)
+                      });
+                    }
+                  }
                 };
                 const newRoutePropsList = [
                   newRouteProps,
