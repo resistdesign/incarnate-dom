@@ -174,6 +174,12 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "incarnate-dom/src/routing/incarnateroute.jsx~createquerystring",
+    "function/index.html#static-function-createQueryString",
+    "<span>createQueryString</span> <span class=\"search-result-import-path\">incarnate-dom/src/Routing/IncarnateRoute.jsx</span>",
+    "function"
+  ],
+  [
     "incarnate-dom/src/utils/getdefaultmapkeydelimiter.jsx~getdefaultmapkeydelimiter",
     "function/index.html#static-function-getDefaultMapKeyDelimiter",
     "<span>getDefaultMapKeyDelimiter</span> <span class=\"search-result-import-path\">incarnate-dom/src/Utils/getDefaultMapKeyDelimiter.jsx</span>",
