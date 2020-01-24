@@ -3,6 +3,7 @@ import React, {Component, Fragment} from 'react';
 import IncarnateProper from 'incarnate';
 import ValueRenderer from './Popup/ValueRenderer';
 import {cleanDataStructure} from './Utils';
+import {DefaultStyle} from '../Style/Default';
 
 export default class Popup extends Component {
   static propTypes = {
@@ -111,44 +112,47 @@ export default class Popup extends Component {
     const fullSearchPath = this.getFullDependencyPath(search);
 
     return (
-      <main
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'stretch',
-          justifyContent: 'flex-start'
-        }}
-      >
-        <input
-          type='search'
-          placeholder='Search'
+      <Fragment>
+        <DefaultStyle/>
+        <main
           style={{
-            flex: 1
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'stretch',
+            justifyContent: 'flex-start'
           }}
-          value={search}
-          onChange={this.onSearchChange}
-        />
-        <br/>
-        {!!search ?
-          (
-            <Fragment>
-              <div
-                style={{
-                  color: '#aaaaaa',
-                  wordBreak: 'break-word'
-                }}
-              >
-                &nbsp;Search Path: {fullSearchPath}
-              </div>
-              <br/>
-            </Fragment>
-          ) :
-          undefined}
-        <ValueRenderer
-          value={data}
-          onPathChange={this.onPathChange}
-        />
-      </main>
+        >
+          <input
+            type='search'
+            placeholder='Search'
+            style={{
+              flex: 1
+            }}
+            value={search}
+            onChange={this.onSearchChange}
+          />
+          <br/>
+          {!!search ?
+            (
+              <Fragment>
+                <div
+                  style={{
+                    color: '#aaaaaa',
+                    wordBreak: 'break-word'
+                  }}
+                >
+                  &nbsp;Search Path: {fullSearchPath}
+                </div>
+                <br/>
+              </Fragment>
+            ) :
+            undefined}
+          <ValueRenderer
+            value={data}
+            onPathChange={this.onPathChange}
+          />
+        </main>
+      </Fragment>
     );
   }
 }

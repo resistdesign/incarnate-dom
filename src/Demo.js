@@ -1,6 +1,5 @@
 import {hot} from 'react-hot-loader';
 import React, {Component} from 'react';
-import Style from './Demo.less';
 import {
   Memoize,
   Traverse,
@@ -12,14 +11,10 @@ import {
 } from './index';
 import Tree from '../Monitoring/Tree';
 
-const {Demo: ClassName} = Style;
-
 export class Demo extends Component {
   render() {
     return (
-      <div
-        className={`Demo ${ClassName}`}
-      >
+      <div>
         <IncarnateRouter
           name='Demo'
           incarnateInstanceRef={inc => window.INC = inc}
