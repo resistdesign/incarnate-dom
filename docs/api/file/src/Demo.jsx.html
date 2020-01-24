@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/Demo.jsx | incarnate-dom</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Integrate Incarnate with React and React Router DOM."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="incarnate-dom"><meta property="twitter:description" content="Integrate Incarnate with React and React Router DOM."></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/resistdesign/incarnate-dom"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Demo.jsx~Demo.html">Demo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Incarnate.jsx~Incarnate.html">Incarnate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/LifePod.jsx~LifePod.html">LifePod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Provider">Provider</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Collection">Collection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ExplicitlyCachedValue">ExplicitlyCachedValue</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Incarnate">Incarnate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IncarnateRedirect">IncarnateRedirect</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IncarnateRoute">IncarnateRoute</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IncarnateRouter">IncarnateRouter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IncarnateSwitch">IncarnateSwitch</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LifePod">LifePod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Memoize">Memoize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Traverse">Traverse</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#control">Control</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Control/Collection.jsx~Collection.html">Collection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Control/ExplicitlyCachedValue.jsx~ExplicitlyCachedValue.html">ExplicitlyCachedValue</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Control/Memoize.jsx~Memoize.html">Memoize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Control/Traverse.jsx~Traverse.html">Traverse</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#future">Future</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Future/ItemState.jsx~ItemState.html">ItemState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Future/ItemStateController.jsx~ItemStateController.html">ItemStateController</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateList">updateList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DEFAULT_PRIMARY_KEY">DEFAULT_PRIMARY_KEY</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-OPERATIONS">OPERATIONS</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SETS">SETS</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-STATES">STATES</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#routing">Routing</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Routing/IncarnateRedirect.jsx~IncarnateRedirect.html">IncarnateRedirect</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Routing/IncarnateRoute.jsx~IncarnateRoute.html">IncarnateRoute</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Routing/IncarnateRouter.jsx~IncarnateRouter.html">IncarnateRouter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Routing/IncarnateSwitch.jsx~IncarnateSwitch.html">IncarnateSwitch</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createQueryString">createQueryString</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getParamsObjectFromRouteProps">getParamsObjectFromRouteProps</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getQueryObjectFromRouteProps">getQueryObjectFromRouteProps</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getUrl">getUrl</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PATH_NAMES">PATH_NAMES</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Provider">Provider</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">Utils</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getDefaultMapKeyDelimiter">getDefaultMapKeyDelimiter</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/Demo.jsx</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {hot} from &apos;react-hot-loader&apos;;
+import React, {Component, StrictMode} from &apos;react&apos;;
+import {
+  Memoize,
+  Traverse,
+  IncarnateRouter,
+  IncarnateSwitch,
+  IncarnateRoute,
+  Incarnate,
+  LifePod
+} from &apos;./index&apos;;
+import Tree from &apos;../Monitoring/Tree&apos;;
+
+const MULTIPLICATION_VALUE_FILTER = n =&gt; typeof n === &apos;number&apos;;
+
+export class Demo extends Component {
+  render() {
+    return (
+      &lt;StrictMode&gt;
+        &lt;div&gt;
+          &lt;IncarnateRouter
+            name=&apos;Demo&apos;
+            incarnateInstanceRef={inc =&gt; window.INC = inc}
+          &gt;
+            &lt;Incarnate
+              name=&apos;State&apos;
+              shared={{
+                ROUTE_PROPS: &apos;ROUTE_PROPS&apos;
+              }}
+            &gt;
+              &lt;LifePod
+                name=&apos;RandomRange&apos;
+                factory={() =&gt; 10}
+              /&gt;
+              &lt;Incarnate
+                name=&apos;Multiply&apos;
+                shared={{
+                  ROUTE_PROPS: &apos;ROUTE_PROPS&apos;
+                }}
+              &gt;
+                &lt;LifePod
+                  name=&apos;X&apos;
+                  dependencies={{
+                    routeProps: &apos;ROUTE_PROPS&apos;
+                  }}
+                  factory={({
+                              routeProps: {
+                                match: {
+                                  params: {
+                                    x
+                                  } = {}
+                                } = {}
+                              } = {}
+                            } = {}) =&gt; {
+                    const parsed = parseFloat(x);
+
+                    return isNaN(parsed) ? undefined : parsed;
+                  }}
+                /&gt;
+                &lt;Memoize
+                  name=&apos;MemX&apos;
+                  dependencyPath=&apos;X&apos;
+                  filter={MULTIPLICATION_VALUE_FILTER}
+                /&gt;
+                &lt;LifePod
+                  name=&apos;Y&apos;
+                  dependencies={{
+                    routeProps: &apos;ROUTE_PROPS&apos;
+                  }}
+                  factory={({
+                              routeProps: {
+                                match: {
+                                  params: {
+                                    y
+                                  } = {}
+                                } = {}
+                              } = {}
+                            } = {}) =&gt; {
+                    const parsed = parseFloat(y);
+
+                    return isNaN(parsed) ? undefined : parsed;
+                  }}
+                /&gt;
+                &lt;Memoize
+                  name=&apos;MemY&apos;
+                  dependencyPath=&apos;Y&apos;
+                  filter={MULTIPLICATION_VALUE_FILTER}
+                /&gt;
+              &lt;/Incarnate&gt;
+            &lt;/Incarnate&gt;
+            &lt;Incarnate
+              name=&apos;Data&apos;
+              shared={{
+                State: &apos;State&apos;
+              }}
+            &gt;
+              &lt;LifePod
+                name=&apos;RandomNumber&apos;
+                dependencies={{
+                  range: &apos;State.RandomRange&apos;
+                }}
+                factory={({range = 0} = {}) =&gt; Math.random() * range}
+              /&gt;
+              &lt;LifePod
+                name=&apos;Product&apos;
+                dependencies={{
+                  x: &apos;State.Multiply.X&apos;,
+                  y: &apos;State.Multiply.Y&apos;
+                }}
+                factory={({x = 2, y = 2} = {}) =&gt; x * y}
+              /&gt;
+            &lt;/Incarnate&gt;
+            &lt;LifePod
+              name=&apos;MultiplyNavValues&apos;
+              dependencies={{
+                x: &apos;State.Multiply.X&apos;,
+                y: &apos;State.Multiply.Y&apos;,
+                memX: &apos;State.Multiply.MemX&apos;,
+                memY: &apos;State.Multiply.MemY&apos;
+              }}
+              factory={({
+                          x,
+                          y,
+                          memX = [],
+                          memY = []
+                        }) =&gt; ({
+                x: typeof x !== &apos;number&apos; ? [...memX].pop() : x,
+                y: typeof y !== &apos;number&apos; ? [...memY].pop() : y
+              })}
+            /&gt;
+            &lt;LifePod
+              dependencies={{
+                multiplyNavValues: &apos;MultiplyNavValues&apos;,
+                history: &apos;ROUTE_PROPS.history&apos;
+              }}
+            &gt;
+              {({
+                  multiplyNavValues: {
+                    x = 2,
+                    y = 2
+                  } = {},
+                  history
+                } = {}) =&gt; (
+                &lt;div&gt;
+                  &lt;button
+                    onClick={() =&gt; history.push(&apos;/random&apos;)}
+                  &gt;
+                    Random Number
+                  &lt;/button&gt;
+                  &amp;nbsp;
+                  &lt;button
+                    onClick={() =&gt; history.push(`/multiply/${x}/${y}`)}
+                  &gt;
+                    Multiply
+                  &lt;/button&gt;
+                  &amp;nbsp;
+                  &lt;button
+                    onClick={() =&gt; history.push(&apos;/query-interactions&apos;)}
+                  &gt;
+                    Query Interactions
+                  &lt;/button&gt;
+                  &lt;br/&gt;
+                  &lt;br/&gt;
+                &lt;/div&gt;
+              )}
+            &lt;/LifePod&gt;
+            &lt;Memoize
+              name=&apos;RandomRangeHistory&apos;
+              dependencyPath=&apos;State.RandomRange&apos;
+            /&gt;
+            &lt;IncarnateSwitch
+              defaultSubPath=&apos;random&apos;
+            &gt;
+              &lt;IncarnateRoute
+                subPath=&apos;random&apos;
+              &gt;
+                &lt;Traverse
+                  name=&apos;RandomRangeHistoryController&apos;
+                  dependencyPath=&apos;State.RandomRange&apos;
+                /&gt;
+                &lt;LifePod
+                  dependencies={{
+                    randomRange: &apos;State.RandomRange&apos;,
+                    randomRangeHistory: &apos;RandomRangeHistory&apos;,
+                    randomRangeHistoryController: &apos;RandomRangeHistoryController&apos;,
+                    random: &apos;Data.RandomNumber&apos;,
+                  }}
+                  setters={{
+                    setRandomRange: &apos;State.RandomRange&apos;
+                  }}
+                  invalidators={{
+                    invalidateRandom: &apos;Data.RandomNumber&apos;
+                  }}
+                &gt;
+                  {({
+                      randomRange = &apos;&apos;,
+                      randomRangeHistory = [],
+                      randomRangeHistoryController,
+                      random = 0,
+                      setRandomRange,
+                      invalidateRandom
+                    } = {}) =&gt; (
+                    &lt;div&gt;
+                      Random Number: {random}
+                      &lt;br/&gt;
+                      &lt;br/&gt;
+                      Random Range:
+                      &lt;br/&gt;
+                      &lt;input
+                        type=&apos;number&apos;
+                        value={randomRange}
+                        onChange={({target: {value} = {}} = {}) =&gt; setRandomRange(parseFloat(value))}
+                      /&gt;
+                      &amp;nbsp;
+                      &lt;button
+                        onClick={() =&gt; invalidateRandom()}
+                      &gt;
+                        Regenerate
+                      &lt;/button&gt;
+                      &lt;br/&gt;
+                      &lt;br/&gt;
+                      &lt;button
+                        onClick={randomRangeHistoryController.back}
+                        disabled={!randomRangeHistoryController.canUndo()}
+                      &gt;
+                        Undo
+                      &lt;/button&gt;
+                      &amp;nbsp;
+                      &lt;button
+                        onClick={randomRangeHistoryController.forward}
+                        disabled={!randomRangeHistoryController.canRedo()}
+                      &gt;
+                        Redo
+                      &lt;/button&gt;
+                      &lt;br/&gt;
+                      &lt;br/&gt;
+                      Random Range History:
+                      &lt;br/&gt;
+                      {randomRangeHistory.map((v, i) =&gt; (
+                        &lt;div
+                          key={`Value:${i}`}
+                        &gt;
+                          {v}
+                        &lt;/div&gt;
+                      ))}
+                    &lt;/div&gt;
+                  )}
+                &lt;/LifePod&gt;
+              &lt;/IncarnateRoute&gt;
+              &lt;IncarnateRoute
+                subPath=&apos;multiply/:x/:y&apos;
+              &gt;
+                &lt;LifePod
+                  dependencies={{
+                    x: &apos;State.Multiply.X&apos;,
+                    y: &apos;State.Multiply.Y&apos;,
+                    product: &apos;Data.Product&apos;,
+                    routeProps: &apos;ROUTE_PROPS&apos;
+                  }}
+                &gt;
+                  {({
+                      x = 2,
+                      y = 2,
+                      product = 0,
+                      routeProps: {
+                        history,
+                        query: {
+                          units = &apos;feet&apos;
+                        } = {}
+                      } = {}
+                    } = {}) =&gt; (
+                    &lt;div&gt;
+                      Product: {product} {units}
+                      &lt;br/&gt;
+                      &lt;br/&gt;
+                      &lt;input
+                        type=&apos;number&apos;
+                        value={x}
+                        onChange={({target: {value = 0} = {}} = {}) =&gt; history.push(`/multiply/${value}/${y}`)}
+                      /&gt;
+                      &amp;nbsp;
+                      *
+                      &amp;nbsp;
+                      &lt;input
+                        type=&apos;number&apos;
+                        value={y}
+                        onChange={({target: {value = 0} = {}} = {}) =&gt; history.push(`/multiply/${x}/${value}`)}
+                      /&gt;
+                      &lt;br/&gt;
+                      &lt;br/&gt;
+                      Units:
+                      &amp;nbsp;
+                      &lt;input
+                        type=&apos;text&apos;
+                        value={units}
+                        onChange={({target: {value = &apos;feet&apos;} = {}} = {}) =&gt; history.push(`/multiply/${x}/${y}?units=${value}`)}
+                      /&gt;
+                    &lt;/div&gt;
+                  )}
+                &lt;/LifePod&gt;
+              &lt;/IncarnateRoute&gt;
+              &lt;IncarnateRoute
+                subPath=&apos;query-interactions&apos;
+              &gt;
+                &lt;LifePod
+                  dependencies={{
+                    routeProps: &apos;ROUTE_PROPS&apos;
+                  }}
+                &gt;
+                  {({routeProps: {query = {}, setQuery} = {}} = {}) =&gt; (
+                    &lt;textarea
+                      cols={50}
+                      rows={20}
+                      defaultValue={JSON.stringify(query, null, &apos;  &apos;)}
+                      onChange={({target: {value = &apos;&apos;} = {}} = {}) =&gt; {
+                        try {
+                          setQuery(
+                            JSON.parse(value)
+                          );
+                        } catch (error) {
+                          // Ignore.
+                        }
+                      }}
+                    &gt;
+
+                  &lt;/textarea&gt;
+                  )}
+                &lt;/LifePod&gt;
+              &lt;/IncarnateRoute&gt;
+            &lt;/IncarnateSwitch&gt;
+            &lt;Tree
+              dependencyPath=&apos;Data&apos;
+              popup
+            /&gt;
+            &lt;Tree
+              dependencyPath=&apos;State&apos;
+              popup
+            /&gt;
+            &lt;Tree
+              popup
+            /&gt;
+          &lt;/IncarnateRouter&gt;
+        &lt;/div&gt;
+      &lt;/StrictMode&gt;
+    );
+  }
+}
+
+export default hot(module)(Demo);
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

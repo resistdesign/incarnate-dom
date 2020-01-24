@@ -29,7 +29,8 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Incarnate.jsx~Incarnate.html">Incarnate</a></span></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Demo.jsx~Demo.html">Demo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Incarnate.jsx~Incarnate.html">Incarnate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/LifePod.jsx~LifePod.html">LifePod</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Provider">Provider</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Collection">Collection</a></span></span></li>
@@ -105,22 +106,6 @@ function getFactoryFromProps(props = {}) {
     factory;
 }
 
-function getMergedDependencies({
-                                 dependencies,
-                                 getters,
-                                 setters,
-                                 invalidators,
-                                 listeners
-                               } = {}) {
-  return {
-    ...dependencies,
-    ...getters,
-    ...setters,
-    ...invalidators,
-    ...listeners
-  };
-}
-
 export default class LifePod extends Component {
   static DEFAULT_MAP_KEY = &apos;__LIFEPODS__&apos;;
   static propTypes = {
@@ -160,14 +145,13 @@ export default class LifePod extends Component {
     mapToProps: DEFAULT_FACTORY
   };
 
-  mounted = false;
-
   parentIncarnate;
   lifePod;
 
   _lifePodHashMatrixKey;
 
-  rendering = false;
+  storedChildProps;
+  unmounted = false;
 
   constructor(props) {
     super(props);
@@ -176,27 +160,10 @@ export default class LifePod extends Component {
     LIFEPOD_COUNT++;
   }
 
-  state = {
-    childProps: undefined
-  };
-
-  componentWillMount() {
-    this.mounted = true;
-  }
-
   componentWillUnmount() {
-    this.mounted = false;
+    this.unmounted = true;
 
     this.setLifePod(undefined);
-  }
-
-  initializeRendering() {
-    // TRICKY: If `rendering` is `true`, then it is already being managed.
-    if (!this.rendering) {
-      this.rendering = true;
-
-      setTimeout(() =&gt; this.rendering = false, 0);
-    }
   }
 
   setLifePod(lifePod) {
@@ -227,7 +194,7 @@ export default class LifePod extends Component {
             ...otherArgs
           ] = args || [];
 
-          return factory(getMergedDependencies(rawDependencies), ...otherArgs);
+          return factory(rawDependencies, ...otherArgs);
         }
       };
 
@@ -280,21 +247,6 @@ export default class LifePod extends Component {
     return this.lifePod;
   }
 
-  safeSetState = (...args) =&gt; {
-    if (this.mounted) {
-      if (!this.rendering) {
-        try {
-          // IMPORTANT: Don&apos;t break the rendering cycle.
-          this.setState(...args);
-        } catch (error) {
-          // Ignore.
-        }
-      } else {
-        setTimeout(() =&gt; this.safeSetState(...args), 0);
-      }
-    }
-  };
-
   handleResolveError = (error) =&gt; {
     const {handleResolveError} = this.props;
 
@@ -329,9 +281,11 @@ export default class LifePod extends Component {
   }
 
   onChildPropsChange = () =&gt; {
-    this.safeSetState({
-      childProps: this.getChildProps()
-    });
+    setTimeout(() =&gt; {
+      if (!this.unmounted) {
+        this.forceUpdate();
+      }
+    }, 0);
   };
 
   renderChildren() {
@@ -341,10 +295,11 @@ export default class LifePod extends Component {
     } = this.props;
     const factory = getFactoryFromProps(this.props);
     const currentChildProps = this.getChildProps();
-    const {childProps: childPropsFromState} = this.state;
     const childProps = typeof currentChildProps !== &apos;undefined&apos; &amp;&amp; alwaysRender ?
-      childPropsFromState :
+      this.storedChildProps :
       currentChildProps;
+
+    this.storedChildProps = childProps;
 
     if (typeof childProps !== &apos;undefined&apos; || alwaysRender) {
       if (children instanceof Function) {
@@ -376,8 +331,6 @@ export default class LifePod extends Component {
       mapToProps,
       ...dependencyDeclaration
     } = this.props;
-
-    this.initializeRendering();
 
     return (
       &lt;Consumer&gt;

@@ -29,7 +29,8 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Incarnate.jsx~Incarnate.html">Incarnate</a></span></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Demo.jsx~Demo.html">Demo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Incarnate.jsx~Incarnate.html">Incarnate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/LifePod.jsx~LifePod.html">LifePod</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Provider">Provider</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Collection">Collection</a></span></span></li>
@@ -73,6 +74,8 @@
 import React, {Component} from &apos;react&apos;;
 import {LifePod} from &apos;../index&apos;;
 
+const defaultFilter = () =&gt; true;
+
 export default class Memoize extends Component {
   static propTypes = {
     name: T.string,
@@ -81,7 +84,8 @@ export default class Memoize extends Component {
       T.arrayOf(
         T.string
       )
-    ])
+    ]),
+    filter: T.func
   };
 
   value = [];
@@ -89,7 +93,8 @@ export default class Memoize extends Component {
   render() {
     const {
       name,
-      dependencyPath
+      dependencyPath,
+      filter = defaultFilter
     } = this.props;
 
     return (
@@ -103,7 +108,7 @@ export default class Memoize extends Component {
           this.value = [
             ...this.value,
             depValue
-          ];
+          ].filter(filter);
 
           return [
             ...this.value

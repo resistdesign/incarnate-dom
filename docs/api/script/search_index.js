@@ -18,6 +18,12 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "incarnate-dom/src/demo.jsx~demo",
+    "class/src/Demo.jsx~Demo.html",
+    "<span>Demo</span> <span class=\"search-result-import-path\">incarnate-dom/src/Demo.jsx</span>",
+    "class"
+  ],
+  [
     "incarnate-dom/src/control/explicitlycachedvalue.jsx~explicitlycachedvalue",
     "class/src/Control/ExplicitlyCachedValue.jsx~ExplicitlyCachedValue.html",
     "<span>ExplicitlyCachedValue</span> <span class=\"search-result-import-path\">incarnate-dom/src/Control/ExplicitlyCachedValue.jsx</span>",
@@ -558,6 +564,18 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/demo.jsx",
+    "file/src/Demo.jsx.html",
+    "src/Demo.jsx",
+    "file"
+  ],
+  [
+    "src/demo.jsx~demo#render",
+    "class/src/Demo.jsx~Demo.html#instance-method-render",
+    "src/Demo.jsx~Demo#render",
+    "method"
+  ],
+  [
     "src/future/itemstate.jsx",
     "file/src/Future/ItemState.jsx.html",
     "src/Future/ItemState.jsx",
@@ -624,18 +642,6 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/incarnate.jsx~incarnate#componentwillmount",
-    "class/src/Incarnate.jsx~Incarnate.html#instance-method-componentWillMount",
-    "src/Incarnate.jsx~Incarnate#componentWillMount",
-    "method"
-  ],
-  [
-    "src/incarnate.jsx~incarnate#componentwillunmount",
-    "class/src/Incarnate.jsx~Incarnate.html#instance-method-componentWillUnmount",
-    "src/Incarnate.jsx~Incarnate#componentWillUnmount",
-    "method"
-  ],
-  [
     "src/incarnate.jsx~incarnate#constructor",
     "class/src/Incarnate.jsx~Incarnate.html#instance-constructor-constructor",
     "src/Incarnate.jsx~Incarnate#constructor",
@@ -696,12 +702,6 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/lifepod.jsx~lifepod#componentwillmount",
-    "class/src/LifePod.jsx~LifePod.html#instance-method-componentWillMount",
-    "src/LifePod.jsx~LifePod#componentWillMount",
-    "method"
-  ],
-  [
     "src/lifepod.jsx~lifepod#componentwillunmount",
     "class/src/LifePod.jsx~LifePod.html#instance-method-componentWillUnmount",
     "src/LifePod.jsx~LifePod#componentWillUnmount",
@@ -732,21 +732,9 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/lifepod.jsx~lifepod#initializerendering",
-    "class/src/LifePod.jsx~LifePod.html#instance-method-initializeRendering",
-    "src/LifePod.jsx~LifePod#initializeRendering",
-    "method"
-  ],
-  [
     "src/lifepod.jsx~lifepod#lifepod",
     "class/src/LifePod.jsx~LifePod.html#instance-member-lifePod",
     "src/LifePod.jsx~LifePod#lifePod",
-    "member"
-  ],
-  [
-    "src/lifepod.jsx~lifepod#mounted",
-    "class/src/LifePod.jsx~LifePod.html#instance-member-mounted",
-    "src/LifePod.jsx~LifePod#mounted",
     "member"
   ],
   [
@@ -774,27 +762,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/lifepod.jsx~lifepod#rendering",
-    "class/src/LifePod.jsx~LifePod.html#instance-member-rendering",
-    "src/LifePod.jsx~LifePod#rendering",
-    "member"
-  ],
-  [
-    "src/lifepod.jsx~lifepod#safesetstate",
-    "class/src/LifePod.jsx~LifePod.html#instance-member-safeSetState",
-    "src/LifePod.jsx~LifePod#safeSetState",
-    "member"
-  ],
-  [
     "src/lifepod.jsx~lifepod#setlifepod",
     "class/src/LifePod.jsx~LifePod.html#instance-method-setLifePod",
     "src/LifePod.jsx~LifePod#setLifePod",
     "method"
   ],
   [
-    "src/lifepod.jsx~lifepod#state",
-    "class/src/LifePod.jsx~LifePod.html#instance-member-state",
-    "src/LifePod.jsx~LifePod#state",
+    "src/lifepod.jsx~lifepod#storedchildprops",
+    "class/src/LifePod.jsx~LifePod.html#instance-member-storedChildProps",
+    "src/LifePod.jsx~LifePod#storedChildProps",
+    "member"
+  ],
+  [
+    "src/lifepod.jsx~lifepod#unmounted",
+    "class/src/LifePod.jsx~LifePod.html#instance-member-unmounted",
+    "src/LifePod.jsx~LifePod#unmounted",
     "member"
   ],
   [

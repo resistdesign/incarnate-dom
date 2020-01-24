@@ -1,6 +1,6 @@
 {
-  "coverage": "2.01%",
-  "expectCount": 149,
+  "coverage": "2.05%",
+  "expectCount": 146,
   "actualCount": 3,
   "files": {
     "src/Context.jsx": {
@@ -59,13 +59,14 @@
       ]
     },
     "src/Control/Memoize.jsx": {
-      "expectCount": 4,
+      "expectCount": 5,
       "actualCount": 0,
       "undocumentLines": [
         5,
-        6,
-        16,
-        18
+        7,
+        8,
+        19,
+        21
       ]
     },
     "src/Control/Traverse.jsx": {
@@ -89,6 +90,15 @@
         105,
         109,
         113
+      ]
+    },
+    "src/Demo.jsx": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        14,
+        16,
+        17
       ]
     },
     "src/Future/ItemState.jsx": {
@@ -119,7 +129,7 @@
       ]
     },
     "src/Incarnate.jsx": {
-      "expectCount": 13,
+      "expectCount": 11,
       "actualCount": 1,
       "undocumentLines": [
         7,
@@ -131,13 +141,11 @@
         48,
         49,
         51,
-        58,
-        62,
-        112
+        104
       ]
     },
     "src/LifePod.jsx": {
-      "expectCount": 27,
+      "expectCount": 22,
       "actualCount": 1,
       "undocumentLines": [
         10,
@@ -145,27 +153,22 @@
         23,
         25,
         37,
-        53,
-        54,
-        55,
-        87,
-        92,
-        94,
-        95,
+        38,
+        39,
+        71,
+        76,
+        77,
+        79,
+        81,
+        82,
+        84,
+        91,
         97,
-        99,
-        101,
-        108,
-        112,
-        116,
-        122,
-        131,
-        212,
-        227,
-        242,
-        260,
-        266,
-        298
+        178,
+        193,
+        211,
+        219,
+        252
       ]
     },
     "src/Routing/IncarnateRedirect.jsx": {
