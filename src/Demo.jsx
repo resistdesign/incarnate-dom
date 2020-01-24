@@ -94,15 +94,13 @@ export class Demo extends Component {
               dependencies={{
                 x: 'State.Multiply.X',
                 y: 'State.Multiply.Y',
-                routeProps: 'ROUTE_PROPS'
+                history: 'ROUTE_PROPS.history'
               }}
             >
               {({
                   x = 2,
                   y = 2,
-                  routeProps: {
-                    history
-                  } = {}
+                  history
                 } = {}) => (
                 <div>
                   <button
