@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import React, {Component} from 'react';
 import {Consumer} from '../src/Context';
 import IncarnateProper from 'incarnate';
-import DefaultStyle from '!raw!resistdesign-default-style';
 import {cleanDataStructure} from './Tree/Utils';
 import Popup from './Tree/Popup';
+import {DefaultStyle} from './Style/Default';
 
 const DEFAULT_POPUP_WIDTH = 400;
 
@@ -54,15 +54,25 @@ export default class Tree extends Component {
 
   _popupWindow;
 
+  mounted = false;
+
   state = {
     output: '',
     popupOpen: false,
     popupError: undefined
   };
 
+  safeSetState = (...args) => !!this.mounted ? this.setState(...args) : undefined;
+
+  componentDidMount() {
+    this.mounted = true;
+    this.onOutputChange();
+  }
+
   componentWillUnmount() {
     this.onClosePopupWindow();
     this.parentIncarnate = undefined;
+    this.mounted = false;
   }
 
   getFullDependencyName() {
@@ -112,14 +122,14 @@ export default class Tree extends Component {
         ),
         popupRootElement
       );
-      this.setState({
+      this.safeSetState({
         popupOpen: true,
         popupError: undefined
       });
     } catch (error) {
       this.onClosePopupWindow();
 
-      this.setState({
+      this.safeSetState({
         popupError: error && error.message
       });
     }
@@ -131,7 +141,7 @@ export default class Tree extends Component {
       this._popupWindow = undefined;
     }
 
-    this.setState({
+    this.safeSetState({
       popupOpen: false
     });
   };
@@ -152,7 +162,7 @@ export default class Tree extends Component {
           output = error && error.message;
         }
 
-        this.setState({
+        this.safeSetState({
           output
         });
       }, 0);
