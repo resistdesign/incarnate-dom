@@ -3,7 +3,6 @@ import React, {Component, Fragment} from 'react';
 import IncarnateProper from 'incarnate';
 import ValueRenderer from './Popup/ValueRenderer';
 import {cleanDataStructure} from './Utils';
-import {DefaultStyle} from '../Style/Default';
 
 export default class Popup extends Component {
   static propTypes = {
@@ -113,7 +112,6 @@ export default class Popup extends Component {
 
     return (
       <Fragment>
-        <DefaultStyle/>
         <main
           style={{
             display: 'flex',

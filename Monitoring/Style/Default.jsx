@@ -1,6 +1,4 @@
-import {createGlobalStyle} from 'styled-components';
-
-export const DefaultStyle = createGlobalStyle`
+export const DefaultStyle = `
 main {
     font-family: sans-serif
 }
