@@ -1213,359 +1213,6 @@
   {
     "__docId__": 87,
     "kind": "file",
-    "name": "src/Future/ItemState.jsx",
-    "content": "import T from 'prop-types';\nimport React, {PureComponent} from 'react';\nimport {\n  Collection,\n  Incarnate,\n  LifePod\n} from '../index';\n\nexport default class ItemState extends PureComponent {\n  static propTypes = {\n    name: T.string\n  };\n\n  controller;\n\n  getController() {\n    if (!this.controller) {\n      this.controller = {};\n    }\n\n    return this.controller;\n  }\n\n  render() {\n    const {\n      name,\n      dependencyPath\n    } = this.props;\n\n    return (\n      <Incarnate\n        name={name}\n      >\n        <LifePod\n          name='Selected'\n        />\n        <LifePod\n          name='New'\n        />\n        <LifePod\n          name='Existing'\n        />\n        <LifePod\n          name='Changed'\n        />\n        <LifePod\n          name='Removed'\n        />\n        <LifePod\n          name='Detailed'\n        />\n        <Incarnate\n          name='CollectionControllers'\n          shared={{\n            Selected: 'Selected',\n            New: 'New',\n            Existing: 'Existing',\n            Changed: 'Changed',\n            Removed: 'Removed',\n            Detailed: 'Detailed'\n          }}\n        >\n          <Collection\n            name='Selected'\n            dependencyPath='Selected'\n          />\n          <Collection\n            name='New'\n            dependencyPath='New'\n          />\n          <Collection\n            name='Existing'\n            dependencyPath='Existing'\n          />\n          <Collection\n            name='Changed'\n            dependencyPath='Changed'\n          />\n          <Collection\n            name='Removed'\n            dependencyPath='Removed'\n          />\n          <Collection\n            name='Detailed'\n            dependencyPath='Detailed'\n          />\n        </Incarnate>\n        <LifePod\n          name='Controller'\n          factory={() => {\n\n\n            return this.getController();\n          }}\n        />\n      </Incarnate>\n    );\n  }\n}\n",
-    "static": true,
-    "longname": "/Users/ryan/Projects/incarnate-dom/src/Future/ItemState.jsx",
-    "access": "public",
-    "description": null,
-    "lineNumber": 1
-  },
-  {
-    "__docId__": 88,
-    "kind": "class",
-    "name": "ItemState",
-    "memberof": "src/Future/ItemState.jsx",
-    "static": true,
-    "longname": "src/Future/ItemState.jsx~ItemState",
-    "access": "public",
-    "export": true,
-    "importPath": "incarnate-dom/src/Future/ItemState.jsx",
-    "importStyle": "ItemState",
-    "description": null,
-    "lineNumber": 9,
-    "undocument": true,
-    "interface": false,
-    "extends": [
-      "react~PureComponent"
-    ]
-  },
-  {
-    "__docId__": 89,
-    "kind": "member",
-    "name": "propTypes",
-    "memberof": "src/Future/ItemState.jsx~ItemState",
-    "static": true,
-    "longname": "src/Future/ItemState.jsx~ItemState.propTypes",
-    "access": "public",
-    "description": null,
-    "lineNumber": 10,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 90,
-    "kind": "member",
-    "name": "controller",
-    "memberof": "src/Future/ItemState.jsx~ItemState",
-    "static": false,
-    "longname": "src/Future/ItemState.jsx~ItemState#controller",
-    "access": "public",
-    "description": null,
-    "lineNumber": 14,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 91,
-    "kind": "method",
-    "name": "getController",
-    "memberof": "src/Future/ItemState.jsx~ItemState",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/Future/ItemState.jsx~ItemState#getController",
-    "access": "public",
-    "description": null,
-    "lineNumber": 16,
-    "undocument": true,
-    "params": [],
-    "return": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 93,
-    "kind": "method",
-    "name": "render",
-    "memberof": "src/Future/ItemState.jsx~ItemState",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/Future/ItemState.jsx~ItemState#render",
-    "access": "public",
-    "description": null,
-    "lineNumber": 24,
-    "undocument": true,
-    "params": [],
-    "return": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 94,
-    "kind": "file",
-    "name": "src/Future/ItemStateController.jsx",
-    "content": "import T from 'prop-types';\nimport React, {PureComponent} from 'react';\nimport Incarnate from '../Incarnate';\n\nexport const DEFAULT_PRIMARY_KEY = 'id';\nexport const STATES = {\n  SELECTED: 'SELECTED',\n  NEW: 'NEW',\n  EXISTING: 'EXISTING',\n  CHANGED: 'CHANGED',\n  DELETED: 'DELETED',\n  ALL: 'ALL'\n};\nexport const SETS = {\n  ACTIVE: 'ACTIVE',\n  ITEMS: 'ITEMS',\n  ERRORS: 'ERRORS'\n};\nexport const OPERATIONS = {\n  SELECT: 'SELECT',\n  DESELECT: 'DESELECT',\n  TOGGLE_SELECTION: 'TOGGLE_SELECTION',\n  CREATE: 'CREATE',\n  READ: 'READ',\n  UPDATE: 'UPDATE',\n  DELETE: 'DELETE',\n  RECONCILE: 'RECONCILE',\n  IS: 'IS'\n};\n\nexport function updateList(list = [], replace = {}, remove = []) {\n  return list\n    .map((item, index) => replace.hasOwnProperty(index) ? replace[index] : item)\n    .filter(item => remove.indexOf(item) === -1);\n}\n\nconst ITEM_IN_MAP_TESTER_FACTORY_FACTORY = (primaryKey = DEFAULT_PRIMARY_KEY) => {\n  return (getItemMap) => {\n    return ({[primaryKey]: key} = {}) => {\n      const {[key]: item} = getItemMap() || {};\n\n      return !!item;\n    };\n  };\n};\n\nexport default class ItemStateController extends PureComponent {\n  static propTypes = {\n    name: T.string,\n    primaryKey: T.string,\n    reconciliationMap: T.shape({\n      [STATES.NEW]: T.func,\n      [STATES.EXISTING]: T.func,\n      [STATES.CHANGED]: T.func,\n      [STATES.DELETED]: T.func\n    })\n  };\n  static defaultProps = {\n    primaryKey: DEFAULT_PRIMARY_KEY,\n    reconciliationMap: {}\n  };\n\n  render() {\n    const {\n      name,\n      primaryKey,\n      reconciliationMap = {},\n      ...props\n    } = this.props;\n    const map = {\n      [SETS.ACTIVE]: {\n        subMap: {\n          [STATES.NEW]: {\n            required: [],\n            factory: () => false\n          },\n          [STATES.EXISTING]: {\n            required: [],\n            factory: () => false\n          },\n          [STATES.CHANGED]: {\n            required: [],\n            factory: () => false\n          },\n          [STATES.DELETED]: {\n            required: [],\n            factory: () => false\n          },\n          [STATES.ALL]: {\n            required: [\n              STATES.NEW,\n              STATES.EXISTING,\n              STATES.CHANGED,\n              STATES.DELETED\n            ],\n            factory: (\n              newActive,\n              existingActive,\n              changedActive,\n              deletedActive\n            ) => newActive || existingActive || changedActive || deletedActive\n          }\n        }\n      },\n      [SETS.ITEMS]: {\n        subMap: {\n          [STATES.SELECTED]: {\n            factory: () => []\n          },\n          [STATES.NEW]: {\n            factory: () => []\n          },\n          [STATES.EXISTING]: {\n            factory: () => ({})\n          },\n          [STATES.CHANGED]: {\n            factory: () => []\n          },\n          [STATES.DELETED]: {\n            factory: () => []\n          },\n          [STATES.ALL]: {\n            required: [\n              STATES.NEW,\n              STATES.EXISTING,\n              STATES.CHANGED,\n              STATES.DELETED\n            ],\n            factory: (\n              newItems = [],\n              existingItems = {},\n              changedItems = {},\n              deletedItems = {}\n            ) => {\n              // Transpose changes.\n              const updatedMap = {\n                ...existingItems,\n                ...changedItems\n              };\n              // Remove deletes.\n              const cleanMap = Object\n                .keys(updatedMap)\n                .reduce((acc, key) => {\n                  if (!deletedItems.hasOwnProperty(key)) {\n                    acc[key] = updatedMap[key];\n                  }\n\n                  return acc;\n                }, {});\n\n              // Combine new and clean.\n              return [\n                ...newItems,\n                ...Object\n                  .keys(cleanMap)\n                  .map(key => cleanMap[key])\n              ];\n            }\n          }\n        }\n      },\n      [SETS.ERRORS]: {\n        subMap: {\n          [STATES.NEW]: {\n            factory: () => []\n          },\n          [STATES.EXISTING]: {\n            factory: () => []\n          },\n          [STATES.CHANGED]: {\n            factory: () => []\n          },\n          [STATES.DELETED]: {\n            factory: () => []\n          },\n          [STATES.ALL]: {\n            required: [\n              STATES.NEW,\n              STATES.EXISTING,\n              STATES.CHANGED,\n              STATES.DELETED\n            ],\n            factory: (\n              newErrors = [],\n              existingErrors = {},\n              changedErrors = {},\n              deletedErrors = {}\n            ) => [\n              ...newErrors,\n              ...Object\n                .keys(existingErrors)\n                .map(key => existingErrors[key]),\n              ...Object\n                .keys(changedErrors)\n                .map(key => changedErrors[key]),\n              ...Object\n                .keys(deletedErrors)\n                .map(key => deletedErrors[key]),\n            ]\n          }\n        }\n      },\n      [OPERATIONS.IS]: {\n        subMap: {\n          [STATES.SELECTED]: {\n            getters: [\n              [SETS.ITEMS, STATES.SELECTED]\n            ],\n            factory: (getSelected) => {\n              return (item) => {\n                const selected = getSelected() || [];\n\n                return selected.indexOf(item) !== -1;\n              };\n            }\n          },\n          [STATES.NEW]: {\n            getters: [\n              [SETS.ITEMS, STATES.NEW]\n            ],\n            factory: (getNew) => {\n              return (item) => {\n                const newItems = getNew() || [];\n\n                return newItems.indexOf(item) !== -1;\n              };\n            }\n          },\n          [STATES.EXISTING]: {\n            getters: [\n              [SETS.ITEMS, STATES.EXISTING]\n            ],\n            factory: ITEM_IN_MAP_TESTER_FACTORY_FACTORY(primaryKey)\n          },\n          [STATES.CHANGED]: {\n            getters: [\n              [SETS.ITEMS, STATES.CHANGED]\n            ],\n            factory: ITEM_IN_MAP_TESTER_FACTORY_FACTORY(primaryKey)\n          },\n          [STATES.DELETED]: {\n            getters: [\n              [SETS.ITEMS, STATES.DELETED]\n            ],\n            factory: ITEM_IN_MAP_TESTER_FACTORY_FACTORY(primaryKey)\n          },\n          [STATES.ALL]: {\n            required: [\n              STATES.SELECTED,\n              STATES.NEW,\n              STATES.EXISTING,\n              STATES.CHANGED,\n              STATES.DELETED\n            ],\n            factory: (\n              itemIsSelected,\n              itemIsNew,\n              itemIsExisting,\n              itemIsChanged,\n              itemIsDeleted\n            ) => {\n              return (item) => {\n                return itemIsSelected(item) ||\n                  itemIsNew(item) ||\n                  itemIsExisting(item) ||\n                  itemIsChanged(item) ||\n                  itemIsDeleted(item);\n              };\n            }\n          }\n        }\n      },\n      [OPERATIONS.RECONCILE]: {\n        subMap: {\n          [STATES.NEW]: {\n            getters: [\n              [SETS.ITEMS, STATES.SELECTED],\n              [SETS.ITEMS, STATES.NEW],\n              [SETS.ITEMS, STATES.EXISTING]\n            ],\n            setters: [\n              [SETS.ACTIVE, STATES.NEW],\n              [SETS.ITEMS, STATES.SELECTED],\n              [SETS.ITEMS, STATES.NEW],\n              [SETS.ITEMS, STATES.EXISTING],\n              [SETS.ERRORS, STATES.NEW]\n            ],\n            factory: (\n              getSelectedItems,\n              getNewItems,\n              getExistingItems,\n              setNewActive,\n              setSelectedItems,\n              setNewItems,\n              setExistingItems,\n              setNewErrors\n            ) => {\n              return async () => {\n                const newItems = getNewItems() || [];\n                const {[STATES.NEW]: reconcileNew} = reconciliationMap;\n\n                if (reconcileNew instanceof Function && newItems.length) {\n                  const selectedItemsList = getSelectedItems() || [];\n                  const replaceSelected = {};\n                  const newErrors = [];\n                  const newNewItems = [];\n                  const existingItems = getExistingItems();\n                  const newExistingItems = {...existingItems};\n\n                  setNewActive(true);\n\n                  for (let i = 0; i < newItems.length; i++) {\n                    const item = newItems[i];\n                    const selectedItemIndex = selectedItemsList.indexOf(item);\n\n                    try {\n                      const newItem = await reconcileNew(item);\n                      const {[primaryKey]: newKey} = newItem;\n\n                      newExistingItems[newKey] = newItem;\n\n                      if (selectedItemIndex !== -1) {\n                        replaceSelected[selectedItemIndex] = newItem;\n                      }\n                    } catch (error) {\n                      newErrors.push(error);\n                      newNewItems.push(item);\n                    }\n                  }\n\n                  setNewErrors(newErrors);\n                  setNewItems(newNewItems);\n                  setExistingItems(newExistingItems);\n                  setSelectedItems(updateList(selectedItemsList, replaceSelected));\n                  setNewActive(false);\n                }\n              };\n            }\n          },\n          [STATES.EXISTING]: {\n            getters: [\n              [SETS.ITEMS, STATES.SELECTED],\n              [SETS.ITEMS, STATES.EXISTING],\n              [SETS.ERRORS, STATES.EXISTING]\n            ],\n            setters: [\n              [SETS.ACTIVE, STATES.EXISTING],\n              [SETS.ITEMS, STATES.SELECTED],\n              [SETS.ITEMS, STATES.EXISTING],\n              [SETS.ERRORS, STATES.EXISTING]\n            ],\n            factory: (\n              getSelectedItems,\n              getExistingItems,\n              getExistingErrors,\n              setExistingActive,\n              setSelectedItems,\n              setExistingItems,\n              setExistingErrors\n            ) => {\n              return async (query = `${Date.now()}`, ...args) => {\n                const {[STATES.EXISTING]: reconcileExisting} = reconciliationMap;\n\n                if (reconcileExisting instanceof Function) {\n                  const selectedItemsList = getSelectedItems() || [];\n                  const replaceSelected = {};\n                  const existingItemsMap = getExistingItems() || {};\n                  const newExistingItemsMap = {\n                    ...existingItemsMap\n                  };\n                  const existingErrors = getExistingErrors() || {};\n                  const newExistingErrors = {...existingErrors};\n\n                  setExistingActive(true);\n\n                  try {\n                    const remoteExistingItems = (await reconcileExisting(query, ...args)) || [];\n\n                    remoteExistingItems.forEach(item => {\n                      const {[primaryKey]: key} = item;\n                      const oldItem = existingItemsMap[key];\n                      const selectedItemIndex = selectedItemsList.indexOf(oldItem);\n\n                      newExistingItemsMap[key] = item;\n\n                      if (selectedItemIndex !== -1) {\n                        replaceSelected[selectedItemIndex] = item;\n                      }\n                    });\n                  } catch (error) {\n                    newExistingErrors[query] = error;\n                  }\n\n                  setExistingErrors(newExistingErrors);\n                  setExistingItems(newExistingItemsMap);\n                  setSelectedItems(updateList(selectedItemsList, replaceSelected));\n                  setExistingActive(false);\n                }\n              };\n            }\n          },\n          [STATES.CHANGED]: {\n            getters: [\n              [SETS.ITEMS, STATES.SELECTED],\n              [SETS.ITEMS, STATES.CHANGED],\n              [SETS.ITEMS, STATES.EXISTING]\n            ],\n            setters: [\n              [SETS.ACTIVE, STATES.CHANGED],\n              [SETS.ITEMS, STATES.SELECTED],\n              [SETS.ITEMS, STATES.CHANGED],\n              [SETS.ITEMS, STATES.EXISTING],\n              [SETS.ERRORS, STATES.CHANGED]\n            ],\n            factory: (\n              getSelectedItems,\n              getChangedItems,\n              getExistingItems,\n              setChangedActive,\n              setSelectedItems,\n              setChangedItems,\n              setExistingItems,\n              setChangedErrors\n            ) => {\n              return async () => {\n                const {[STATES.CHANGED]: reconcileChanged} = reconciliationMap;\n                const changedItems = getChangedItems() || {};\n                const changedItemsList = Object\n                  .keys(changedItems)\n                  .map(key => changedItems[key]);\n\n                if (reconcileChanged instanceof Function && changedItemsList.length) {\n                  const selectedItemsList = getSelectedItems() || [];\n                  const replaceSelected = {};\n                  const existingItems = getExistingItems() || {};\n                  const newExistingItems = {...existingItems};\n                  const newChangedItems = {};\n                  const newChangedErrors = {};\n\n                  setChangedActive(true);\n\n                  for (let i = 0; i < changedItemsList.length; i++) {\n                    const item = changedItemsList[i];\n                    const {[primaryKey]: oldKey} = item;\n                    const oldItem = existingItems[oldKey];\n                    const selectedItemIndex = selectedItemsList.indexOf(oldItem);\n\n                    try {\n                      const newItem = await reconcileChanged(item, oldItem);\n                      const {[primaryKey]: newKey} = newItem;\n\n                      newExistingItems[newKey] = newItem;\n                      delete newExistingItems[oldKey];\n\n                      if (selectedItemIndex !== -1) {\n                        replaceSelected[selectedItemIndex] = newItem;\n                      }\n                    } catch (error) {\n                      newChangedErrors[oldKey] = error;\n                      newChangedItems[oldKey] = item;\n                    }\n                  }\n\n                  setChangedErrors(newChangedErrors);\n                  setChangedItems(newChangedItems);\n                  setExistingItems(newExistingItems);\n                  setSelectedItems(updateList(selectedItemsList, replaceSelected));\n                  setChangedActive(false);\n                }\n              };\n            }\n          },\n          [STATES.DELETED]: {\n            getters: [\n              [SETS.ITEMS, STATES.DELETED],\n              [SETS.ITEMS, STATES.EXISTING]\n            ],\n            setters: [\n              [SETS.ACTIVE, STATES.DELETED],\n              [SETS.ITEMS, STATES.DELETED],\n              [SETS.ITEMS, STATES.EXISTING],\n              [SETS.ERRORS, STATES.DELETED]\n            ],\n            factory: (\n              getDeletedItems,\n              getExistingItems,\n              setDeletedActive,\n              setDeletedItems,\n              setExistingItems,\n              setDeletedErrors\n            ) => {\n              return async () => {\n                const {[STATES.DELETED]: reconcileDeleted} = reconciliationMap;\n                const deletedItems = getDeletedItems() || {};\n                const deletedItemsList = Object\n                  .keys\n                  .map(key => deletedItems[key]);\n\n                if (reconcileDeleted instanceof Function && deletedItemsList.length) {\n                  const existingItems = getExistingItems() || {};\n                  const newExistingItems = {...existingItems};\n                  const newDeletedItems = {};\n                  const newDeletedErrors = {};\n\n                  setDeletedActive(true);\n\n                  for (let i = 0; i < deletedItemsList.length; i++) {\n                    const item = deletedItemsList[i];\n                    const {[primaryKey]: key} = item;\n\n                    try {\n                      await reconcileDeleted(item);\n\n                      delete newExistingItems[key];\n                    } catch (error) {\n                      newDeletedErrors[key] = error;\n                      newDeletedItems[key] = item;\n                    }\n                  }\n\n                  setDeletedErrors(newDeletedErrors);\n                  setDeletedItems(newDeletedItems);\n                  setExistingItems(newExistingItems);\n                  setDeletedActive(false);\n                }\n              };\n            }\n          },\n          [STATES.ALL]: {\n            required: [\n              STATES.CHANGED,\n              STATES.DELETED,\n              STATES.NEW,\n              STATES.EXISTING\n            ],\n            factory: (\n              reconcileChanged,\n              reconcileDeleted,\n              reconcileNew,\n              reconcileExisting\n            ) => {\n              return async () => {\n                // TRICKY: IMPORTANT: The order matters.\n                // Make your changes.\n                await reconcileChanged();\n                // Delete item, that may have even just been changed.\n                await reconcileDeleted();\n                // Add any new items.\n                await reconcileNew();\n                // Get the results.\n                await reconcileExisting();\n              };\n            }\n          }\n        }\n      },\n      [OPERATIONS.SELECT]: {\n        required: [\n          [OPERATIONS.IS, STATES.SELECTED]\n        ],\n        getters: [\n          [SETS.ITEMS, STATES.SELECTED]\n        ],\n        setters: [\n          [SETS.ITEMS, STATES.SELECTED]\n        ],\n        factory: (\n          isSelected,\n          getSelected,\n          setSelected\n        ) => {\n          return (item, moreThanOnce = false) => {\n            if (moreThanOnce || !isSelected(item)) {\n              const selectedList = getSelected() || [];\n              const newSelectedList = [\n                ...selectedList,\n                item\n              ];\n\n              setSelected(newSelectedList);\n            }\n          };\n        }\n      },\n      [OPERATIONS.DESELECT]: {\n        required: [\n          [OPERATIONS.IS, STATES.SELECTED]\n        ],\n        getters: [\n          [SETS.ITEMS, STATES.SELECTED]\n        ],\n        setters: [\n          [SETS.ITEMS, STATES.SELECTED]\n        ],\n        factory: (\n          isSelected,\n          getSelected,\n          setSelected\n        ) => {\n          return (item, moreThanOnce = false) => {\n            if (isSelected(item)) {\n              const selectedList = getSelected() || [];\n              const newSelectedList = [];\n\n              let removedAtLeastOnce = false;\n\n              for (let i = 0; i < selectedList.length; i++) {\n                const selectedItem = selectedList[i];\n\n                if (\n                  item === selectedItem &&\n                  (moreThanOnce || !removedAtLeastOnce)\n                ) {\n                  // Don't keep the selected item.\n                  removedAtLeastOnce = true;\n                } else {\n                  // Keep the selected item.\n                  newSelectedList.push(selectedItem);\n                }\n              }\n\n              setSelected(newSelectedList);\n            }\n          };\n        }\n      },\n      [OPERATIONS.TOGGLE_SELECTION]: {\n        required: [\n          [OPERATIONS.IS, STATES.SELECTED],\n          OPERATIONS.SELECT,\n          OPERATIONS.DESELECT\n        ],\n        factory: (\n          isSelected,\n          select,\n          deselect\n        ) => {\n          return (item) => {\n            if (isSelected(item)) {\n              deselect(item, true);\n            } else {\n              select(item);\n            }\n          };\n        }\n      },\n      [OPERATIONS.CREATE]: {\n        getters: [\n          [SETS.ITEMS, STATES.NEW]\n        ],\n        setters: [\n          [SETS.ITEMS, STATES.NEW]\n        ],\n        factory: (\n          getNewItems,\n          setNewItems\n        ) => {\n          return (item) => {\n            const newItem = {\n              ...item\n            };\n            const newItemList = getNewItems() || [];\n            const newNewItemList = [\n              newItem,\n              ...newItemList\n            ];\n\n            delete newItem[primaryKey];\n\n            setNewItems(newNewItemList);\n\n            return newItem;\n          };\n        }\n      },\n      [OPERATIONS.READ]: {\n        getters: [\n          [SETS.ITEMS, STATES.CHANGED],\n          [SETS.ITEMS, STATES.EXISTING]\n        ],\n        factory: (\n          getChangedItems,\n          getExistingItems\n        ) => {\n          return (key, existingOnly = false) => {\n            const {[key]: changedItem} = getChangedItems() || {};\n            const {[key]: existingItem} = getExistingItems() || {};\n\n            return existingOnly ?\n              existingItem :\n              (\n                !!changedItem ?\n                  changedItem :\n                  existingItem\n              );\n          };\n        }\n      },\n      [OPERATIONS.UPDATE]: {\n        required: [\n          [OPERATIONS.IS, STATES.NEW]\n        ],\n        getters: [\n          [SETS.ITEMS, STATES.SELECTED],\n          [SETS.ITEMS, STATES.NEW],\n          [SETS.ITEMS, STATES.EXISTING],\n          [SETS.ITEMS, STATES.CHANGED]\n        ],\n        setters: [\n          [SETS.ITEMS, STATES.SELECTED],\n          [SETS.ITEMS, STATES.NEW],\n          [SETS.ITEMS, STATES.CHANGED]\n        ],\n        factory: (\n          itemIsNew,\n          getSelectedItems,\n          getNewItems,\n          getExistingItems,\n          getChangedItems,\n          setSelectedItems,\n          setNewItems,\n          setChangedItems\n        ) => {\n          return (newItem, oldItem) => {\n            const selectedItemsList = getSelectedItems() || [];\n            const replaceSelected = {};\n\n            if (itemIsNew(oldItem)) {\n              const newItemsList = getNewItems() || [];\n              const newNewItemsList = [];\n\n              for (let i = 0; i < newItemsList.length; i++) {\n                const itemInNew = newItemsList[i];\n\n                if (oldItem === itemInNew) {\n                  const selectedItemIndex = selectedItemsList.indexOf(oldItem);\n\n                  newNewItemsList.push(newItem);\n\n                  if (selectedItemIndex !== -1) {\n                    replaceSelected[selectedItemIndex] = newItem;\n                  }\n                } else {\n                  newNewItemsList.push(itemInNew);\n                }\n              }\n\n              setNewItems(newNewItemsList);\n            } else {\n              const {[primaryKey]: key} = newItem;\n              const changedItemsMap = getChangedItems() || {};\n              const existingItemsMap = getExistingItems() || {};\n              const oldChangedItem = changedItemsMap[key];\n              const oldExistingItem = existingItemsMap[key];\n              const newChangedItemsMap = {\n                [key]: newItem,\n                ...changedItemsMap\n              };\n              const changedSelectedItemIndex = selectedItemsList.indexOf(oldChangedItem);\n              const existingSelectedItemIndex = selectedItemsList.indexOf(oldExistingItem);\n\n              setChangedItems(newChangedItemsMap);\n\n              if (changedSelectedItemIndex !== -1) {\n                replaceSelected[changedSelectedItemIndex] = newItem;\n              } else if (existingSelectedItemIndex !== -1) {\n                replaceSelected[existingSelectedItemIndex] = newItem;\n              }\n            }\n\n            setSelectedItems(updateList(selectedItemsList, replaceSelected));\n          };\n        }\n      },\n      [OPERATIONS.DELETE]: {\n        required: [\n          [OPERATIONS.IS, STATES.NEW],\n          [OPERATIONS.IS, STATES.CHANGED],\n          OPERATIONS.DESELECT\n        ],\n        getters: [\n          [SETS.ITEMS, STATES.NEW],\n          [SETS.ITEMS, STATES.CHANGED],\n          [SETS.ITEMS, STATES.DELETED]\n        ],\n        setters: [\n          [SETS.ITEMS, STATES.NEW],\n          [SETS.ITEMS, STATES.CHANGED],\n          [SETS.ITEMS, STATES.DELETED]\n        ],\n        factory: (\n          itemIsNew,\n          itemIsChanged,\n          deselectItem,\n          getNewItems,\n          getChangedItems,\n          getDeletedItems,\n          setNewItems,\n          setChangedItems,\n          setDeletedItems\n        ) => {\n          return (item) => {\n            if (itemIsNew(item)) {\n              const newItemsList = getNewItems() || [];\n              const newNewItemsList = [];\n\n              for (let i = 0; i < newItemsList.length; i++) {\n                const itemInNew = newItemsList[i];\n\n                if (item !== itemInNew) {\n                  newNewItemsList.push(itemInNew);\n                }\n              }\n\n              setNewItems(newNewItemsList);\n            } else {\n              const {[primaryKey]: key} = item;\n              const deletedItemsMap = getDeletedItems() || {};\n              const newDeletedItemsMap = {\n                [key]: item,\n                ...deletedItemsMap\n              };\n\n              if (itemIsChanged(item)) {\n                // TRICKY: IMPORTANT: Remove any changed item so that they are not reconciled.\n                const changedItemsMap = getChangedItems() || {};\n                const newChangedItemsMap = {...changedItemsMap};\n\n                delete newChangedItemsMap[key];\n\n                setChangedItems(newChangedItemsMap);\n              }\n\n              setDeletedItems(newDeletedItemsMap);\n            }\n\n            deselectItem(item, true);\n          };\n        }\n      }\n    };\n\n    return (\n      <Incarnate\n        {...props}\n        name={name}\n        map={map}\n      />\n    );\n  }\n}\n",
-    "static": true,
-    "longname": "/Users/ryan/Projects/incarnate-dom/src/Future/ItemStateController.jsx",
-    "access": "public",
-    "description": null,
-    "lineNumber": 1
-  },
-  {
-    "__docId__": 95,
-    "kind": "variable",
-    "name": "DEFAULT_PRIMARY_KEY",
-    "memberof": "src/Future/ItemStateController.jsx",
-    "static": true,
-    "longname": "src/Future/ItemStateController.jsx~DEFAULT_PRIMARY_KEY",
-    "access": "public",
-    "export": true,
-    "importPath": "incarnate-dom/src/Future/ItemStateController.jsx",
-    "importStyle": "{DEFAULT_PRIMARY_KEY}",
-    "description": null,
-    "lineNumber": 5,
-    "undocument": true,
-    "type": {
-      "types": [
-        "string"
-      ]
-    }
-  },
-  {
-    "__docId__": 96,
-    "kind": "variable",
-    "name": "STATES",
-    "memberof": "src/Future/ItemStateController.jsx",
-    "static": true,
-    "longname": "src/Future/ItemStateController.jsx~STATES",
-    "access": "public",
-    "export": true,
-    "importPath": "incarnate-dom/src/Future/ItemStateController.jsx",
-    "importStyle": "{STATES}",
-    "description": null,
-    "lineNumber": 6,
-    "undocument": true,
-    "type": {
-      "types": [
-        "{\"SELECTED\": string, \"NEW\": string, \"EXISTING\": string, \"CHANGED\": string, \"DELETED\": string, \"ALL\": string}"
-      ]
-    }
-  },
-  {
-    "__docId__": 97,
-    "kind": "variable",
-    "name": "SETS",
-    "memberof": "src/Future/ItemStateController.jsx",
-    "static": true,
-    "longname": "src/Future/ItemStateController.jsx~SETS",
-    "access": "public",
-    "export": true,
-    "importPath": "incarnate-dom/src/Future/ItemStateController.jsx",
-    "importStyle": "{SETS}",
-    "description": null,
-    "lineNumber": 14,
-    "undocument": true,
-    "type": {
-      "types": [
-        "{\"ACTIVE\": string, \"ITEMS\": string, \"ERRORS\": string}"
-      ]
-    }
-  },
-  {
-    "__docId__": 98,
-    "kind": "variable",
-    "name": "OPERATIONS",
-    "memberof": "src/Future/ItemStateController.jsx",
-    "static": true,
-    "longname": "src/Future/ItemStateController.jsx~OPERATIONS",
-    "access": "public",
-    "export": true,
-    "importPath": "incarnate-dom/src/Future/ItemStateController.jsx",
-    "importStyle": "{OPERATIONS}",
-    "description": null,
-    "lineNumber": 19,
-    "undocument": true,
-    "type": {
-      "types": [
-        "{\"SELECT\": string, \"DESELECT\": string, \"TOGGLE_SELECTION\": string, \"CREATE\": string, \"READ\": string, \"UPDATE\": string, \"DELETE\": string, \"RECONCILE\": string, \"IS\": string}"
-      ]
-    }
-  },
-  {
-    "__docId__": 99,
-    "kind": "function",
-    "name": "updateList",
-    "memberof": "src/Future/ItemStateController.jsx",
-    "generator": false,
-    "async": false,
-    "static": true,
-    "longname": "src/Future/ItemStateController.jsx~updateList",
-    "access": "public",
-    "export": true,
-    "importPath": "incarnate-dom/src/Future/ItemStateController.jsx",
-    "importStyle": "{updateList}",
-    "description": null,
-    "lineNumber": 31,
-    "undocument": true,
-    "params": [
-      {
-        "name": "list",
-        "optional": true,
-        "types": [
-          "*[]"
-        ],
-        "defaultRaw": [],
-        "defaultValue": "[]"
-      },
-      {
-        "name": "replace",
-        "optional": true,
-        "types": [
-          "{}"
-        ],
-        "defaultRaw": {},
-        "defaultValue": "{}"
-      },
-      {
-        "name": "remove",
-        "optional": true,
-        "types": [
-          "*[]"
-        ],
-        "defaultRaw": [],
-        "defaultValue": "[]"
-      }
-    ],
-    "return": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 100,
-    "kind": "function",
-    "name": "ITEM_IN_MAP_TESTER_FACTORY_FACTORY",
-    "memberof": "src/Future/ItemStateController.jsx",
-    "generator": false,
-    "async": false,
-    "static": true,
-    "longname": "src/Future/ItemStateController.jsx~ITEM_IN_MAP_TESTER_FACTORY_FACTORY",
-    "access": "public",
-    "export": false,
-    "importPath": "incarnate-dom/src/Future/ItemStateController.jsx",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 37,
-    "undocument": true,
-    "params": [
-      {
-        "name": "primaryKey",
-        "optional": true,
-        "types": [
-          "*"
-        ],
-        "defaultRaw": "DEFAULT_PRIMARY_KEY",
-        "defaultValue": "DEFAULT_PRIMARY_KEY"
-      }
-    ],
-    "return": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 101,
-    "kind": "class",
-    "name": "ItemStateController",
-    "memberof": "src/Future/ItemStateController.jsx",
-    "static": true,
-    "longname": "src/Future/ItemStateController.jsx~ItemStateController",
-    "access": "public",
-    "export": true,
-    "importPath": "incarnate-dom/src/Future/ItemStateController.jsx",
-    "importStyle": "ItemStateController",
-    "description": null,
-    "lineNumber": 47,
-    "undocument": true,
-    "interface": false,
-    "extends": [
-      "react~PureComponent"
-    ]
-  },
-  {
-    "__docId__": 102,
-    "kind": "member",
-    "name": "propTypes",
-    "memberof": "src/Future/ItemStateController.jsx~ItemStateController",
-    "static": true,
-    "longname": "src/Future/ItemStateController.jsx~ItemStateController.propTypes",
-    "access": "public",
-    "description": null,
-    "lineNumber": 48,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 103,
-    "kind": "member",
-    "name": "defaultProps",
-    "memberof": "src/Future/ItemStateController.jsx~ItemStateController",
-    "static": true,
-    "longname": "src/Future/ItemStateController.jsx~ItemStateController.defaultProps",
-    "access": "public",
-    "description": null,
-    "lineNumber": 58,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 104,
-    "kind": "method",
-    "name": "render",
-    "memberof": "src/Future/ItemStateController.jsx~ItemStateController",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/Future/ItemStateController.jsx~ItemStateController#render",
-    "access": "public",
-    "description": null,
-    "lineNumber": 63,
-    "undocument": true,
-    "params": [],
-    "return": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 105,
-    "kind": "file",
     "name": "src/Incarnate.jsx",
     "content": "import T from 'prop-types';\nimport React, {Component} from 'react';\nimport IncarnateProper from 'incarnate';\nimport {Provider, Consumer} from './Context';\nimport getDefaultMapKeyDelimiter from './Utils/getDefaultMapKeyDelimiter';\n\nlet INCARNATE_COUNT = 0;\n\nexport default class Incarnate extends Component {\n  static DEFAULT_MAP_KEY = '__INCARNATES__';\n  static propTypes = {\n    name: T.string,\n    subMap: T.objectOf(\n      T.shape({\n        dependencies: T.objectOf(\n          T.string\n        ),\n        getters: T.objectOf(\n          T.string\n        ),\n        setters: T.objectOf(\n          T.string\n        ),\n        invalidators: T.objectOf(\n          T.string\n        ),\n        listeners: T.objectOf(\n          T.string\n        ),\n        strict: T.bool,\n        factory: T.func,\n        handlerAsyncFactoryError: T.func\n      })\n    ),\n    shared: T.objectOf(\n      T.string\n    ),\n    strict: T.bool,\n    incarnateInstanceRef: T.func,\n    handleResolveError: T.func,\n    children: T.node\n  };\n  static defaultProps = {\n    subMap: {}\n  };\n\n  _incarnateHashMatrixKey;\n  mounted = false;\n  incarnate;\n\n  constructor(props) {\n    super(props);\n\n    this._incarnateHashMatrixKey = INCARNATE_COUNT;\n    INCARNATE_COUNT++;\n  }\n\n  /**\n   * @param {IncarnateProper} parentIncarnate\n   * @param {Object} props\n   * */\n  getIncarnate(parentIncarnate, props = {}) {\n    if (!(this.incarnate instanceof IncarnateProper)) {\n      const {\n        incarnateInstanceRef,\n        ...subMapDeclaration\n      } = props;\n\n      if (parentIncarnate instanceof IncarnateProper) {\n        // Get the Incarnate instance from a parent Incarnate.\n        const {name} = subMapDeclaration;\n        const targetName = name || [\n          Incarnate.DEFAULT_MAP_KEY,\n          this._incarnateHashMatrixKey\n        ].join(getDefaultMapKeyDelimiter(parentIncarnate.pathDelimiter));\n        const targetSubMapDeclaration = {\n          ...subMapDeclaration,\n          name: targetName\n        };\n        const {handleResolveError} = parentIncarnate;\n        const {subMap, subMap: {[targetName]: existingMapEntry} = {}} = parentIncarnate;\n\n        if (!existingMapEntry) {\n          subMap[targetName] = {\n            ...targetSubMapDeclaration,\n            handleResolveError\n          };\n        }\n\n        this.incarnate = parentIncarnate.getDependency(targetName);\n      } else {\n        // Create a standalone Incarnate instance.\n        this.incarnate = new IncarnateProper(subMapDeclaration);\n      }\n\n      if (incarnateInstanceRef instanceof Function) {\n        incarnateInstanceRef(this.incarnate);\n      }\n    }\n\n    return this.incarnate;\n  }\n\n  render() {\n    const {\n      children,\n      ...props\n    } = this.props;\n\n    return (\n      <Consumer>\n        {parentIncarnate => (\n          <Provider\n            value={this.getIncarnate(parentIncarnate, props)}\n          >\n            {children}\n          </Provider>\n        )}\n      </Consumer>\n    );\n  }\n}\n",
     "static": true,
@@ -1575,7 +1222,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 106,
+    "__docId__": 88,
     "kind": "variable",
     "name": "INCARNATE_COUNT",
     "memberof": "src/Incarnate.jsx",
@@ -1596,7 +1243,7 @@
     "ignore": true
   },
   {
-    "__docId__": 107,
+    "__docId__": 89,
     "kind": "class",
     "name": "Incarnate",
     "memberof": "src/Incarnate.jsx",
@@ -1615,7 +1262,7 @@
     ]
   },
   {
-    "__docId__": 108,
+    "__docId__": 90,
     "kind": "member",
     "name": "DEFAULT_MAP_KEY",
     "memberof": "src/Incarnate.jsx~Incarnate",
@@ -1632,7 +1279,7 @@
     }
   },
   {
-    "__docId__": 109,
+    "__docId__": 91,
     "kind": "member",
     "name": "propTypes",
     "memberof": "src/Incarnate.jsx~Incarnate",
@@ -1649,7 +1296,7 @@
     }
   },
   {
-    "__docId__": 110,
+    "__docId__": 92,
     "kind": "member",
     "name": "defaultProps",
     "memberof": "src/Incarnate.jsx~Incarnate",
@@ -1666,7 +1313,7 @@
     }
   },
   {
-    "__docId__": 111,
+    "__docId__": 93,
     "kind": "member",
     "name": "_incarnateHashMatrixKey",
     "memberof": "src/Incarnate.jsx~Incarnate",
@@ -1683,7 +1330,7 @@
     }
   },
   {
-    "__docId__": 112,
+    "__docId__": 94,
     "kind": "member",
     "name": "mounted",
     "memberof": "src/Incarnate.jsx~Incarnate",
@@ -1700,7 +1347,7 @@
     }
   },
   {
-    "__docId__": 113,
+    "__docId__": 95,
     "kind": "member",
     "name": "incarnate",
     "memberof": "src/Incarnate.jsx~Incarnate",
@@ -1717,7 +1364,7 @@
     }
   },
   {
-    "__docId__": 114,
+    "__docId__": 96,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/Incarnate.jsx~Incarnate",
@@ -1731,7 +1378,7 @@
     "undocument": true
   },
   {
-    "__docId__": 116,
+    "__docId__": 98,
     "kind": "method",
     "name": "getIncarnate",
     "memberof": "src/Incarnate.jsx~Incarnate",
@@ -1771,7 +1418,7 @@
     }
   },
   {
-    "__docId__": 119,
+    "__docId__": 101,
     "kind": "method",
     "name": "render",
     "memberof": "src/Incarnate.jsx~Incarnate",
@@ -1791,7 +1438,7 @@
     }
   },
   {
-    "__docId__": 120,
+    "__docId__": 102,
     "kind": "file",
     "name": "src/LifePod.jsx",
     "content": "import T from 'prop-types';\nimport React, {isValidElement, cloneElement, Component} from 'react';\nimport {Consumer} from './Context';\nimport IncarnateProper, {\n  DependencyDeclaration,\n  LifePod as LifePodProper\n} from 'incarnate';\nimport getDefaultMapKeyDelimiter from './Utils/getDefaultMapKeyDelimiter';\n\nconst DEFAULT_FACTORY = (...args) => args;\nconst OVERRIDE_MAP = {\n  name: true,\n  dependencies: true,\n  getters: true,\n  setters: true,\n  invalidators: true,\n  listeners: true,\n  strict: true,\n  noCache: true,\n  factory: true\n};\n\nlet LIFEPOD_COUNT = 0;\n\nfunction getFactoryFromProps(props = {}) {\n  const {\n    factory,\n    mapToProps\n  } = props;\n\n  return mapToProps instanceof Function &&\n  (!(factory instanceof Function) || factory === DEFAULT_FACTORY) ?\n    mapToProps :\n    factory;\n}\n\nexport default class LifePod extends Component {\n  static DEFAULT_MAP_KEY = '__LIFEPODS__';\n  static propTypes = {\n    name: T.string,\n    dependencies: T.objectOf(\n      T.string\n    ),\n    getters: T.objectOf(\n      T.string\n    ),\n    setters: T.objectOf(\n      T.string\n    ),\n    invalidators: T.objectOf(\n      T.string\n    ),\n    listeners: T.objectOf(\n      T.string\n    ),\n    strict: T.bool,\n    noCache: T.bool,\n    factory: T.func,\n    mapToProps: T.func,\n    /**\n     * Override the properties of an preexisting LifePod if one is encountered.\n     * */\n    override: T.bool,\n    handleResolveError: T.func,\n    alwaysRender: T.bool,\n    children: T.oneOfType([\n      T.func,\n      T.element\n    ])\n  };\n  static defaultProps = {\n    factory: DEFAULT_FACTORY,\n    mapToProps: DEFAULT_FACTORY\n  };\n\n  parentIncarnate;\n  lifePod;\n\n  _lifePodHashMatrixKey;\n\n  storedChildProps;\n  unmounted = false;\n\n  constructor(props) {\n    super(props);\n\n    this._lifePodHashMatrixKey = LIFEPOD_COUNT;\n    LIFEPOD_COUNT++;\n  }\n\n  componentWillUnmount() {\n    this.unmounted = true;\n\n    this.setLifePod(undefined);\n  }\n\n  setLifePod(lifePod) {\n    if (this.lifePod instanceof LifePodProper) {\n      this.lifePod.removeChangeHandler('', this.onChildPropsChange);\n    }\n\n    this.lifePod = lifePod;\n\n    if (this.lifePod instanceof LifePodProper) {\n      this.lifePod.addChangeHandler('', this.onChildPropsChange);\n    }\n  }\n\n  /**\n   * @param {IncarnateProper} parentIncarnate\n   * @param {Object} dependencyDeclaration\n   * */\n  getLifePod(parentIncarnate, dependencyDeclaration = {}) {\n    if (!(this.lifePod instanceof LifePodProper)) {\n      const targetFactory = (...args) => {\n        // TRICKY: Always use the current factory.\n        const factory = getFactoryFromProps(this.props);\n\n        if (factory instanceof Function) {\n          const [\n            rawDependencies,\n            ...otherArgs\n          ] = args || [];\n\n          return factory(rawDependencies, ...otherArgs);\n        }\n      };\n\n      this.parentIncarnate = parentIncarnate;\n\n      if (parentIncarnate instanceof IncarnateProper) {\n        // Get the LifePod instance from a parent Incarnate.\n        const {override} = this.props;\n        const {name} = dependencyDeclaration;\n        const targetName = name || [\n          LifePod.DEFAULT_MAP_KEY,\n          this._lifePodHashMatrixKey\n        ].join(getDefaultMapKeyDelimiter(parentIncarnate.pathDelimiter));\n        const {subMap, subMap: {[targetName]: existingMapEntry} = {}} = parentIncarnate;\n        const targetConfig = {\n          ...dependencyDeclaration,\n          name: targetName,\n          factory: targetFactory\n        };\n\n        if (!existingMapEntry) {\n          subMap[targetName] = targetConfig;\n        }\n\n        const lifePodInstance = parentIncarnate.getDependency(targetName);\n\n        // TRICKY: If `override` is `true`, override only the relevant properties on the existing LifePod with the\n        // values from a temporary LifePod created by the `parentIncarnate`.\n        if (!!existingMapEntry && override && lifePodInstance instanceof LifePodProper) {\n          const tempDepDec = new DependencyDeclaration(targetConfig);\n          const tempLifePod = parentIncarnate.createLifePod(targetName, tempDepDec);\n\n          for (const k in OVERRIDE_MAP) {\n            lifePodInstance[k] = tempLifePod[k];\n          }\n        }\n\n        this.setLifePod(lifePodInstance);\n      } else {\n        // Create a standalone LifePod instance.\n        this.setLifePod(new LifePodProper(\n          new DependencyDeclaration({\n            ...dependencyDeclaration,\n            factory: targetFactory\n          })\n        ));\n      }\n    }\n\n    return this.lifePod;\n  }\n\n  handleResolveError = (error) => {\n    const {handleResolveError} = this.props;\n\n    if (handleResolveError instanceof Function) {\n      handleResolveError(error);\n    }\n\n    if (\n      this.parentIncarnate instanceof IncarnateProper &&\n      this.parentIncarnate.handleResolveError instanceof Function\n    ) {\n      this.parentIncarnate.handleResolveError(error);\n    }\n  };\n\n  getChildProps() {\n    let childProps;\n\n    if (this.lifePod instanceof LifePodProper) {\n      try {\n        const value = this.lifePod.getValue();\n\n        if (!(value instanceof Promise)) {\n          childProps = value;\n        }\n      } catch (error) {\n        this.handleResolveError(error);\n      }\n    }\n\n    return childProps;\n  }\n\n  onChildPropsChange = () => {\n    setTimeout(() => {\n      if (!this.unmounted) {\n        this.forceUpdate();\n      }\n    }, 0);\n  };\n\n  renderChildren() {\n    const {\n      children,\n      alwaysRender\n    } = this.props;\n    const factory = getFactoryFromProps(this.props);\n    const currentChildProps = this.getChildProps();\n    const childProps = typeof currentChildProps !== 'undefined' && alwaysRender ?\n      this.storedChildProps :\n      currentChildProps;\n\n    this.storedChildProps = childProps;\n\n    if (typeof childProps !== 'undefined' || alwaysRender) {\n      if (children instanceof Function) {\n        if (factory === DEFAULT_FACTORY && childProps instanceof Array) {\n          return children(...childProps);\n        } else {\n          return children(childProps);\n        }\n      } else if (isValidElement(children)) {\n        const {props: baseChildProps = {}} = children;\n\n        return cloneElement(children, {\n          ...childProps,\n          ...baseChildProps\n        });\n      } else {\n        return children;\n      }\n    }\n  }\n\n  render() {\n    const {\n      children,\n      alwaysRender,\n      handleResolveError,\n      override,\n      factory,\n      mapToProps,\n      ...dependencyDeclaration\n    } = this.props;\n\n    return (\n      <Consumer>\n        {parentInstance => {\n          this.getLifePod(parentInstance, dependencyDeclaration);\n\n          return this.renderChildren();\n        }}\n      </Consumer>\n    );\n  }\n}\n",
@@ -1802,7 +1449,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 121,
+    "__docId__": 103,
     "kind": "function",
     "name": "DEFAULT_FACTORY",
     "memberof": "src/LifePod.jsx",
@@ -1830,7 +1477,7 @@
     "ignore": true
   },
   {
-    "__docId__": 122,
+    "__docId__": 104,
     "kind": "variable",
     "name": "OVERRIDE_MAP",
     "memberof": "src/LifePod.jsx",
@@ -1851,7 +1498,7 @@
     "ignore": true
   },
   {
-    "__docId__": 123,
+    "__docId__": 105,
     "kind": "variable",
     "name": "LIFEPOD_COUNT",
     "memberof": "src/LifePod.jsx",
@@ -1872,7 +1519,7 @@
     "ignore": true
   },
   {
-    "__docId__": 124,
+    "__docId__": 106,
     "kind": "function",
     "name": "getFactoryFromProps",
     "memberof": "src/LifePod.jsx",
@@ -1906,7 +1553,7 @@
     "ignore": true
   },
   {
-    "__docId__": 125,
+    "__docId__": 107,
     "kind": "class",
     "name": "LifePod",
     "memberof": "src/LifePod.jsx",
@@ -1925,7 +1572,7 @@
     ]
   },
   {
-    "__docId__": 126,
+    "__docId__": 108,
     "kind": "member",
     "name": "DEFAULT_MAP_KEY",
     "memberof": "src/LifePod.jsx~LifePod",
@@ -1942,7 +1589,7 @@
     }
   },
   {
-    "__docId__": 127,
+    "__docId__": 109,
     "kind": "member",
     "name": "propTypes",
     "memberof": "src/LifePod.jsx~LifePod",
@@ -1959,7 +1606,7 @@
     }
   },
   {
-    "__docId__": 128,
+    "__docId__": 110,
     "kind": "member",
     "name": "defaultProps",
     "memberof": "src/LifePod.jsx~LifePod",
@@ -1976,7 +1623,7 @@
     }
   },
   {
-    "__docId__": 129,
+    "__docId__": 111,
     "kind": "member",
     "name": "parentIncarnate",
     "memberof": "src/LifePod.jsx~LifePod",
@@ -1993,7 +1640,7 @@
     }
   },
   {
-    "__docId__": 130,
+    "__docId__": 112,
     "kind": "member",
     "name": "lifePod",
     "memberof": "src/LifePod.jsx~LifePod",
@@ -2010,7 +1657,7 @@
     }
   },
   {
-    "__docId__": 131,
+    "__docId__": 113,
     "kind": "member",
     "name": "_lifePodHashMatrixKey",
     "memberof": "src/LifePod.jsx~LifePod",
@@ -2027,7 +1674,7 @@
     }
   },
   {
-    "__docId__": 132,
+    "__docId__": 114,
     "kind": "member",
     "name": "storedChildProps",
     "memberof": "src/LifePod.jsx~LifePod",
@@ -2044,7 +1691,7 @@
     }
   },
   {
-    "__docId__": 133,
+    "__docId__": 115,
     "kind": "member",
     "name": "unmounted",
     "memberof": "src/LifePod.jsx~LifePod",
@@ -2061,7 +1708,7 @@
     }
   },
   {
-    "__docId__": 134,
+    "__docId__": 116,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/LifePod.jsx~LifePod",
@@ -2075,7 +1722,7 @@
     "undocument": true
   },
   {
-    "__docId__": 136,
+    "__docId__": 118,
     "kind": "method",
     "name": "componentWillUnmount",
     "memberof": "src/LifePod.jsx~LifePod",
@@ -2091,7 +1738,7 @@
     "return": null
   },
   {
-    "__docId__": 138,
+    "__docId__": 120,
     "kind": "method",
     "name": "setLifePod",
     "memberof": "src/LifePod.jsx~LifePod",
@@ -2114,7 +1761,7 @@
     "return": null
   },
   {
-    "__docId__": 140,
+    "__docId__": 122,
     "kind": "method",
     "name": "getLifePod",
     "memberof": "src/LifePod.jsx~LifePod",
@@ -2154,7 +1801,7 @@
     }
   },
   {
-    "__docId__": 142,
+    "__docId__": 124,
     "kind": "member",
     "name": "handleResolveError",
     "memberof": "src/LifePod.jsx~LifePod",
@@ -2171,7 +1818,7 @@
     }
   },
   {
-    "__docId__": 143,
+    "__docId__": 125,
     "kind": "method",
     "name": "getChildProps",
     "memberof": "src/LifePod.jsx~LifePod",
@@ -2191,7 +1838,7 @@
     }
   },
   {
-    "__docId__": 144,
+    "__docId__": 126,
     "kind": "member",
     "name": "onChildPropsChange",
     "memberof": "src/LifePod.jsx~LifePod",
@@ -2208,7 +1855,7 @@
     }
   },
   {
-    "__docId__": 145,
+    "__docId__": 127,
     "kind": "method",
     "name": "renderChildren",
     "memberof": "src/LifePod.jsx~LifePod",
@@ -2228,7 +1875,7 @@
     }
   },
   {
-    "__docId__": 147,
+    "__docId__": 129,
     "kind": "method",
     "name": "render",
     "memberof": "src/LifePod.jsx~LifePod",
@@ -2248,7 +1895,7 @@
     }
   },
   {
-    "__docId__": 148,
+    "__docId__": 130,
     "kind": "file",
     "name": "src/Routing/IncarnateRedirect.jsx",
     "content": "import T from 'prop-types';\nimport React, {Component} from 'react';\nimport {Consumer} from './RoutingContext';\nimport {Redirect} from 'react-router-dom';\nimport {getUrl} from './IncarnateRoute';\n\nexport default class IncarnateRedirect extends Component {\n  static propTypes = {\n    ...Redirect.propTypes,\n    from: T.string,\n    to: T.string\n  };\n\n  render() {\n    const {\n      from,\n      to,\n      ...props\n    } = this.props;\n\n    return (\n      <Consumer>\n        {({parentUrl}) => (\n          <Redirect\n            {...props}\n            from={typeof from === 'string' ? getUrl(parentUrl, from) : from}\n            to={getUrl(parentUrl, to)}\n          />\n        )}\n      </Consumer>\n    );\n  }\n}\n",
@@ -2259,7 +1906,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 149,
+    "__docId__": 131,
     "kind": "class",
     "name": "IncarnateRedirect",
     "memberof": "src/Routing/IncarnateRedirect.jsx",
@@ -2278,7 +1925,7 @@
     ]
   },
   {
-    "__docId__": 150,
+    "__docId__": 132,
     "kind": "member",
     "name": "propTypes",
     "memberof": "src/Routing/IncarnateRedirect.jsx~IncarnateRedirect",
@@ -2295,7 +1942,7 @@
     }
   },
   {
-    "__docId__": 151,
+    "__docId__": 133,
     "kind": "method",
     "name": "render",
     "memberof": "src/Routing/IncarnateRedirect.jsx~IncarnateRedirect",
@@ -2315,7 +1962,7 @@
     }
   },
   {
-    "__docId__": 152,
+    "__docId__": 134,
     "kind": "file",
     "name": "src/Routing/IncarnateRoute.jsx",
     "content": "import QS from 'qs';\nimport T from 'prop-types';\nimport React, {Component} from 'react';\nimport {Route} from 'react-router-dom';\nimport {Provider, Consumer} from './RoutingContext';\nimport Incarnate, {LifePod} from '../index';\n\nconst QS_OPTIONS = {\n  ignoreQueryPrefix: true,\n  depth: Infinity,\n  parameterLimit: Infinity,\n  allowDots: true\n};\n\nconst URL_DELIMITER = '/';\nconst CLASS_IDENTIFIER = {};\n\nexport const PATH_NAMES = {\n  ROUTE_PROPS_LIST: 'ROUTE_PROPS_LIST',\n  ROUTE_PROPS: 'ROUTE_PROPS'\n};\n\nexport function getUrl(parentUrl = '', url = '') {\n  const parentEndsWithDelimiter = parentUrl.split('').reverse()[0] === URL_DELIMITER;\n  const urlStartsWithDelimiter = url.split('')[0] === URL_DELIMITER;\n\n  if (parentEndsWithDelimiter && urlStartsWithDelimiter) {\n    const newParent = parentUrl.slice(0, -1);\n\n    return `${newParent}${url}`;\n  } else if (parentEndsWithDelimiter || urlStartsWithDelimiter) {\n    return `${parentUrl}${url}`;\n  } else {\n    return `${parentUrl}${URL_DELIMITER}${url}`;\n  }\n}\n\nexport function getParamsObjectFromRouteProps({match: {params} = {}} = {}) {\n  return params;\n}\n\nexport function getQueryObjectFromRouteProps({location: {search = ''} = {}} = {}) {\n  return QS.parse(\n    search,\n    QS_OPTIONS\n  );\n}\n\nexport function createQueryString(query = {}) {\n  return QS.stringify(\n    query,\n    QS_OPTIONS\n  );\n}\n\nexport default class IncarnateRoute extends Component {\n  // TRICKY: Use this to see if a React element is of the IncarnateRoute class type in IncarnateSwitch.\n  // React, somehow manipulates the type of an element and a class function equality test is not directly possible.\n  static CLASS_IDENTIFIER = () => CLASS_IDENTIFIER;\n  static propTypes = {\n    ...Route.propTypes,\n    subPath: T.string,\n    CLASS_IDENTIFIER: T.any\n  };\n  static defaultProps = {\n    CLASS_IDENTIFIER: IncarnateRoute.CLASS_IDENTIFIER\n  };\n\n  render() {\n    const {\n      path,\n      subPath,\n      children,\n      ...props\n    } = this.props;\n\n    return (\n      <Consumer>\n        {({parentUrl, routePropsList = []}) => {\n          const fullPath = typeof subPath === 'string' ? getUrl(parentUrl, subPath) : path;\n\n          return (\n            <Route\n              {...props}\n              path={fullPath}\n              render={routeProps => {\n                const newRouteProps = {\n                  ...routeProps,\n                  params: getParamsObjectFromRouteProps(routeProps),\n                  query: getQueryObjectFromRouteProps(routeProps),\n                  setQuery: (query = {}) => {\n                    const {\n                      history,\n                      location: {\n                        pathname\n                      } = {}\n                    } = routeProps || {};\n\n                    if (!!history) {\n                      history.push({\n                        pathname,\n                        search: createQueryString(query)\n                      });\n                    }\n                  }\n                };\n                const newRoutePropsList = [\n                  newRouteProps,\n                  ...routePropsList\n                ];\n\n                return (\n                  <Provider\n                    value={{\n                      parentUrl: fullPath,\n                      routePropsList: newRoutePropsList\n                    }}\n                  >\n                    <LifePod\n                      name={PATH_NAMES.ROUTE_PROPS_LIST}\n                      noCache\n                      override\n                      factory={() => newRoutePropsList}\n                    />\n                    <Incarnate\n                      name={PATH_NAMES.ROUTE_PROPS}\n                    >\n                      {Object\n                        .keys(newRouteProps)\n                        .map(k => (\n                          <LifePod\n                            key={`${PATH_NAMES.ROUTE_PROPS}:${k}`}\n                            name={k}\n                            noCache\n                            override\n                            factory={() => newRouteProps[k]}\n                          />\n                        ))}\n                    </Incarnate>\n                    {children instanceof Function ? children(newRouteProps) : children}\n                  </Provider>\n                );\n              }}\n            />\n          );\n        }}\n      </Consumer>\n    );\n  }\n}\n",
@@ -2326,7 +1973,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 153,
+    "__docId__": 135,
     "kind": "variable",
     "name": "QS_OPTIONS",
     "memberof": "src/Routing/IncarnateRoute.jsx",
@@ -2347,7 +1994,7 @@
     "ignore": true
   },
   {
-    "__docId__": 154,
+    "__docId__": 136,
     "kind": "variable",
     "name": "URL_DELIMITER",
     "memberof": "src/Routing/IncarnateRoute.jsx",
@@ -2368,7 +2015,7 @@
     "ignore": true
   },
   {
-    "__docId__": 155,
+    "__docId__": 137,
     "kind": "variable",
     "name": "CLASS_IDENTIFIER",
     "memberof": "src/Routing/IncarnateRoute.jsx",
@@ -2389,7 +2036,7 @@
     "ignore": true
   },
   {
-    "__docId__": 156,
+    "__docId__": 138,
     "kind": "variable",
     "name": "PATH_NAMES",
     "memberof": "src/Routing/IncarnateRoute.jsx",
@@ -2409,7 +2056,7 @@
     }
   },
   {
-    "__docId__": 157,
+    "__docId__": 139,
     "kind": "function",
     "name": "getUrl",
     "memberof": "src/Routing/IncarnateRoute.jsx",
@@ -2451,7 +2098,7 @@
     }
   },
   {
-    "__docId__": 158,
+    "__docId__": 140,
     "kind": "function",
     "name": "getParamsObjectFromRouteProps",
     "memberof": "src/Routing/IncarnateRoute.jsx",
@@ -2484,7 +2131,7 @@
     }
   },
   {
-    "__docId__": 159,
+    "__docId__": 141,
     "kind": "function",
     "name": "getQueryObjectFromRouteProps",
     "memberof": "src/Routing/IncarnateRoute.jsx",
@@ -2517,7 +2164,7 @@
     }
   },
   {
-    "__docId__": 160,
+    "__docId__": 142,
     "kind": "function",
     "name": "createQueryString",
     "memberof": "src/Routing/IncarnateRoute.jsx",
@@ -2550,7 +2197,7 @@
     }
   },
   {
-    "__docId__": 161,
+    "__docId__": 143,
     "kind": "class",
     "name": "IncarnateRoute",
     "memberof": "src/Routing/IncarnateRoute.jsx",
@@ -2569,7 +2216,7 @@
     ]
   },
   {
-    "__docId__": 162,
+    "__docId__": 144,
     "kind": "member",
     "name": "CLASS_IDENTIFIER",
     "memberof": "src/Routing/IncarnateRoute.jsx~IncarnateRoute",
@@ -2586,7 +2233,7 @@
     }
   },
   {
-    "__docId__": 163,
+    "__docId__": 145,
     "kind": "member",
     "name": "propTypes",
     "memberof": "src/Routing/IncarnateRoute.jsx~IncarnateRoute",
@@ -2603,7 +2250,7 @@
     }
   },
   {
-    "__docId__": 164,
+    "__docId__": 146,
     "kind": "member",
     "name": "defaultProps",
     "memberof": "src/Routing/IncarnateRoute.jsx~IncarnateRoute",
@@ -2620,7 +2267,7 @@
     }
   },
   {
-    "__docId__": 165,
+    "__docId__": 147,
     "kind": "method",
     "name": "render",
     "memberof": "src/Routing/IncarnateRoute.jsx~IncarnateRoute",
@@ -2640,7 +2287,7 @@
     }
   },
   {
-    "__docId__": 166,
+    "__docId__": 148,
     "kind": "file",
     "name": "src/Routing/IncarnateRouter.jsx",
     "content": "import React, {Component} from 'react';\nimport {BrowserRouter} from 'react-router-dom';\nimport Incarnate from '../Incarnate';\n\nfunction removeProps(from = {}, by = {}) {\n  return Object.keys(from)\n    .reduce((acc, k) => {\n      if (!by.hasOwnProperty(k)) {\n        acc[k] = from[k];\n      }\n\n      return acc;\n    }, {});\n}\n\nexport default class IncarnateRouter extends Component {\n  static propTypes = {\n    ...BrowserRouter.propTypes,\n    ...Incarnate.propTypes\n  };\n\n  render() {\n    const {children} = this.props;\n    const browserRouterProps = removeProps(this.props, Incarnate.propTypes);\n    const incarnateProps = removeProps(this.props, BrowserRouter.propTypes);\n\n    delete browserRouterProps.children;\n    delete incarnateProps.children;\n\n    return (\n      <BrowserRouter\n        {...browserRouterProps}\n      >\n        <Incarnate\n          {...incarnateProps}\n        >\n          {children}\n        </Incarnate>\n      </BrowserRouter>\n    );\n  }\n}\n",
@@ -2651,7 +2298,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 167,
+    "__docId__": 149,
     "kind": "function",
     "name": "removeProps",
     "memberof": "src/Routing/IncarnateRouter.jsx",
@@ -2694,7 +2341,7 @@
     "ignore": true
   },
   {
-    "__docId__": 168,
+    "__docId__": 150,
     "kind": "class",
     "name": "IncarnateRouter",
     "memberof": "src/Routing/IncarnateRouter.jsx",
@@ -2713,7 +2360,7 @@
     ]
   },
   {
-    "__docId__": 169,
+    "__docId__": 151,
     "kind": "member",
     "name": "propTypes",
     "memberof": "src/Routing/IncarnateRouter.jsx~IncarnateRouter",
@@ -2730,7 +2377,7 @@
     }
   },
   {
-    "__docId__": 170,
+    "__docId__": 152,
     "kind": "method",
     "name": "render",
     "memberof": "src/Routing/IncarnateRouter.jsx~IncarnateRouter",
@@ -2750,7 +2397,7 @@
     }
   },
   {
-    "__docId__": 171,
+    "__docId__": 153,
     "kind": "file",
     "name": "src/Routing/IncarnateSwitch.jsx",
     "content": "import T from 'prop-types';\nimport React, {cloneElement, Children, Component} from 'react';\nimport {Switch} from 'react-router-dom';\nimport {Consumer} from './RoutingContext';\nimport IncarnateRoute, {getUrl} from './IncarnateRoute';\nimport IncarnateRedirect from './IncarnateRedirect';\n\nexport default class IncarnateSwitch extends Component {\n  static propTypes = {\n    ...Switch.propTypes,\n    defaultSubPath: T.string\n  };\n\n  render() {\n    const {\n      defaultSubPath,\n      children,\n      ...props\n    } = this.props;\n\n    return (\n      <Consumer>\n        {({parentUrl}) => {\n          const defaultRedirect = typeof defaultSubPath === 'string' ?\n            (\n              <IncarnateRedirect\n                to={defaultSubPath}\n                replace={true}\n              />\n            ) :\n            undefined;\n\n          return (\n            <Switch\n              {...props}\n            >\n              {Children.map(children, element => {\n                const {props: childProps = {}} = element || {};\n                const {CLASS_IDENTIFIER} = childProps;\n\n                if (\n                  CLASS_IDENTIFIER instanceof Function &&\n                  CLASS_IDENTIFIER() === IncarnateRoute.CLASS_IDENTIFIER()\n                ) {\n                  const {subPath} = childProps;\n\n                  return cloneElement(\n                    element,\n                    {\n                      ...childProps,\n                      path: getUrl(parentUrl, subPath)\n                    }\n                  );\n                } else {\n                  return element;\n                }\n              })}\n              {defaultRedirect}\n            </Switch>\n          );\n        }}\n      </Consumer>\n    );\n  }\n}\n",
@@ -2761,7 +2408,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 172,
+    "__docId__": 154,
     "kind": "class",
     "name": "IncarnateSwitch",
     "memberof": "src/Routing/IncarnateSwitch.jsx",
@@ -2780,7 +2427,7 @@
     ]
   },
   {
-    "__docId__": 173,
+    "__docId__": 155,
     "kind": "member",
     "name": "propTypes",
     "memberof": "src/Routing/IncarnateSwitch.jsx~IncarnateSwitch",
@@ -2797,7 +2444,7 @@
     }
   },
   {
-    "__docId__": 174,
+    "__docId__": 156,
     "kind": "method",
     "name": "render",
     "memberof": "src/Routing/IncarnateSwitch.jsx~IncarnateSwitch",
@@ -2817,7 +2464,7 @@
     }
   },
   {
-    "__docId__": 175,
+    "__docId__": 157,
     "kind": "file",
     "name": "src/Routing/RoutingContext.jsx",
     "content": "import {createContext} from 'react';\n\nexport const {Provider, Consumer} = createContext(\n  {\n    parentUrl: undefined,\n    routePropsList: []\n  }\n);\n",
@@ -2828,7 +2475,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 176,
+    "__docId__": 158,
     "kind": "variable",
     "name": "Provider",
     "memberof": "src/Routing/RoutingContext.jsx",
@@ -2848,7 +2495,7 @@
     }
   },
   {
-    "__docId__": 177,
+    "__docId__": 159,
     "kind": "file",
     "name": "src/Utils/getDefaultMapKeyDelimiter.jsx",
     "content": "export default function getDefaultMapKeyDelimiter(currentIncarnateDelimiter) {\n  return currentIncarnateDelimiter === '.' ? '|' : '.';\n}\n",
@@ -2859,7 +2506,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 178,
+    "__docId__": 160,
     "kind": "function",
     "name": "getDefaultMapKeyDelimiter",
     "memberof": "src/Utils/getDefaultMapKeyDelimiter.jsx",
@@ -2889,7 +2536,7 @@
     }
   },
   {
-    "__docId__": 179,
+    "__docId__": 161,
     "kind": "file",
     "name": "src/index.jsx",
     "content": "import CollectionInternal from './Control/Collection';\nimport ExplicitlyCachedValueInternal from './Control/ExplicitlyCachedValue';\nimport MemoizeInternal from './Control/Memoize';\nimport TraverseInternal from './Control/Traverse';\nimport IncarnateRouterInternal from './Routing/IncarnateRouter';\nimport IncarnateRouteInternal from './Routing/IncarnateRoute';\nimport IncarnateSwitchInternal from './Routing/IncarnateSwitch';\nimport IncarnateRedirectInternal from './Routing/IncarnateRedirect';\nimport LifePodInternal from './LifePod';\nimport IncarnateInternal from './Incarnate';\n\nexport const Collection = CollectionInternal;\n\nexport const ExplicitlyCachedValue = ExplicitlyCachedValueInternal;\n\nexport const Memoize = MemoizeInternal;\n\nexport const Traverse = TraverseInternal;\n\nexport const IncarnateRouter = IncarnateRouterInternal;\n\nexport const IncarnateRoute = IncarnateRouteInternal;\n\nexport const IncarnateSwitch = IncarnateSwitchInternal;\n\nexport const IncarnateRedirect = IncarnateRedirectInternal;\n\nexport const LifePod = LifePodInternal;\n\nexport const Incarnate = IncarnateInternal;\n\nexport default Incarnate;\n",
@@ -2900,7 +2547,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 180,
+    "__docId__": 162,
     "kind": "variable",
     "name": "Collection",
     "memberof": "src/index.jsx",
@@ -2920,7 +2567,7 @@
     }
   },
   {
-    "__docId__": 181,
+    "__docId__": 163,
     "kind": "variable",
     "name": "ExplicitlyCachedValue",
     "memberof": "src/index.jsx",
@@ -2940,7 +2587,7 @@
     }
   },
   {
-    "__docId__": 182,
+    "__docId__": 164,
     "kind": "variable",
     "name": "Memoize",
     "memberof": "src/index.jsx",
@@ -2960,7 +2607,7 @@
     }
   },
   {
-    "__docId__": 183,
+    "__docId__": 165,
     "kind": "variable",
     "name": "Traverse",
     "memberof": "src/index.jsx",
@@ -2980,7 +2627,7 @@
     }
   },
   {
-    "__docId__": 184,
+    "__docId__": 166,
     "kind": "variable",
     "name": "IncarnateRouter",
     "memberof": "src/index.jsx",
@@ -3000,7 +2647,7 @@
     }
   },
   {
-    "__docId__": 185,
+    "__docId__": 167,
     "kind": "variable",
     "name": "IncarnateRoute",
     "memberof": "src/index.jsx",
@@ -3020,7 +2667,7 @@
     }
   },
   {
-    "__docId__": 186,
+    "__docId__": 168,
     "kind": "variable",
     "name": "IncarnateSwitch",
     "memberof": "src/index.jsx",
@@ -3040,7 +2687,7 @@
     }
   },
   {
-    "__docId__": 187,
+    "__docId__": 169,
     "kind": "variable",
     "name": "IncarnateRedirect",
     "memberof": "src/index.jsx",
@@ -3060,7 +2707,7 @@
     }
   },
   {
-    "__docId__": 188,
+    "__docId__": 170,
     "kind": "variable",
     "name": "LifePod",
     "memberof": "src/index.jsx",
@@ -3080,7 +2727,7 @@
     }
   },
   {
-    "__docId__": 189,
+    "__docId__": 171,
     "kind": "variable",
     "name": "Incarnate",
     "memberof": "src/index.jsx",

@@ -12,12 +12,6 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
-    "incarnate-dom/src/future/itemstatecontroller.jsx~default_primary_key",
-    "variable/index.html#static-variable-DEFAULT_PRIMARY_KEY",
-    "<span>DEFAULT_PRIMARY_KEY</span> <span class=\"search-result-import-path\">incarnate-dom/src/Future/ItemStateController.jsx</span>",
-    "variable"
-  ],
-  [
     "incarnate-dom/src/demo.jsx~demo",
     "class/src/Demo.jsx~Demo.html",
     "<span>Demo</span> <span class=\"search-result-import-path\">incarnate-dom/src/Demo.jsx</span>",
@@ -96,18 +90,6 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
-    "incarnate-dom/src/future/itemstate.jsx~itemstate",
-    "class/src/Future/ItemState.jsx~ItemState.html",
-    "<span>ItemState</span> <span class=\"search-result-import-path\">incarnate-dom/src/Future/ItemState.jsx</span>",
-    "class"
-  ],
-  [
-    "incarnate-dom/src/future/itemstatecontroller.jsx~itemstatecontroller",
-    "class/src/Future/ItemStateController.jsx~ItemStateController.html",
-    "<span>ItemStateController</span> <span class=\"search-result-import-path\">incarnate-dom/src/Future/ItemStateController.jsx</span>",
-    "class"
-  ],
-  [
     "incarnate-dom/src/lifepod.jsx~lifepod",
     "class/src/LifePod.jsx~LifePod.html",
     "<span>LifePod</span> <span class=\"search-result-import-path\">incarnate-dom/src/LifePod.jsx</span>",
@@ -132,12 +114,6 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
-    "incarnate-dom/src/future/itemstatecontroller.jsx~operations",
-    "variable/index.html#static-variable-OPERATIONS",
-    "<span>OPERATIONS</span> <span class=\"search-result-import-path\">incarnate-dom/src/Future/ItemStateController.jsx</span>",
-    "variable"
-  ],
-  [
     "incarnate-dom/src/routing/incarnateroute.jsx~path_names",
     "variable/index.html#static-variable-PATH_NAMES",
     "<span>PATH_NAMES</span> <span class=\"search-result-import-path\">incarnate-dom/src/Routing/IncarnateRoute.jsx</span>",
@@ -153,18 +129,6 @@ window.esdocSearchIndex = [
     "incarnate-dom/src/routing/routingcontext.jsx~provider",
     "variable/index.html#static-variable-Provider",
     "<span>Provider</span> <span class=\"search-result-import-path\">incarnate-dom/src/Routing/RoutingContext.jsx</span>",
-    "variable"
-  ],
-  [
-    "incarnate-dom/src/future/itemstatecontroller.jsx~sets",
-    "variable/index.html#static-variable-SETS",
-    "<span>SETS</span> <span class=\"search-result-import-path\">incarnate-dom/src/Future/ItemStateController.jsx</span>",
-    "variable"
-  ],
-  [
-    "incarnate-dom/src/future/itemstatecontroller.jsx~states",
-    "variable/index.html#static-variable-STATES",
-    "<span>STATES</span> <span class=\"search-result-import-path\">incarnate-dom/src/Future/ItemStateController.jsx</span>",
     "variable"
   ],
   [
@@ -207,12 +171,6 @@ window.esdocSearchIndex = [
     "incarnate-dom/src/routing/incarnateroute.jsx~geturl",
     "function/index.html#static-function-getUrl",
     "<span>getUrl</span> <span class=\"search-result-import-path\">incarnate-dom/src/Routing/IncarnateRoute.jsx</span>",
-    "function"
-  ],
-  [
-    "incarnate-dom/src/future/itemstatecontroller.jsx~updatelist",
-    "function/index.html#static-function-updateList",
-    "<span>updateList</span> <span class=\"search-result-import-path\">incarnate-dom/src/Future/ItemStateController.jsx</span>",
     "function"
   ],
   [
@@ -574,60 +532,6 @@ window.esdocSearchIndex = [
     "class/src/Demo.jsx~Demo.html#instance-method-render",
     "src/Demo.jsx~Demo#render",
     "method"
-  ],
-  [
-    "src/future/itemstate.jsx",
-    "file/src/Future/ItemState.jsx.html",
-    "src/Future/ItemState.jsx",
-    "file"
-  ],
-  [
-    "src/future/itemstate.jsx~itemstate#controller",
-    "class/src/Future/ItemState.jsx~ItemState.html#instance-member-controller",
-    "src/Future/ItemState.jsx~ItemState#controller",
-    "member"
-  ],
-  [
-    "src/future/itemstate.jsx~itemstate#getcontroller",
-    "class/src/Future/ItemState.jsx~ItemState.html#instance-method-getController",
-    "src/Future/ItemState.jsx~ItemState#getController",
-    "method"
-  ],
-  [
-    "src/future/itemstate.jsx~itemstate#render",
-    "class/src/Future/ItemState.jsx~ItemState.html#instance-method-render",
-    "src/Future/ItemState.jsx~ItemState#render",
-    "method"
-  ],
-  [
-    "src/future/itemstate.jsx~itemstate.proptypes",
-    "class/src/Future/ItemState.jsx~ItemState.html#static-member-propTypes",
-    "src/Future/ItemState.jsx~ItemState.propTypes",
-    "member"
-  ],
-  [
-    "src/future/itemstatecontroller.jsx",
-    "file/src/Future/ItemStateController.jsx.html",
-    "src/Future/ItemStateController.jsx",
-    "file"
-  ],
-  [
-    "src/future/itemstatecontroller.jsx~itemstatecontroller#render",
-    "class/src/Future/ItemStateController.jsx~ItemStateController.html#instance-method-render",
-    "src/Future/ItemStateController.jsx~ItemStateController#render",
-    "method"
-  ],
-  [
-    "src/future/itemstatecontroller.jsx~itemstatecontroller.defaultprops",
-    "class/src/Future/ItemStateController.jsx~ItemStateController.html#static-member-defaultProps",
-    "src/Future/ItemStateController.jsx~ItemStateController.defaultProps",
-    "member"
-  ],
-  [
-    "src/future/itemstatecontroller.jsx~itemstatecontroller.proptypes",
-    "class/src/Future/ItemStateController.jsx~ItemStateController.html#static-member-propTypes",
-    "src/Future/ItemStateController.jsx~ItemStateController.propTypes",
-    "member"
   ],
   [
     "src/incarnate.jsx",
