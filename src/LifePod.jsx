@@ -34,22 +34,6 @@ function getFactoryFromProps(props = {}) {
     factory;
 }
 
-function getMergedDependencies({
-                                 dependencies,
-                                 getters,
-                                 setters,
-                                 invalidators,
-                                 listeners
-                               } = {}) {
-  return {
-    ...dependencies,
-    ...getters,
-    ...setters,
-    ...invalidators,
-    ...listeners
-  };
-}
-
 export default class LifePod extends Component {
   static DEFAULT_MAP_KEY = '__LIFEPODS__';
   static propTypes = {
@@ -109,7 +93,7 @@ export default class LifePod extends Component {
     childProps: undefined
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.mounted = true;
   }
 
@@ -156,7 +140,7 @@ export default class LifePod extends Component {
             ...otherArgs
           ] = args || [];
 
-          return factory(getMergedDependencies(rawDependencies), ...otherArgs);
+          return factory(rawDependencies, ...otherArgs);
         }
       };
 

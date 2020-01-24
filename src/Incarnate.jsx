@@ -55,14 +55,6 @@ export default class Incarnate extends Component {
     INCARNATE_COUNT++;
   }
 
-  componentWillMount() {
-    this.mounted = true;
-  }
-
-  componentWillUnmount() {
-    this.mounted = false;
-  }
-
   /**
    * @param {IncarnateProper} parentIncarnate
    * @param {Object} props
