@@ -28,8 +28,16 @@
   },
   "keywords": [
     "DI",
+    "runtime",
+    "dependencies",
     "dependency",
-    "injection"
+    "injection",
+    "react",
+    "router",
+    "dom",
+    "incarnate",
+    "lifecycle",
+    "state"
   ],
   "bugs": {
     "url": "https://github.com/resistdesign/incarnate-dom/issues"
