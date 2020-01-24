@@ -11,6 +11,8 @@ import {
 } from './index';
 import Tree from '../Monitoring/Tree';
 
+const MULTIPLICATION_VALUE_FILTER = n => typeof n === 'number';
+
 export class Demo extends Component {
   render() {
     return (
@@ -45,11 +47,20 @@ export class Demo extends Component {
                               routeProps: {
                                 match: {
                                   params: {
-                                    x = 2
+                                    x
                                   } = {}
                                 } = {}
                               } = {}
-                            } = {}) => parseFloat(x)}
+                            } = {}) => {
+                    const parsed = parseFloat(x);
+
+                    return isNaN(parsed) ? undefined : parsed;
+                  }}
+                />
+                <Memoize
+                  name='MemX'
+                  dependencyPath='X'
+                  filter={MULTIPLICATION_VALUE_FILTER}
                 />
                 <LifePod
                   name='Y'
@@ -60,11 +71,20 @@ export class Demo extends Component {
                               routeProps: {
                                 match: {
                                   params: {
-                                    y = 2
+                                    y
                                   } = {}
                                 } = {}
                               } = {}
-                            } = {}) => parseFloat(y)}
+                            } = {}) => {
+                    const parsed = parseFloat(y);
+
+                    return isNaN(parsed) ? undefined : parsed;
+                  }}
+                />
+                <Memoize
+                  name='MemY'
+                  dependencyPath='Y'
+                  filter={MULTIPLICATION_VALUE_FILTER}
                 />
               </Incarnate>
             </Incarnate>
@@ -91,15 +111,34 @@ export class Demo extends Component {
               />
             </Incarnate>
             <LifePod
+              name='MultiplyNavValues'
               dependencies={{
                 x: 'State.Multiply.X',
                 y: 'State.Multiply.Y',
+                memX: 'State.Multiply.MemX',
+                memY: 'State.Multiply.MemY'
+              }}
+              factory={({
+                          x,
+                          y,
+                          memX = [],
+                          memY = []
+                        }) => ({
+                x: typeof x !== 'number' ? [...memX].pop() : x,
+                y: typeof y !== 'number' ? [...memY].pop() : y
+              })}
+            />
+            <LifePod
+              dependencies={{
+                multiplyNavValues: 'MultiplyNavValues',
                 history: 'ROUTE_PROPS.history'
               }}
             >
               {({
-                  x = 2,
-                  y = 2,
+                  multiplyNavValues: {
+                    x = 2,
+                    y = 2
+                  } = {},
                   history
                 } = {}) => (
                 <div>
